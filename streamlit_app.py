@@ -3,6 +3,43 @@ import math
 import json
 import pandas as pd
 
+def convert_pace_to_time_per_rep(pace_value, pace_unit, rep_size=1):
+    """
+    Convert various pace formats to time per rep in seconds
+    
+    Args:
+        pace_value: The pace value (e.g., 2:00 for 2 minutes)
+        pace_unit: The pace unit ('500m_pace', 'cal_hr', 'time_per_rep')
+        rep_size: Size of one rep (e.g., meters for rowing, calories for bike)
+    
+    Returns:
+        Time per rep in seconds
+    """
+    if pace_unit == 'time_per_rep':
+        return pace_value
+    elif pace_unit == '500m_pace':
+        # Convert 500m pace to time per meter, then scale by rep_size
+        time_per_500m = pace_value
+        time_per_meter = time_per_500m / 500
+        return time_per_meter * rep_size
+    elif pace_unit == 'cal_hr':
+        # Convert calories per hour to seconds per calorie, then scale by rep_size
+        cal_per_second = pace_value / 3600
+        time_per_cal = 1 / cal_per_second
+        return time_per_cal * rep_size
+    else:
+        return pace_value
+
+def parse_time_input(time_str):
+    """Parse time input in formats like '2:30', '90', '1:23.5'"""
+    if ':' in str(time_str):
+        parts = str(time_str).split(':')
+        if len(parts) == 2:
+            minutes = float(parts[0])
+            seconds = float(parts[1])
+            return minutes * 60 + seconds
+    return float(time_str)
+
 def calculate_n(tot_tm, m, dmvmt, smvmt):
     """
     Calculate N using the quadratic formula for:
@@ -50,13 +87,8 @@ def verify_solution(n, m, dmvmt, smvmt):
 
 def calculate_max_reps(tot_tm, n_result, m, movements, dmvmt_total, smvmt_total):
     """Calculate max reps for M-type movements based on remaining time"""
-    n_floor = math.floor(n_result)
-    
-    # Calculate time used by regular movements
-    time_for_regular = m * (n_floor * (n_floor + 1) / 2) * dmvmt_total + n_floor * smvmt_total
-    
-    # Calculate remaining time
-    remaining_time = tot_tm - time_for_regular
+    # Calculate remaining time after accounting for static movements
+    remaining_time = tot_tm - smvmt_total
     
     # Find max movements
     max_movements = [mov for mov in movements if mov.get('count', 1) == -1]
@@ -166,59 +198,111 @@ def main():
         # Manual entry section
         st.header("Movement Entry")
         
-        # Add movement form
-        with st.form("add_movement"):
-            col1, col2, col3, col4 = st.columns(4)
-            
-            with col1:
-                movement_type = st.selectbox("Type", ["D", "S", "T", "M"])
-            
-            with col2:
-                if movement_type == "T":
-                    description = st.text_input("Description", value="Transition", disabled=True)
-                elif movement_type == "M":
-                    description = st.text_input("Description", value="Max Reps", disabled=True)
+        # Add movement form (dynamic, no form wrapper for reactivity)
+        st.subheader("Add New Movement")
+        col1, col2, col3, col4, col5, col6 = st.columns(6)
+        
+        with col1:
+            movement_type = st.selectbox("Type", ["D", "S", "T", "M"], key="new_movement_type")
+        
+        with col2:
+            if movement_type == "T":
+                description = st.text_input("Description", value="Transition", disabled=True, key="new_description")
+            elif movement_type == "M":
+                description = st.text_input("Description", value="Max Reps", disabled=True, key="new_description")
+            else:
+                description = st.text_input("Description", key="new_description")
+        
+        with col3:
+            # Input mode selection
+            input_mode = st.selectbox("Input Mode", ["Time per Rep", "500m Pace", "Cal/Hr"], 
+                                    help="Choose how to input timing", key="new_input_mode")
+        
+        with col4:
+            if movement_type == "T":
+                if input_mode == "Time per Rep":
+                    time_input = st.number_input("Time (sec)", value=2.0, step=0.1, key="new_time")
                 else:
-                    description = st.text_input("Description")
-            
-            with col3:
-                if movement_type == "T":
-                    number = st.number_input("1 Rep Exec Time", value=2.0, step=0.1)
-                elif movement_type == "M":
-                    number = st.number_input("1 Rep Exec Time", value=3.0, step=0.1, help="Time per rep for max movement")
+                    time_input = st.text_input("Time/Pace", value="2.0", 
+                                             help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
+            elif movement_type == "M":
+                if input_mode == "Time per Rep":
+                    time_input = st.number_input("Time (sec)", value=3.0, step=0.1, key="new_time")
                 else:
-                    number = st.number_input("1 Rep Exec Time", value=5.0, step=0.1)
-            
-            with col4:
-                if movement_type == "S":
-                    movement_count = st.number_input("Count", value=1, step=1, min_value=1)
-                elif movement_type == "M":
-                    st.write("Count: MAX")
-                    movement_count = -1  # Special indicator for max reps
+                    time_input = st.text_input("Time/Pace", value="3.0", 
+                                             help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
+            else:
+                if input_mode == "Time per Rep":
+                    time_input = st.number_input("Time (sec)", value=5.0, step=0.1, key="new_time")
                 else:
-                    movement_count = 1  # Default for non-S movements
-            
-            submitted = st.form_submit_button("Add Movement")
-            
-            if submitted and description:
+                    time_input = st.text_input("Time/Pace", value="5.0", 
+                                             help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
+        
+        with col5:
+            # Rep size input for pace modes
+            if input_mode in ["500m Pace", "Cal/Hr"] and movement_type not in ["T"]:
+                if input_mode == "500m Pace":
+                    rep_size = st.number_input("Meters/Rep", value=1, step=1, min_value=1, 
+                                             help="How many meters per rep", key="new_rep_size")
+                else:  # Cal/Hr
+                    rep_size = st.number_input("Cals/Rep", value=1, step=1, min_value=1, 
+                                             help="How many calories per rep", key="new_rep_size")
+            else:
+                rep_size = 1
+                st.write("") # Placeholder
+                
+        with col6:
+            if movement_type == "S":
+                movement_count = st.number_input("Count", value=1, step=1, min_value=1, key="new_count")
+            elif movement_type == "M":
+                st.write("Count: MAX")
+                movement_count = -1  # Special indicator for max reps
+            else:
+                movement_count = 1  # Default for non-S movements
+                st.write("") # Placeholder
+        
+        # Add movement button
+        submitted = st.button("Add Movement", type="primary")
+        
+        if submitted and description:
+            # Convert pace to time per rep
+            try:
+                if input_mode == "Time per Rep":
+                    final_time = time_input
+                else:
+                    # Parse the pace input and convert
+                    pace_value = parse_time_input(time_input)
+                    pace_unit = {'500m Pace': '500m_pace', 'Cal/Hr': 'cal_hr'}[input_mode]
+                    final_time = convert_pace_to_time_per_rep(pace_value, pace_unit, rep_size)
+                
                 new_movement = {
                     'description': description,
-                    'number': number,
+                    'number': final_time,
                     'type': movement_type,
-                    'count': movement_count
+                    'count': movement_count,
+                    'input_mode': input_mode,
+                    'original_input': str(time_input),
+                    'rep_size': rep_size if input_mode != "Time per Rep" else 1
                 }
                 st.session_state.movements.append(new_movement)
+                
                 if movement_type == "S":
-                    st.success(f"Added: {description} - {number}s x{movement_count} ({movement_type})")
+                    st.success(f"Added: {description} - {final_time:.2f}s x{movement_count} ({movement_type})")
                 elif movement_type == "M":
-                    st.success(f"Added: {description} - {number}s per rep (MAX until completion) ({movement_type})")
+                    st.success(f"Added: {description} - {final_time:.2f}s per rep (MAX until completion) ({movement_type})")
                 else:
-                    st.success(f"Added: {description} - {number}s ({movement_type})")
+                    st.success(f"Added: {description} - {final_time:.2f}s ({movement_type})")
+                    
+                if input_mode != "Time per Rep":
+                    st.info(f"Converted from {input_mode}: {time_input} → {final_time:.2f} seconds per rep")
+                    
+            except Exception as e:
+                st.error(f"Error processing input: {str(e)}")
         
-        # Edit existing movements with sliders
+        # Edit existing movements with inputs
         if st.session_state.movements:
             st.subheader("Live Movement Editor")
-            st.markdown("*Adjust any slider below to see results update instantly*")
+            st.markdown("*Edit any field below to see results update instantly*")
             
             # Create columns for editing
             for i, movement in enumerate(st.session_state.movements):
@@ -232,10 +316,10 @@ def main():
                         new_desc = st.text_input(f"Description", value=movement['description'], key=f"desc_{i}")
                 
                 with col2:
-                    new_number = st.slider(f"⏱️ {movement['description']} Time", 
-                                        min_value=0.1, max_value=100.0, 
-                                        value=movement['number'], step=0.1, key=f"time_{i}",
-                                        help="Adjust to see live results update")
+                    new_number = st.number_input(f"⏱️ {movement['description']} Time", 
+                                               value=movement['number'], step=0.1, 
+                                               min_value=0.1, key=f"time_{i}",
+                                               help="Enter time to see live results update")
                 
                 with col3:
                     new_type = st.selectbox(f"Type", ["D", "S", "T", "M"], 
@@ -284,14 +368,21 @@ def main():
             display_data = []
             for mov in st.session_state.movements:
                 count = mov.get('count', 1)
-                count_display = "MAX" if count == -1 else count
-                total_time = "MAX" if count == -1 else mov['number'] * count
+                count_display = "MAX" if count == -1 else str(count)
+                total_time_val = mov['number'] * count if count != -1 else 0
+                total_time_display = "MAX" if count == -1 else f"{total_time_val:.2f}"
+                
+                # Add pace info if available
+                pace_info = ""
+                if mov.get('input_mode', 'Time per Rep') != 'Time per Rep':
+                    pace_info = f" (from {mov.get('input_mode', '')}: {mov.get('original_input', '')})"
+                
                 display_data.append({
                     'Description': mov['description'],
                     'Type': mov['type'],
-                    'Time (s)': mov['number'],
+                    'Time (s)': f"{mov['number']:.2f}{pace_info}",
                     'Count': count_display,
-                    'Total Time': total_time
+                    'Total Time': total_time_display
                 })
             
             df = pd.DataFrame(display_data)
@@ -381,14 +472,15 @@ def main():
                 display_data = []
                 for mov in movements:
                     count = mov.get('count', 1)
-                    count_display = "MAX" if count == -1 else count
-                    total_time = "MAX" if count == -1 else mov.get('number', 0) * count
+                    count_display = "MAX" if count == -1 else str(count)
+                    total_time_val = mov.get('number', 0) * count if count != -1 else 0
+                    total_time_display = "MAX" if count == -1 else f"{total_time_val:.2f}"
                     display_data.append({
                         'Description': mov.get('description', ''),
                         'Type': mov.get('type', ''),
                         'Time (s)': mov.get('number', 0),
                         'Count': count_display,
-                        'Total Time': total_time
+                        'Total Time': total_time_display
                     })
                 
                 df = pd.DataFrame(display_data)
@@ -424,7 +516,7 @@ def main():
             st.metric("Multiplier", f"{m:.1f}")
         
         # Real-time calculation indicator
-        st.markdown("🔄 **Results update automatically as you adjust sliders**")
+        st.markdown("🔄 **Results update automatically as you edit values**")
         
         # Auto-calculate with live updates
         try:
@@ -486,7 +578,7 @@ def main():
                 
                 # Show sensitivity - how score changes with small adjustments
                 st.markdown("---")
-                st.markdown("💡 **Tip**: Adjust the sliders above to see how changes affect your score in real-time!")
+                st.markdown("💡 **Tip**: Edit the values above to see how changes affect your score in real-time!")
                 
                 # Optional detailed view
                 show_debug = st.checkbox("Show detailed calculations")
