@@ -1,0 +1,20 @@
+# Files to include in release
+# One file/directory per line, supports glob patterns
+
+# Core application files
+streamlit_app.py
+requirements.txt
+
+# Documentation
+README.md
+LICENSE
+
+# Example files
+example_workout.json
+example_pace.json
+
+# Data directory (if exists)
+data/
+
+# Exclude development files by default
+# The release script will use this as an include list

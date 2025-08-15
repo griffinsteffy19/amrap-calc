@@ -205,3 +205,14 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Application
+data/
+
+# Release artifacts
+release-v*/
+*.zip
+*.tar.gz
+
+# Streamlit
+.streamlit/
