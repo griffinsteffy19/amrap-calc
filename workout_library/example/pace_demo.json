@@ -1,0 +1,26 @@
+{
+  "name": "Pace Demo",
+  "description": "Demo: 500m Row pace and Cal/Hr bike - shows pace input features",
+  "tot_tm": 600,
+  "m": 1.5,
+  "movements": [
+    {
+      "description": "Rowing",
+      "number": 0.36,
+      "type": "S",
+      "count": 250,
+      "input_mode": "500m Pace",
+      "original_input": "3:00",
+      "rep_size": 1
+    },
+    {
+      "description": "Bike Calories",
+      "number": 20.0,
+      "type": "S",
+      "count": 15,
+      "input_mode": "Cal/Hr",
+      "original_input": "180",
+      "rep_size": 1
+    }
+  ]
+}

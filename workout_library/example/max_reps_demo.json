@@ -1,0 +1,26 @@
+{
+  "name": "Max Reps Demo",
+  "description": "Demo: Shows max reps (M-type) movements that consume remaining time",
+  "tot_tm": 480,
+  "m": 2.0,
+  "movements": [
+    {
+      "description": "Thrusters",
+      "number": 8.0,
+      "type": "S",
+      "count": 10
+    },
+    {
+      "description": "Pull-ups",
+      "number": 6.0,
+      "type": "S",
+      "count": 8
+    },
+    {
+      "description": "Max Burpees",
+      "number": 5.0,
+      "type": "M",
+      "count": -1
+    }
+  ]
+}

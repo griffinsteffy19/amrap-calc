@@ -40,6 +40,81 @@ def parse_time_input(time_str):
             return minutes * 60 + seconds
     return float(time_str)
 
+def load_workout_library():
+    """Load workout library from nested folder structure"""
+    import os
+    import glob
+    
+    try:
+        # Load the index file for category metadata
+        index_path = os.path.join('workout_library', 'index.json')
+        if not os.path.exists(index_path):
+            st.warning("Workout library index not found.")
+            return {}
+        
+        with open(index_path, 'r') as f:
+            index_data = json.load(f)
+        
+        # Load workouts from each category folder
+        library_data = {}
+        for category_key, category_info in index_data['categories'].items():
+            category_path = os.path.join('workout_library', category_key)
+            if os.path.exists(category_path) and os.path.isdir(category_path):
+                # Create category structure
+                category_data = {
+                    'name': category_info['name'],
+                    'description': category_info['description'],
+                    'icon': category_info.get('icon', '📋'),
+                    'workouts': {}
+                }
+                
+                # Load all JSON files in the category folder
+                workout_files = glob.glob(os.path.join(category_path, '*.json'))
+                for workout_file in workout_files:
+                    workout_key = os.path.splitext(os.path.basename(workout_file))[0]
+                    try:
+                        with open(workout_file, 'r') as f:
+                            workout_data = json.load(f)
+                            category_data['workouts'][workout_key] = workout_data
+                    except json.JSONDecodeError:
+                        st.warning(f"Error reading workout file: {workout_file}")
+                    except Exception as e:
+                        st.warning(f"Error loading workout {workout_key}: {str(e)}")
+                
+                if category_data['workouts']:  # Only add category if it has workouts
+                    library_data[category_key] = category_data
+                else:
+                    st.warning(f"No valid workouts found in category: {category_key}")
+            else:
+                st.warning(f"Category folder not found: {category_key}")
+        
+        return library_data
+        
+    except FileNotFoundError:
+        st.warning("Workout library folder not found.")
+        return {}
+    except json.JSONDecodeError:
+        st.error("Error reading workout library index. Please check the file format.")
+        return {}
+    except Exception as e:
+        st.error(f"Error loading workout library: {str(e)}")
+        return {}
+
+def load_workout_from_library(library_data, category_key, workout_key):
+    """Load a specific workout from the library"""
+    try:
+        workout = library_data[category_key]['workouts'][workout_key]
+        return {
+            'tot_tm': workout['tot_tm'],
+            'm': workout['m'],
+            'movements': workout['movements'],
+            'name': workout['name'],
+            'description': workout['description']
+        }
+    except KeyError as e:
+        st.error(f"Error loading workout: {str(e)}")
+        return None
+
 def calculate_n(tot_tm, m, dmvmt, smvmt):
     """
     Calculate N using the quadratic formula for:
@@ -182,7 +257,7 @@ def main():
     
     # Sidebar for input method selection
     st.sidebar.header("Input Method")
-    input_method = st.sidebar.radio("Choose input method:", ["Manual Entry", "JSON Upload"])
+    input_method = st.sidebar.radio("Choose input method:", ["Workout Library", "Manual Entry", "JSON Upload"])
     
     # Initialize session state for movements
     if 'movements' not in st.session_state:
@@ -194,7 +269,111 @@ def main():
     tot_tm = 0
     m = 1
     
-    if input_method == "Manual Entry":
+    if input_method == "Workout Library":
+        # Workout Library section
+        st.header("🏋️ Workout Library")
+        
+        # Load workout library
+        library_data = load_workout_library()
+        
+        if library_data:
+            # Category selection
+            st.subheader("Select Category")
+            category_options = {key: f"{data.get('icon', '📋')} {data['name']}" for key, data in library_data.items()}
+            category_key = st.selectbox(
+                "Choose workout category:",
+                options=list(category_options.keys()),
+                format_func=lambda x: category_options[x],
+                help="Different types of AMRAP workouts"
+            )
+            
+            if category_key:
+                category_data = library_data[category_key]
+                icon = category_data.get('icon', '📋')
+                st.info(f"{icon} {category_data['description']}")
+                
+                # Workout selection
+                st.subheader("Select Workout")
+                workout_options = {key: data['name'] for key, data in category_data['workouts'].items()}
+                workout_key = st.selectbox(
+                    "Choose workout:",
+                    options=list(workout_options.keys()),
+                    format_func=lambda x: workout_options[x]
+                )
+                
+                if workout_key:
+                    workout_data = category_data['workouts'][workout_key]
+                    
+                    # Display workout info
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        st.metric("Duration", f"{workout_data['tot_tm'] // 60} minutes")
+                        st.metric("Multiplier", f"{workout_data['m']}")
+                    with col2:
+                        st.metric("Movements", len(workout_data['movements']))
+                    
+                    st.info(f"📝 **{workout_data['name']}**: {workout_data['description']}")
+                    
+                    # Load workout button
+                    if st.button("🚀 Load This Workout", type="primary"):
+                        # Clear existing movements
+                        st.session_state.movements = []
+                        
+                        # Load workout data
+                        for movement in workout_data['movements']:
+                            # Add missing fields for compatibility
+                            movement_copy = movement.copy()
+                            if 'input_mode' not in movement_copy:
+                                movement_copy['input_mode'] = 'Time per Rep'
+                            if 'original_input' not in movement_copy:
+                                movement_copy['original_input'] = str(movement_copy['number'])
+                            if 'rep_size' not in movement_copy:
+                                movement_copy['rep_size'] = 1
+                            
+                            st.session_state.movements.append(movement_copy)
+                        
+                        # Set parameters
+                        st.session_state.tot_tm = workout_data['tot_tm']
+                        st.session_state.m = workout_data['m']
+                        
+                        st.success(f"✅ Loaded '{workout_data['name']}' with {len(workout_data['movements'])} movements!")
+                        st.info("💡 Scroll down to see the loaded workout and live calculations.")
+                    
+                    # Preview movements
+                    if workout_data['movements']:
+                        st.subheader("Movement Preview")
+                        preview_data = []
+                        for mov in workout_data['movements']:
+                            count_display = "MAX" if mov.get('count', 1) == -1 else str(mov.get('count', 1))
+                            total_time_val = mov['number'] * mov.get('count', 1) if mov.get('count', 1) != -1 else 0
+                            total_time_display = "MAX" if mov.get('count', 1) == -1 else f"{total_time_val:.2f}"
+                            
+                            preview_data.append({
+                                'Movement': mov['description'],
+                                'Type': mov['type'],
+                                'Time (s)': f"{mov['number']:.2f}",
+                                'Count': count_display,
+                                'Total Time': total_time_display
+                            })
+                        
+                        df_preview = pd.DataFrame(preview_data)
+                        st.dataframe(df_preview, use_container_width=True)
+        else:
+            st.warning("No workout library available. Please check that 'workout_library.json' exists.")
+        
+        # Load parameters from session state if workout was loaded
+        if hasattr(st.session_state, 'tot_tm'):
+            tot_tm = st.session_state.tot_tm
+        if hasattr(st.session_state, 'm'):
+            m = st.session_state.m
+        
+        # Use loaded movements
+        movements = st.session_state.movements
+        # Exclude max movements from initial calculation
+        dmvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] == 'D' and mov.get('count', 1) != -1)
+        smvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] in ['S', 'T'] and mov.get('count', 1) != -1)
+    
+    elif input_method == "Manual Entry":
         # Manual entry section
         st.header("Movement Entry")
         

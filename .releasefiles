@@ -13,6 +13,9 @@ LICENSE
 example_workout.json
 example_pace.json
 
+# Workout library
+workout_library/
+
 # Data directory (if exists)
 data/
 
