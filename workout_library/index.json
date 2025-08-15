@@ -1,0 +1,24 @@
+{
+  "categories": {
+    "classic": {
+      "name": "Classic CrossFit",
+      "description": "Foundational CrossFit AMRAP workouts",
+      "icon": "🏋️"
+    },
+    "girl": {
+      "name": "Girl Workouts",
+      "description": "Named CrossFit workouts (female names)",
+      "icon": "👩"
+    },
+    "hero": {
+      "name": "Hero Workouts", 
+      "description": "Memorial workouts honoring fallen heroes",
+      "icon": "🎖️"
+    },
+    "example": {
+      "name": "Feature Examples",
+      "description": "Demos showing different calculator features",
+      "icon": "📚"
+    }
+  }
+}
