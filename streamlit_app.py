@@ -48,6 +48,35 @@ def verify_solution(n, m, dmvmt, smvmt):
     calculated_total = m * triangular_sum * dmvmt + n * smvmt
     return calculated_total
 
+def calculate_max_reps(tot_tm, n_result, m, movements, dmvmt_total, smvmt_total):
+    """Calculate max reps for M-type movements based on remaining time"""
+    n_floor = math.floor(n_result)
+    
+    # Calculate time used by regular movements
+    time_for_regular = m * (n_floor * (n_floor + 1) / 2) * dmvmt_total + n_floor * smvmt_total
+    
+    # Calculate remaining time
+    remaining_time = tot_tm - time_for_regular
+    
+    # Find max movements
+    max_movements = [mov for mov in movements if mov.get('count', 1) == -1]
+    
+    total_max_reps = 0
+    for max_mov in max_movements:
+        if remaining_time > 0:
+            # Calculate how many reps we can do with remaining time
+            if max_mov['type'] == 'D':
+                # For dynamic movements, consider the multiplier
+                max_reps = remaining_time / (m * max_mov['number'])
+            else:
+                # For static movements
+                max_reps = remaining_time / max_mov['number']
+            
+            total_max_reps += math.floor(max_reps)
+            remaining_time = 0  # All remaining time is consumed
+    
+    return total_max_reps
+
 def calculate_r(n_result, m, movements, dmvmt_total, smvmt_total, show_debug=False):
     """Calculate R based on the movements and remaining capacity"""
     n_floor = math.floor(n_result)
@@ -142,23 +171,30 @@ def main():
             col1, col2, col3, col4 = st.columns(4)
             
             with col1:
-                movement_type = st.selectbox("Type", ["D", "S", "T"])
+                movement_type = st.selectbox("Type", ["D", "S", "T", "M"])
             
             with col2:
                 if movement_type == "T":
                     description = st.text_input("Description", value="Transition", disabled=True)
+                elif movement_type == "M":
+                    description = st.text_input("Description", value="Max Reps", disabled=True)
                 else:
                     description = st.text_input("Description")
             
             with col3:
                 if movement_type == "T":
                     number = st.number_input("1 Rep Exec Time", value=2.0, step=0.1)
+                elif movement_type == "M":
+                    number = st.number_input("1 Rep Exec Time", value=3.0, step=0.1, help="Time per rep for max movement")
                 else:
                     number = st.number_input("1 Rep Exec Time", value=5.0, step=0.1)
             
             with col4:
                 if movement_type == "S":
                     movement_count = st.number_input("Count", value=1, step=1, min_value=1)
+                elif movement_type == "M":
+                    st.write("Count: MAX")
+                    movement_count = -1  # Special indicator for max reps
                 else:
                     movement_count = 1  # Default for non-S movements
             
@@ -174,6 +210,8 @@ def main():
                 st.session_state.movements.append(new_movement)
                 if movement_type == "S":
                     st.success(f"Added: {description} - {number}s x{movement_count} ({movement_type})")
+                elif movement_type == "M":
+                    st.success(f"Added: {description} - {number}s per rep (MAX until completion) ({movement_type})")
                 else:
                     st.success(f"Added: {description} - {number}s ({movement_type})")
         
@@ -187,7 +225,7 @@ def main():
                 col1, col2, col3, col4, col5 = st.columns([2, 2, 1, 1, 1])
                 
                 with col1:
-                    if movement['type'] == 'T':
+                    if movement['type'] in ['T', 'M']:
                         new_desc = st.text_input(f"Description", value=movement['description'], 
                                                disabled=True, key=f"desc_{i}")
                     else:
@@ -200,13 +238,16 @@ def main():
                                         help="Adjust to see live results update")
                 
                 with col3:
-                    new_type = st.selectbox(f"Type", ["D", "S", "T"], 
-                                            index=["D", "S", "T"].index(movement['type']), key=f"type_{i}")
+                    new_type = st.selectbox(f"Type", ["D", "S", "T", "M"], 
+                                            index=["D", "S", "T", "M"].index(movement['type']), key=f"type_{i}")
                 
                 with col4:
                     if new_type == "S":
                         new_count = st.number_input(f"Count", value=movement.get('count', 1), 
                                                   step=1, min_value=1, key=f"count_{i}")
+                    elif new_type == "M":
+                        new_count = -1
+                        st.write("Count: MAX")
                     else:
                         new_count = 1
                         st.write("Count: 1")
@@ -218,7 +259,7 @@ def main():
                 
                 # Update the movement in real-time
                 st.session_state.movements[i] = {
-                    'description': new_desc if new_type != 'T' else "Transition",
+                    'description': new_desc if new_type not in ['T', 'M'] else ("Transition" if new_type == 'T' else "Max Reps"),
                     'number': new_number,
                     'type': new_type,
                     'count': new_count
@@ -231,8 +272,9 @@ def main():
             
             # Recalculate totals after slider changes
             movements = st.session_state.movements
-            dmvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] == 'D')
-            smvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] in ['S', 'T'])
+            # Exclude max movements from initial calculation
+            dmvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] == 'D' and mov.get('count', 1) != -1)
+            smvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] in ['S', 'T'] and mov.get('count', 1) != -1)
         
         # Display current movements with live editing
         if st.session_state.movements:
@@ -241,12 +283,15 @@ def main():
             # Create a display dataframe with count information
             display_data = []
             for mov in st.session_state.movements:
+                count = mov.get('count', 1)
+                count_display = "MAX" if count == -1 else count
+                total_time = "MAX" if count == -1 else mov['number'] * count
                 display_data.append({
                     'Description': mov['description'],
                     'Type': mov['type'],
                     'Time (s)': mov['number'],
-                    'Count': mov.get('count', 1),
-                    'Total Time': mov['number'] * mov.get('count', 1)
+                    'Count': count_display,
+                    'Total Time': total_time
                 })
             
             df = pd.DataFrame(display_data)
@@ -258,8 +303,9 @@ def main():
                 st.rerun()
             
             movements = st.session_state.movements
-            dmvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] == 'D')
-            smvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] in ['S', 'T'])
+            # Exclude max movements from initial calculation
+            dmvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] == 'D' and mov.get('count', 1) != -1)
+            smvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov['type'] in ['S', 'T'] and mov.get('count', 1) != -1)
         
         # Other parameters
         st.header("Parameters")
@@ -296,6 +342,12 @@ def main():
                         "number": 2.0,
                         "type": "T",
                         "count": 1
+                    },
+                    {
+                        "description": "Max Reps",
+                        "number": 3.0,
+                        "type": "M",
+                        "count": -1
                     }
                 ]
             }
@@ -317,9 +369,9 @@ def main():
                     if 'count' not in mov:
                         mov['count'] = 1
                 
-                # Calculate totals with count
-                dmvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov.get('type', '').upper() == 'D')
-                smvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov.get('type', '').upper() in ['S', 'T'])
+                # Calculate totals with count (exclude max movements)
+                dmvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov.get('type', '').upper() == 'D' and mov.get('count', 1) != -1)
+                smvmt_total = sum(mov['number'] * mov.get('count', 1) for mov in movements if mov.get('type', '').upper() in ['S', 'T'] and mov.get('count', 1) != -1)
                 
                 # Display loaded data
                 st.success("JSON file loaded successfully!")
@@ -328,12 +380,15 @@ def main():
                 # Create display dataframe
                 display_data = []
                 for mov in movements:
+                    count = mov.get('count', 1)
+                    count_display = "MAX" if count == -1 else count
+                    total_time = "MAX" if count == -1 else mov.get('number', 0) * count
                     display_data.append({
                         'Description': mov.get('description', ''),
                         'Type': mov.get('type', ''),
                         'Time (s)': mov.get('number', 0),
-                        'Count': mov.get('count', 1),
-                        'Total Time': mov.get('number', 0) * mov.get('count', 1)
+                        'Count': count_display,
+                        'Total Time': total_time
                     })
                 
                 df = pd.DataFrame(display_data)
@@ -381,32 +436,53 @@ def main():
                 st.subheader("⚡ Live Results")
                 n_floor = math.floor(n_result)
                 
-                # Calculate R (need to adjust movements for R calculation)
+                # Calculate R (need to adjust movements for R calculation, excluding max movements)
                 r_movements = []
                 for mov in movements:
-                    # For R calculation, we need to consider the total time for each movement
-                    r_movements.append({
-                        'description': mov['description'],
-                        'number': mov['number'] * mov.get('count', 1),
-                        'type': mov['type']
-                    })
+                    if mov.get('count', 1) != -1:  # Exclude max movements from R calculation
+                        r_movements.append({
+                            'description': mov['description'],
+                            'number': mov['number'] * mov.get('count', 1),
+                            'type': mov['type']
+                        })
                 
                 r_result = calculate_r(n_result, m, r_movements, dmvmt_total, smvmt_total, show_debug=False)
+                
+                # Calculate max reps for M-type movements
+                max_reps = calculate_max_reps(tot_tm, n_result, m, movements, dmvmt_total, smvmt_total)
+                
+                # Add max reps to the score
+                total_r = r_result + max_reps
                 
                 # Display final score prominently with live updates
                 st.markdown("### 🏆 Final Score (Updates Live)")
                 score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
                 with score_col2:
-                    st.markdown(f"## {n_floor} + {r_result}")
+                    if max_reps > 0:
+                        st.markdown(f"## {n_floor} + {r_result} + {max_reps} (max)")
+                        st.caption(f"Total: {n_floor + total_r}")
+                    else:
+                        st.markdown(f"## {n_floor} + {r_result}")
                 
                 # Live metrics with better formatting
-                col1, col2, col3 = st.columns(3)
-                with col1:
-                    st.metric("Calculated N", f"{n_result:.3f}")
-                with col2:
-                    st.metric("Floor N", n_floor)
-                with col3:
-                    st.metric("R Value", r_result)
+                if max_reps > 0:
+                    col1, col2, col3, col4 = st.columns(4)
+                    with col1:
+                        st.metric("Calculated N", f"{n_result:.3f}")
+                    with col2:
+                        st.metric("Floor N", n_floor)
+                    with col3:
+                        st.metric("R Value", r_result)
+                    with col4:
+                        st.metric("Max Reps", max_reps)
+                else:
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("Calculated N", f"{n_result:.3f}")
+                    with col2:
+                        st.metric("Floor N", n_floor)
+                    with col3:
+                        st.metric("R Value", r_result)
                 
                 # Show sensitivity - how score changes with small adjustments
                 st.markdown("---")
