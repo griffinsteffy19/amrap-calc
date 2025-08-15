@@ -128,8 +128,9 @@ def calculate_n(tot_tm, m, dmvmt, smvmt):
     # Check if we have a valid quadratic equation
     if a == 0:
         if b == 0:
-            st.error("Error: No valid solution (both coefficients are zero)")
-            return None
+            # Special case: No D or S movements (only M-type movements)
+            # For max-only workouts, return 1 as N (single round of max reps)
+            return 1.0
         else:
             # Linear equation: b*N + c = 0
             return -c / b
