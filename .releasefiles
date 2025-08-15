@@ -3,20 +3,17 @@
 
 # Core application files
 streamlit_app.py
+calculations.py
 requirements.txt
 
 # Documentation
-README.md
+RELEASE.md
 LICENSE
-
-# Example files
-example_workout.json
-example_pace.json
 
 # Workout library
 workout_library/
 
-# Data directory (if exists)
+# Data directory with examples
 data/
 
 # Exclude development files by default
