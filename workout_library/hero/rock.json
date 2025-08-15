@@ -1,7 +1,7 @@
 {
     "name": "Rock",
     "description": "AMRAP 17m (5min Work/1min Rest) 10 Power Cleans, 12 Burpees, 14 Box Jumps, 20 Sit Ups, Max Meters on Rower",
-    "tot_tm": 1200,
+    "tot_tm": 300,
     "m": 1,
     "movements": [
         {
