@@ -208,3 +208,11 @@ __marimo__/
 
 # Application
 data/
+
+# Release artifacts
+release-v*/
+*.zip
+*.tar.gz
+
+# Streamlit
+.streamlit/
