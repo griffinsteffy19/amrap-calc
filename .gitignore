@@ -216,3 +216,5 @@ release-v*/
 
 # Streamlit
 .streamlit/
+
+.*.sh
