@@ -1,0 +1,28 @@
+{
+    "name": "Beat Bagent 1",
+    "description": "For Time (10m Cap) 100 Cal Row, 100 Burpees over the Rower",
+    "workout_type": "for_time",
+    "time_cap": 600,
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Row Calories",
+            "number": 3.0,
+            "type": "S",
+            "count": 100
+        },
+        {
+            "description": "Transition",
+            "number": 3.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "description": "100 Burpees over Rower",
+            "number": 3.5,
+            "type": "S",
+            "count": 100
+        }
+    ]
+}

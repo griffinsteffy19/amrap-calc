@@ -1,0 +1,35 @@
+{
+  "name": "Capped Rounds Demo",
+  "description": "For Time: 10 rounds of 20 Burpees, 30 Air Squats (15 min cap)",
+  "workout_type": "for_time",
+  "rounds": 10,
+  "time_cap": 900,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "description": "Burpees",
+      "number": 3.5,
+      "type": "D",
+      "count": 20
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "description": "Air Squats",
+      "number": 1.0,
+      "type": "D",
+      "count": 30
+    },
+    {
+      "description": "Round Rest",
+      "number": 10.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "name": "Movement Types Demo",
   "description": "Demo: Shows all movement types (D, S, T, M) and how they work",
+  "workout_type": "amrap",
   "tot_tm": 720,
   "m": 2.5,
   "movements": [

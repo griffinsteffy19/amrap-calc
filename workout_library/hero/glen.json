@@ -1,6 +1,7 @@
 {
   "name": "Glen",
   "description": "AMRAP 30min of 30 Clean and Jerks (135/95 lb), 30 Burpees, 30 Box Jumps",
+  "workout_type": "amrap",
   "tot_tm": 1800,
   "m": 1.0,
   "movements": [

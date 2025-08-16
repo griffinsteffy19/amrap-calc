@@ -1,6 +1,7 @@
 {
   "name": "Max Reps Demo",
   "description": "Demo: Shows max reps (M-type) movements that consume remaining time",
+  "workout_type": "amrap",
   "tot_tm": 480,
   "m": 2.0,
   "movements": [
