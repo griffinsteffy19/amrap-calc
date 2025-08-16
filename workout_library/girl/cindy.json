@@ -2,7 +2,7 @@
   "name": "Cindy",
   "description": "20 min AMRAP: 5 Pull-ups, 10 Push-ups, 15 Air Squats",
   "tot_tm": 1200,
-  "m": 2.0,
+  "m": 1.0,
   "movements": [
     {
       "description": "Pull-ups",

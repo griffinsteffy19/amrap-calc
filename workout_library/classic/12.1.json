@@ -2,7 +2,7 @@
   "name": "CrossFit Open 12.1",
   "description": "AMRAP 7min of Burpees to a 6\" Target",
   "tot_tm": 420,
-  "m": 1,
+  "m": 1.0,
   "movements": [
     {
       "description": "Burpee",

@@ -1,0 +1,44 @@
+{
+  "name": "Glen",
+  "description": "AMRAP 30min of 30 Clean and Jerks (135/95 lb), 30 Burpees, 30 Box Jumps",
+  "tot_tm": 1800,
+  "m": 1.0,
+  "movements": [
+    {
+      "description": "Clean and Jerks (135/95)",
+      "number": 3.5,
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "description": "Burpees",
+      "number": 4.0,
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "description": "Box Jumps",
+      "number": 2.5,
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}
