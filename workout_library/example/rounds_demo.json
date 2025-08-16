@@ -1,0 +1,46 @@
+{
+  "name": "Rounds Demo",
+  "description": "For Time: 5 rounds of 10 Burpees, 15 Air Squats, 20 Push-ups",
+  "workout_type": "for_time",
+  "rounds": 5,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "description": "Burpees",
+      "number": 3.0,
+      "type": "D",
+      "count": 10
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "description": "Air Squats",
+      "number": 1.0,
+      "type": "D",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "description": "Push-ups",
+      "number": 2.0,
+      "type": "D",
+      "count": 20
+    },
+    {
+      "description": "Round Rest",
+      "number": 15.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}

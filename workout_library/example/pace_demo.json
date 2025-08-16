@@ -1,6 +1,7 @@
 {
   "name": "Pace Demo",
   "description": "Demo: 500m Row pace and Cal/Hr bike - shows pace input features",
+  "workout_type": "amrap",
   "tot_tm": 600,
   "m": 1.5,
   "movements": [

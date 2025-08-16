@@ -15,6 +15,11 @@
       "description": "Memorial workouts honoring fallen heroes",
       "icon": "🎖️"
     },
+    "open": {
+      "name": "CrossFit Open",
+      "description": "Annual worldwide CrossFit competition workouts",
+      "icon": "🌍"
+    },
     "example": {
       "name": "Feature Examples",
       "description": "Demos showing different calculator features",

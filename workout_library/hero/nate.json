@@ -1,6 +1,7 @@
 {
   "name": "Nate",
   "description": "20m AMRAP of 2 Muscle Ups, 4 Handstand Push Ups, and 8 Kettlebell Swings",
+  "workout_type": "amrap",
   "tot_tm": 1200,
   "m": 1.0,
   "movements": [

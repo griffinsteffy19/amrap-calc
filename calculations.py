@@ -244,6 +244,118 @@ def calculate_r(n_result, m, movements, dmvmt_total, smvmt_total):
     return r
 
 
+def calculate_for_time_results(movements, m=1.0, rounds=1, time_cap=None):
+    """
+    Calculate predicted completion time for "For Time" workouts
+    
+    Args:
+        movements: List of movement dictionaries
+        m: Multiplier for dynamic movements (default 1.0)
+        rounds: Number of rounds to complete (default 1)
+        time_cap: Time cap in seconds (default None for no cap)
+        
+    Returns:
+        dict: Results including predicted time and breakdown, with cap handling
+    """
+    total_time = 0
+    movement_breakdown = []
+    
+    for movement in movements:
+        mov_type = movement.get('type', 'S').upper()
+        mov_time = movement['number']
+        mov_count = movement.get('count', 1)
+        mov_desc = movement['description']
+        
+        # Calculate time for this movement
+        if mov_type == 'D':
+            # Dynamic movements get multiplier
+            time_for_movement = mov_time * mov_count * m
+        else:
+            # Static, Transition, and Max movements don't get multiplier
+            time_for_movement = mov_time * mov_count
+        
+        total_time += time_for_movement
+        
+        movement_breakdown.append({
+            'description': mov_desc,
+            'type': mov_type,
+            'count': mov_count,
+            'time_per_rep': mov_time,
+            'total_time': time_for_movement
+        })
+    
+    # Multiply by number of rounds
+    total_time_with_rounds = total_time * rounds
+    
+    # Adjust movement breakdown for rounds
+    for movement in movement_breakdown:
+        movement['total_time_with_rounds'] = movement['total_time'] * rounds
+        movement['count_with_rounds'] = movement['count'] * rounds
+    
+    # Handle time cap
+    is_capped = False
+    remaining_reps = 0
+    completed_rounds = rounds
+    cap_time_formatted = None
+    
+    if time_cap is not None and total_time_with_rounds > time_cap:
+        is_capped = True
+        
+        # Calculate how much work can be completed within the time cap
+        completed_work_time = 0
+        completed_movements = []
+        remaining_time = time_cap
+        
+        # Calculate completed rounds and remaining reps
+        if total_time > 0:
+            completed_rounds = min(rounds, int(remaining_time / total_time))
+            completed_work_time = completed_rounds * total_time
+            remaining_time -= completed_work_time
+            
+            # Calculate partial round progress if there's remaining time
+            if remaining_time > 0 and completed_rounds < rounds:
+                for movement in movement_breakdown:
+                    mov_time = movement['total_time']
+                    if remaining_time >= mov_time:
+                        remaining_time -= mov_time
+                        completed_movements.append(movement['count'])
+                    else:
+                        # Partial completion of this movement
+                        partial_reps = int(remaining_time / movement['time_per_rep'])
+                        completed_movements.append(partial_reps)
+                        remaining_time = 0
+                        break
+        
+        # Calculate total remaining reps
+        total_reps_in_workout = sum(mov['count'] for mov in movement_breakdown if mov['type'] != 'T')
+        total_completed_reps = completed_rounds * total_reps_in_workout + sum(completed_movements)
+        total_required_reps = rounds * total_reps_in_workout
+        remaining_reps = total_required_reps - total_completed_reps
+        
+        # Format cap time
+        cap_minutes = int(time_cap // 60)
+        cap_seconds = int(time_cap % 60)
+        cap_time_formatted = f"{cap_minutes}:{cap_seconds:02d}"
+    
+    # Format time in minutes and seconds
+    minutes = int(total_time_with_rounds // 60)
+    seconds = int(total_time_with_rounds % 60)
+    
+    return {
+        'total_time_seconds': total_time_with_rounds,
+        'total_time_formatted': f"{minutes}:{seconds:02d}",
+        'time_per_round': total_time,
+        'rounds': rounds,
+        'movement_breakdown': movement_breakdown,
+        'is_capped': is_capped,
+        'time_cap': time_cap,
+        'cap_time_formatted': cap_time_formatted,
+        'remaining_reps': remaining_reps,
+        'completed_rounds': completed_rounds,
+        'error': None
+    }
+
+
 def calculate_amrap_results(tot_tm, m, movements):
     """
     Main function to calculate complete AMRAP results
