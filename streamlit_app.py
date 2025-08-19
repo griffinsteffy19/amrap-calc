@@ -1,5 +1,4 @@
 import streamlit as st
-import math
 import json
 import pandas as pd
 from calculations import (
@@ -84,143 +83,6 @@ def load_workout_from_library(library_data, category_key, workout_key):
     except KeyError as e:
         st.error(f"Error loading workout: {str(e)}")
         return None
-
-def calculate_n(tot_tm, m, dmvmt, smvmt):
-    """
-    Calculate N using the quadratic formula for:
-    TotTm = M * (1 + 2 + ... + N) * Dmvmt + (N * Smvmt)
-    """
-    # Coefficients for quadratic equation: a*N² + b*N + c = 0
-    a = m * dmvmt
-    b = m * dmvmt + 2 * smvmt
-    c = -2 * tot_tm
-    
-    # Check if we have a valid quadratic equation
-    if a == 0:
-        if b == 0:
-            # Special case: No D or S movements (only M-type movements)
-            # For max-only workouts, return 1 as N (single round of max reps)
-            return 1.0
-        else:
-            # Linear equation: b*N + c = 0
-            return -c / b
-    
-    # Calculate discriminant
-    discriminant = b**2 - 4*a*c
-    
-    if discriminant < 0:
-        st.error("Error: No real solution (negative discriminant)")
-        return None
-    
-    # Calculate both solutions
-    n1 = (-b + math.sqrt(discriminant)) / (2 * a)
-    n2 = (-b - math.sqrt(discriminant)) / (2 * a)
-    
-    # Return the positive solution
-    if n1 > 0:
-        return n1
-    elif n2 > 0:
-        return n2
-    else:
-        st.error("Error: No positive solution found")
-        return None
-
-def verify_solution(n, m, dmvmt, smvmt):
-    """Verify the solution by calculating the total time"""
-    triangular_sum = n * (n + 1) / 2
-    calculated_total = m * triangular_sum * dmvmt + n * smvmt
-    return calculated_total
-
-def calculate_max_reps(tot_tm, n_result, m, movements, dmvmt_total, smvmt_total):
-    """Calculate max reps for M-type movements based on remaining time"""
-    # Calculate remaining time after accounting for static movements
-    remaining_time = tot_tm - smvmt_total
-    
-    # Find max movements
-    max_movements = [mov for mov in movements if mov.get('count', 1) == -1]
-    
-    total_max_reps = 0
-    for max_mov in max_movements:
-        if remaining_time > 0:
-            # Calculate how many reps we can do with remaining time
-            if max_mov['type'] == 'D':
-                # For dynamic movements, consider the multiplier
-                max_reps = remaining_time / (m * max_mov['number'])
-            else:
-                # For static movements
-                max_reps = remaining_time / max_mov['number']
-            
-            total_max_reps += math.floor(max_reps)
-            remaining_time = 0  # All remaining time is consumed
-    
-    return total_max_reps
-
-def calculate_r(n_result, m, movements, dmvmt_total, smvmt_total, show_debug=False):
-    """Calculate R based on the movements and remaining capacity"""
-    n_floor = math.floor(n_result)
-    r = 0
-    
-    # Calculate remaining using totals
-    remaining = math.floor((n_result - n_floor) * (m * (n_floor + 1) * dmvmt_total + smvmt_total))
-    
-    if show_debug:
-        st.write(f"**Debug Info:**")
-        st.write(f"N = {n_result:.6f}, N_floor = {n_floor}")
-        st.write(f"Total Dmvmt: {dmvmt_total}, Total Smvmt: {smvmt_total}")
-        st.write(f"Remaining: {remaining:.6f}")
-        st.write("---")
-    
-    for i, movement in enumerate(movements):
-        mov_type = movement['type'].upper()
-        mov_tm = movement['number']
-        mov_desc = movement['description']
-        
-        if show_debug:
-            st.write(f"**Movement {i+1}: {mov_desc}**")
-            st.write(f"Type: {mov_type}, Number: {mov_tm}")
-        
-        # Set multiplier based on movement type
-        if mov_type in ["S", "T"]:
-            multiplier = 1
-        else:  # mov_type == "D"
-            multiplier = m
-        
-        # Check the condition for both D and S movements
-        if mov_type in ["D", "S", "T"]:
-            if remaining != 0 and remaining > (multiplier * (n_floor + 1) * mov_tm):
-                # Add multiplier*(N_floor+1) to R
-                addition = multiplier * (n_floor + 1)
-                if show_debug:
-                    st.write(f"Condition met: R += {addition:.6f}")
-                if mov_type in ["D", "S"]:
-                    r += addition
-                else:
-                    if show_debug:
-                        st.write(f"Movement Type: {mov_type}, not adding to r")
-                remaining -= (multiplier * (n_floor + 1) * mov_tm)
-            else:
-                # Add remaining/mov_tm to R
-                if mov_tm != 0:  # Avoid division by zero
-                    addition = remaining / mov_tm
-                    if show_debug:
-                        st.write(f"Condition not met: R += remaining/mov_tm = {addition:.6f}")
-                    if mov_type in ["D", "S"]:
-                        r += math.floor(addition)
-                    else:
-                        if show_debug:
-                            st.write(f"Movement Type: {mov_type}, not adding to r")
-                    remaining = 0
-                    break
-                else:
-                    if show_debug:
-                        st.warning(f"Warning: Movement number is 0, skipping calculation")
-        
-        if show_debug:
-            st.write(f"Current R: {r:.6f}")
-            st.write(f"Remaining: {remaining:.6f}")
-            st.write("")
-    
-    return r
 
 def main():
     st.title("AMRAP Movement Time Calculator")
@@ -320,93 +182,10 @@ def main():
                         # Set parameters
                         st.session_state.tot_tm = workout_data['tot_tm']
                         st.session_state.m = workout_data['m']
+                        st.session_state.rounds = workout_data.get('rounds', 1)
+                        st.session_state.time_cap = workout_data.get('time_cap')
                         st.session_state.current_workout_key = workout_key
                     
-                    # Show Final Score first if we have movements
-                    if st.session_state.movements and hasattr(st.session_state, 'tot_tm') and st.session_state.tot_tm > 0:
-                        dmvmt_total, smvmt_total, _ = calculate_movement_totals(st.session_state.movements)
-                        tot_tm = st.session_state.tot_tm
-                        m = st.session_state.m
-                        
-                        # Calculate and display final score prominently at the top
-                        try:
-                            # Check workout type
-                            workout_type = workout_data.get('workout_type', 'amrap')
-                            
-                            if workout_type == 'for_time':
-                                # For Time workout - calculate predicted completion time
-                                workout_rounds = getattr(st.session_state, 'rounds', workout_data.get('rounds', 1))
-                                time_cap = getattr(st.session_state, 'time_cap', workout_data.get('time_cap'))
-                                results = calculate_for_time_results(st.session_state.movements, st.session_state.m, workout_rounds, time_cap)
-                                if results['error'] is None:
-                                    if results.get('is_capped', False):
-                                        st.markdown("### ⏰ Time Capped")
-                                        score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
-                                        with score_col2:
-                                            st.markdown(f"# {results['cap_time_formatted']} + {results['remaining_reps']} reps")
-                                            st.caption(f"Would finish in {results['total_time_formatted']} without cap")
-                                    else:
-                                        st.markdown("### ⏱️ Predicted Time")
-                                        score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
-                                        with score_col2:
-                                            st.markdown(f"# {results['total_time_formatted']}")
-                                            if workout_rounds > 1:
-                                                time_per_round_min = int(results['time_per_round'] // 60)
-                                                time_per_round_sec = int(results['time_per_round'] % 60)
-                                                st.caption(f"{workout_rounds} rounds • {time_per_round_min}:{time_per_round_sec:02d} per round")
-                                            else:
-                                                st.caption(f"Estimated completion time")
-                                            if time_cap:
-                                                cap_min = int(time_cap // 60)
-                                                cap_sec = int(time_cap % 60)
-                                                st.caption(f"Time cap: {cap_min}:{cap_sec:02d}")
-                                else:
-                                    st.error(f"⚠️ Calculation error: {results['error']}")
-                            else:
-                                # AMRAP workout - calculate rounds and reps
-                                results = calculate_amrap_results(tot_tm, m, st.session_state.movements)
-                                if results['error'] is None:
-                                    st.markdown("### 🏆 Final Score")
-                                    score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
-                                    with score_col2:
-                                        # Determine workout type for appropriate score display
-                                        has_max_movement = any(mov.get('count') == -1 for mov in st.session_state.movements)
-                                        has_regular_movements = any(mov.get('count') != -1 for mov in st.session_state.movements)
-                                        last_movement_is_max = len(st.session_state.movements) > 0 and st.session_state.movements[-1].get('count') == -1
-                                        
-                                        if has_max_movement and has_regular_movements and last_movement_is_max:
-                                            # "Finish with Max" workout (like Rock) - show only max reps
-                                            st.markdown(f"# {results['max_reps']}")
-                                            max_movement_name = next(mov['description'] for mov in st.session_state.movements if mov.get('count') == -1)
-                                            st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
-                                        elif has_max_movement and not has_regular_movements:
-                                            # "Only Max" workout (like 12.1) - show only max reps
-                                            st.markdown(f"# {results['max_reps']}")
-                                            max_movement_name = next(mov['description'] for mov in st.session_state.movements if mov.get('count') == -1)
-                                            st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
-                                        elif results['max_reps'] > 0:
-                                            # Traditional AMRAP with max component - show rounds+reps format
-                                            if results['r_result'] > 0:
-                                                st.markdown(f"# {results['n_floor']}+{results['r_result']}+{results['max_reps']} ({results['total_reps']} reps)")
-                                                st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps + {results['max_reps']} max reps")
-                                            else:
-                                                st.markdown(f"# {results['n_floor']}+{results['max_reps']} ({results['total_reps']} reps)")
-                                                st.caption(f"{results['n_floor']} rounds + {results['max_reps']} max reps")
-                                        else:
-                                            # Regular AMRAP without max component
-                                            if results['r_result'] > 0:
-                                                st.markdown(f"# {results['n_floor']}+{results['r_result']} ({results['total_reps']} reps)")
-                                                st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps")
-                                            else:
-                                                st.markdown(f"# {results['n_floor']} ({results['total_reps']} reps)")
-                                                st.caption(f"{results['n_floor']} rounds")
-                                else:
-                                    st.error(f"⚠️ Calculation error: {results['error']}")
-                                
-                            st.markdown("---")
-                                
-                        except Exception as e:
-                            st.error(f"⚠️ Calculation error: {str(e)}")
                     
                     # Combined Preview & Editor - Compact Table Format
                     if workout_data['movements']:
@@ -566,6 +345,89 @@ def main():
                                     new_m = st.number_input("Multiplier (M)", value=float(st.session_state.m), step=0.1, min_value=0.1, key="preview_m")
                                     st.session_state.m = new_m
                                     m = new_m
+                        
+                        # Show Final Score after parameters are set
+                        if st.session_state.movements and hasattr(st.session_state, 'tot_tm'):
+                            dmvmt_total, smvmt_total, _ = calculate_movement_totals(st.session_state.movements)
+                            tot_tm = st.session_state.tot_tm
+                            m = st.session_state.m
+                            
+                            # Calculate and display final score with updated parameters
+                            try:
+                                # Check workout type
+                                workout_type = workout_data.get('workout_type', 'amrap')
+                                
+                                if workout_type == 'for_time':
+                                    # For Time workout - calculate predicted completion time
+                                    workout_rounds = getattr(st.session_state, 'rounds', workout_data.get('rounds', 1))
+                                    time_cap = getattr(st.session_state, 'time_cap', workout_data.get('time_cap'))
+                                    results = calculate_for_time_results(st.session_state.movements, st.session_state.m, workout_rounds, time_cap)
+                                    if results['error'] is None:
+                                        st.markdown("### 🏆 Final Score")
+                                        score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
+                                        with score_col2:
+                                            if results.get('is_capped', False):
+                                                st.markdown(f"# {results['cap_time_formatted']} + {results['remaining_reps']} reps")
+                                                st.caption(f"Would finish in {results['total_time_formatted']} without cap")
+                                            else:
+                                                st.markdown(f"# {results['total_time_formatted']}")
+                                                if workout_rounds > 1:
+                                                    time_per_round_min = int(results['time_per_round'] // 60)
+                                                    time_per_round_sec = int(results['time_per_round'] % 60)
+                                                    st.caption(f"{workout_rounds} rounds • {time_per_round_min}:{time_per_round_sec:02d} per round")
+                                                else:
+                                                    st.caption(f"Estimated completion time")
+                                                if time_cap:
+                                                    cap_min = int(time_cap // 60)
+                                                    cap_sec = int(time_cap % 60)
+                                                    st.caption(f"Time cap: {cap_min}:{cap_sec:02d}")
+                                    else:
+                                        st.error(f"⚠️ Calculation error: {results['error']}")
+                                elif tot_tm > 0:
+                                    # AMRAP workout - calculate rounds and reps (only if we have valid time)
+                                    results = calculate_amrap_results(tot_tm, m, st.session_state.movements)
+                                    if results['error'] is None:
+                                        st.markdown("### 🏆 Final Score")
+                                        score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
+                                        with score_col2:
+                                            # Determine workout type for appropriate score display
+                                            has_max_movement = any(mov.get('count') == -1 for mov in st.session_state.movements)
+                                            has_regular_movements = any(mov.get('count') != -1 for mov in st.session_state.movements)
+                                            last_movement_is_max = len(st.session_state.movements) > 0 and st.session_state.movements[-1].get('count') == -1
+                                            
+                                            if has_max_movement and has_regular_movements and last_movement_is_max:
+                                                # "Finish with Max" workout (like Rock) - show only max reps
+                                                st.markdown(f"# {results['max_reps']}")
+                                                max_movement_name = next(mov['description'] for mov in st.session_state.movements if mov.get('count') == -1)
+                                                st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
+                                            elif has_max_movement and not has_regular_movements:
+                                                # "Only Max" workout (like 12.1) - show only max reps
+                                                st.markdown(f"# {results['max_reps']}")
+                                                max_movement_name = next(mov['description'] for mov in st.session_state.movements if mov.get('count') == -1)
+                                                st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
+                                            elif results['max_reps'] > 0:
+                                                # Traditional AMRAP with max component - show rounds+reps format
+                                                if results['r_result'] > 0:
+                                                    st.markdown(f"# {results['n_floor']}+{results['r_result']}+{results['max_reps']} ({results['total_reps']} reps)")
+                                                    st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps + {results['max_reps']} max reps")
+                                                else:
+                                                    st.markdown(f"# {results['n_floor']}+{results['max_reps']} ({results['total_reps']} reps)")
+                                                    st.caption(f"{results['n_floor']} rounds + {results['max_reps']} max reps")
+                                            else:
+                                                # Regular AMRAP without max component
+                                                if results['r_result'] > 0:
+                                                    st.markdown(f"# {results['n_floor']}+{results['r_result']} ({results['total_reps']} reps)")
+                                                    st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps")
+                                                else:
+                                                    st.markdown(f"# {results['n_floor']} ({results['total_reps']} reps)")
+                                                    st.caption(f"{results['n_floor']} rounds")
+                                    else:
+                                        st.error(f"⚠️ Calculation error: {results['error']}")
+                                    
+                                st.markdown("---")
+                                    
+                            except Exception as e:
+                                st.error(f"⚠️ Calculation error: {str(e)}")
                         
                         # Advanced Mode toggle - after editor
                         st.markdown("---")
