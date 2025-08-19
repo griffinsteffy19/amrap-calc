@@ -8,81 +8,17 @@ from calculations import (
     calculate_for_time_results,
     calculate_movement_totals
 )
+from movement_library import (
+    load_movement_categories,
+    get_all_movements,
+    get_movements_by_category,
+    convert_movement_to_workout_format
+)
+from workout_library import (
+    load_workout_library,
+    load_workout_from_library
+)
 
-def load_workout_library():
-    """Load workout library from nested folder structure"""
-    import os
-    import glob
-    
-    try:
-        # Load the index file for category metadata
-        index_path = os.path.join('data', 'workouts', 'index.json')
-        if not os.path.exists(index_path):
-            st.warning("Workout library index not found.")
-            return {}
-        
-        with open(index_path, 'r') as f:
-            index_data = json.load(f)
-        
-        # Load workouts from each category folder
-        library_data = {}
-        for category_key, category_info in index_data['categories'].items():
-            category_path = os.path.join('data', 'workouts', category_key)
-            if os.path.exists(category_path) and os.path.isdir(category_path):
-                # Create category structure
-                category_data = {
-                    'name': category_info['name'],
-                    'description': category_info['description'],
-                    'icon': category_info.get('icon', '📋'),
-                    'workouts': {}
-                }
-                
-                # Load all JSON files in the category folder
-                workout_files = glob.glob(os.path.join(category_path, '*.json'))
-                for workout_file in workout_files:
-                    workout_key = os.path.splitext(os.path.basename(workout_file))[0]
-                    try:
-                        with open(workout_file, 'r') as f:
-                            workout_data = json.load(f)
-                            category_data['workouts'][workout_key] = workout_data
-                    except json.JSONDecodeError:
-                        st.warning(f"Error reading workout file: {workout_file}")
-                    except Exception as e:
-                        st.warning(f"Error loading workout {workout_key}: {str(e)}")
-                
-                if category_data['workouts']:  # Only add category if it has workouts
-                    library_data[category_key] = category_data
-                else:
-                    st.warning(f"No valid workouts found in category: {category_key}")
-            else:
-                st.warning(f"Category folder not found: {category_key}")
-        
-        return library_data
-        
-    except FileNotFoundError:
-        st.warning("Workout library folder not found.")
-        return {}
-    except json.JSONDecodeError:
-        st.error("Error reading workout library index. Please check the file format.")
-        return {}
-    except Exception as e:
-        st.error(f"Error loading workout library: {str(e)}")
-        return {}
-
-def load_workout_from_library(library_data, category_key, workout_key):
-    """Load a specific workout from the library"""
-    try:
-        workout = library_data[category_key]['workouts'][workout_key]
-        return {
-            'tot_tm': workout['tot_tm'],
-            'm': workout['m'],
-            'movements': workout['movements'],
-            'name': workout['name'],
-            'description': workout['description']
-        }
-    except KeyError as e:
-        st.error(f"Error loading workout: {str(e)}")
-        return None
 
 def main():
     st.title("AMRAP Movement Time Calculator")
@@ -90,7 +26,7 @@ def main():
     
     # Sidebar for input method selection
     st.sidebar.header("Input Method")
-    input_method = st.sidebar.radio("Choose input method:", ["Workout Library", "Manual Entry"])
+    input_method = st.sidebar.radio("Choose input method:", ["Workout Library", "Movement Library", "Manual Entry"])
     
     # Initialize session state for movements
     if 'movements' not in st.session_state:
@@ -546,6 +482,108 @@ def main():
             m = st.session_state.m
         
         # Use loaded movements and provide editing interface
+        movements = st.session_state.movements
+        
+        # Calculate movement totals using the new function
+        dmvmt_total, smvmt_total, _ = calculate_movement_totals(movements)
+    
+    elif input_method == "Movement Library":
+        # Movement Library section
+        st.header("🗂️ Movement Library")
+        
+        # Initialize session state for movement library
+        if 'selected_movements' not in st.session_state:
+            st.session_state.selected_movements = []
+        
+        # Load movement categories
+        categories = load_movement_categories()
+        all_movements = get_all_movements()
+        
+        if categories and all_movements:
+            # Category filter
+            st.subheader("Browse Movements by Category")
+            category_options = ["All"] + list(categories.keys())
+            selected_category = st.selectbox(
+                "Filter by category:",
+                options=category_options,
+                format_func=lambda x: "All Categories" if x == "All" else categories[x]["name"]
+            )
+            
+            # Movement selection
+            if selected_category == "All":
+                available_movements = all_movements
+            else:
+                available_movements = get_movements_by_category(selected_category)
+            
+            if available_movements:
+                st.subheader("Add Movements to Workout")
+                
+                # Movement selector
+                movement_names = list(available_movements.keys())
+                selected_movement = st.selectbox(
+                    "Choose movement:",
+                    options=movement_names,
+                    format_func=lambda x: available_movements[x]["name"]
+                )
+                
+                if selected_movement:
+                    movement_data = available_movements[selected_movement]
+                    
+                    # Display movement info
+                    st.info(f"**{movement_data['name']}** - {movement_data['description']}")
+                    
+                    # Intensity and count selection
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        intensity_options = list(movement_data["intensities"].keys())
+                        selected_intensity = st.selectbox(
+                            "Intensity level:",
+                            options=intensity_options,
+                            format_func=lambda x: f"{x.title()} ({movement_data['intensities'][x]['execution_time']}s)"
+                        )
+                        
+                        # Show intensity details
+                        intensity_info = movement_data["intensities"][selected_intensity]
+                        st.caption(intensity_info["description"])
+                        if "weight_range" in intensity_info:
+                            st.caption(f"Weight: {intensity_info['weight_range']}")
+                    
+                    with col2:
+                        movement_count = st.number_input(
+                            "Repetitions:",
+                            min_value=1,
+                            value=10,
+                            help="Number of repetitions for this movement"
+                        )
+                    
+                    # Add movement button
+                    if st.button("➕ Add Movement"):
+                        workout_movement = convert_movement_to_workout_format(
+                            selected_movement, movement_count, selected_intensity
+                        )
+                        st.session_state.movements.append(workout_movement)
+                        st.success(f"Added {movement_data['name']} ({selected_intensity}) x{movement_count}")
+            
+            # Show selected movements
+            if st.session_state.movements:
+                st.subheader("Current Workout")
+                
+                # Movement list with removal option
+                for i, movement in enumerate(st.session_state.movements):
+                    col1, col2 = st.columns([4, 1])
+                    with col1:
+                        st.write(f"{i+1}. {movement['description']} - {movement['count']} reps ({movement['number']}s each)")
+                    with col2:
+                        if st.button("🗑️", key=f"remove_{i}"):
+                            st.session_state.movements.pop(i)
+                            st.rerun()
+                
+                # Clear all button
+                if st.button("🗑️ Clear All Movements"):
+                    st.session_state.movements = []
+                    st.rerun()
+        
         movements = st.session_state.movements
         
         # Calculate movement totals using the new function

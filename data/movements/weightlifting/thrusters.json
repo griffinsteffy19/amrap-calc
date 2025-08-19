@@ -1,0 +1,29 @@
+{
+  "name": "Thrusters",
+  "category": "weightlifting",
+  "description": "Front squat into push press",
+  "type": "S",
+  "intensities": {
+    "light": {
+      "weight_range": "96/65 lbs",
+      "execution_time": 2.0,
+      "description": "Light weight, faster pace"
+    },
+    "medium": {
+      "weight_range": "115/85 lbs",
+      "execution_time": 2.5,
+      "description": "Moderate weight, standard pace"
+    },
+    "heavy": {
+      "weight_range": "135/95 lbs",
+      "execution_time": 3.2,
+      "description": "Heavy weight, slower pace"
+    }
+  },
+  "scaling": {
+    "rx_male": "95 lbs",
+    "rx_female": "65 lbs",
+    "beginner_male": "45 lbs",
+    "beginner_female": "35 lbs"
+  }
+}

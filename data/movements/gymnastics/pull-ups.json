@@ -1,0 +1,21 @@
+{
+  "name": "Pull-ups",
+  "category": "gymnastics",
+  "description": "Strict or kipping pull-ups",
+  "type": "S",
+  "intensities": {
+    "kipping": {
+      "execution_time": 1.8,
+      "description": "Kipping pull-ups, fast pace"
+    },
+    "strict": {
+      "execution_time": 2.8,
+      "description": "Strict pull-ups, controlled tempo"
+    }
+  },
+  "scaling": {
+    "rx": "Unassisted pull-ups",
+    "scaled": "Banded pull-ups or ring rows",
+    "beginner": "Jumping pull-ups or assisted"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Burpees",
+  "category": "gymnastics",
+  "description": "Full body movement: squat, plank, push-up, jump",
+  "type": "M",
+  "intensities": {
+    "modified": {
+      "execution_time": 3.0,
+      "description": "Step back/forward, no push-up"
+    },
+    "standard": {
+      "execution_time": 3.5,
+      "description": "Standard burpee with push-up"
+    },
+    "complex": {
+      "execution_time": 4.2,
+      "description": "Burpee over bar or to target"
+    }
+  },
+  "scaling": {
+    "rx": "Standard burpee with push-up and jump",
+    "scaled": "Step back burpee, no push-up",
+    "beginner": "Modified burpee to box"
+  }
+}

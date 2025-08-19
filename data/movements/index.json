@@ -1,0 +1,16 @@
+{
+  "categories": {
+    "gymnastics": {
+      "name": "Gymnastics",
+      "description": "Bodyweight gymnastics movements"
+    },
+    "weightlifting": {
+      "name": "Weightlifting",
+      "description": "Barbell and dumbbell movements"
+    },
+    "monostructural": {
+      "name": "Monostructural",
+      "description": "Single-modality cardio movements"
+    }
+  }
+}
