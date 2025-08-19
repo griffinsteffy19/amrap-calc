@@ -16,7 +16,7 @@ def load_workout_library():
     
     try:
         # Load the index file for category metadata
-        index_path = os.path.join('workout_library', 'index.json')
+        index_path = os.path.join('..', 'data', 'workouts', 'index.json')
         if not os.path.exists(index_path):
             st.warning("Workout library index not found.")
             return {}
@@ -27,7 +27,7 @@ def load_workout_library():
         # Load workouts from each category folder
         library_data = {}
         for category_key, category_info in index_data['categories'].items():
-            category_path = os.path.join('workout_library', category_key)
+            category_path = os.path.join('..', 'data', 'workouts', category_key)
             if os.path.exists(category_path) and os.path.isdir(category_path):
                 # Create category structure
                 category_data = {
@@ -537,7 +537,7 @@ def main():
                             except Exception as e:
                                 st.error(f"⚠️ Calculation error: {str(e)}")
         else:
-            st.warning("No workout library available. Please check that 'workout_library.json' exists.")
+            st.warning("No workout library available. Please check that 'data/workouts/index.json' exists.")
         
         # Load parameters from session state if workout was loaded
         if hasattr(st.session_state, 'tot_tm'):

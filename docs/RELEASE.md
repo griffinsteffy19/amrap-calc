@@ -8,7 +8,7 @@ This project includes automated release scripts to help create tagged releases.
 Creates a git tag and pushes it to origin.
 
 ```bash
-./release.sh
+./scripts/release.sh
 ```
 
 **Features:**
@@ -23,7 +23,7 @@ Creates a git tag and pushes it to origin.
 Enhanced version that can also create GitHub releases.
 
 ```bash
-./release-github.sh
+./scripts/release-github.sh
 ```
 
 **Additional Features:**
@@ -37,7 +37,7 @@ Enhanced version that can also create GitHub releases.
 Creates a clean release package with only runtime files.
 
 ```bash
-./release-clean.sh
+./scripts/release-clean.sh
 ```
 
 **Features:**
@@ -90,7 +90,7 @@ The GitHub release script supports categorizing releases:
 
 2. **Run release script**
    ```bash
-   ./release-github.sh
+   ./scripts/release-github.sh
    ```
 
 3. **Follow prompts**
