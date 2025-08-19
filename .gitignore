@@ -208,6 +208,8 @@ __marimo__/
 
 # Application
 data/
+!data/workouts/
+!data/movements/
 
 # Release artifacts
 release-v*/
