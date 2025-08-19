@@ -356,6 +356,32 @@ def calculate_for_time_results(movements, m=1.0, rounds=1, time_cap=None):
     }
 
 
+def calculate_total_reps(movements, n_floor, r_result, max_reps):
+    """
+    Calculate total reps completed in the workout
+    
+    Args:
+        movements: List of movement dictionaries
+        n_floor: Complete rounds completed
+        r_result: Additional reps in partial round
+        max_reps: Max reps using remaining time
+        
+    Returns:
+        int: Total reps completed (excluding transitions)
+    """
+    # Count reps per round (excluding transitions and max movements)
+    reps_per_round = sum(
+        mov.get('count', 1) 
+        for mov in movements 
+        if mov.get('type', '').upper() not in ['T'] and mov.get('count', 1) != -1
+    )
+    
+    # Total reps = (complete rounds * reps per round) + additional reps + max reps
+    total_reps = (n_floor * reps_per_round) + r_result + max_reps
+    
+    return total_reps
+
+
 def calculate_amrap_results(tot_tm, m, movements):
     """
     Main function to calculate complete AMRAP results
@@ -381,6 +407,7 @@ def calculate_amrap_results(tot_tm, m, movements):
             'n_floor': 0,
             'r_result': 0,
             'max_reps': 0,
+            'total_reps': 0,
             'total_score': 0,
             'dmvmt_total': dmvmt_total,
             'smvmt_total': smvmt_total,
@@ -405,6 +432,9 @@ def calculate_amrap_results(tot_tm, m, movements):
     # Calculate max reps for M-type movements
     max_reps = calculate_max_reps(tot_tm, n_result, m, movements, dmvmt_total, smvmt_total)
     
+    # Calculate total reps completed
+    total_reps = calculate_total_reps(movements, n_floor, r_result, max_reps)
+    
     # Calculate total score
     total_r = r_result + max_reps
     total_score = n_floor + total_r
@@ -420,6 +450,7 @@ def calculate_amrap_results(tot_tm, m, movements):
         'r_result': r_result,
         'max_reps': max_reps,
         'total_r': total_r,
+        'total_reps': total_reps,
         'total_score': total_score,
         'dmvmt_total': dmvmt_total,
         'smvmt_total': smvmt_total,

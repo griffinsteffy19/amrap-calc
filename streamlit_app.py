@@ -228,7 +228,7 @@ def main():
     
     # Sidebar for input method selection
     st.sidebar.header("Input Method")
-    input_method = st.sidebar.radio("Choose input method:", ["Workout Library", "Manual Entry", "JSON Upload"])
+    input_method = st.sidebar.radio("Choose input method:", ["Workout Library", "Manual Entry"])
     
     # Initialize session state for movements
     if 'movements' not in st.session_state:
@@ -385,13 +385,21 @@ def main():
                                             max_movement_name = next(mov['description'] for mov in st.session_state.movements if mov.get('count') == -1)
                                             st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
                                         elif results['max_reps'] > 0:
-                                            # Traditional AMRAP with max component - show full breakdown
-                                            st.markdown(f"# {results['total_score']}")
-                                            st.caption(f"{results['n_floor']} completed rounds + {results['r_result']} additional reps + {results['max_reps']} max reps")
+                                            # Traditional AMRAP with max component - show rounds+reps format
+                                            if results['r_result'] > 0:
+                                                st.markdown(f"# {results['n_floor']}+{results['r_result']}+{results['max_reps']} ({results['total_reps']} reps)")
+                                                st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps + {results['max_reps']} max reps")
+                                            else:
+                                                st.markdown(f"# {results['n_floor']}+{results['max_reps']} ({results['total_reps']} reps)")
+                                                st.caption(f"{results['n_floor']} rounds + {results['max_reps']} max reps")
                                         else:
                                             # Regular AMRAP without max component
-                                            st.markdown(f"# {results['total_score']}")
-                                            st.caption(f"{results['n_floor']} completed rounds + {results['r_result']} additional reps")
+                                            if results['r_result'] > 0:
+                                                st.markdown(f"# {results['n_floor']}+{results['r_result']} ({results['total_reps']} reps)")
+                                                st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps")
+                                            else:
+                                                st.markdown(f"# {results['n_floor']} ({results['total_reps']} reps)")
+                                                st.caption(f"{results['n_floor']} rounds")
                                 else:
                                     st.error(f"⚠️ Calculation error: {results['error']}")
                                 
@@ -890,96 +898,6 @@ def main():
         with col2:
             m = st.number_input("Multiplier (M)", value=2.5, step=0.1, min_value=0.1)
     
-    else:  # JSON Upload
-        st.header("JSON Upload")
-        
-        # Show example JSON format
-        with st.expander("Example JSON Format"):
-            example_json = {
-                "tot_tm": 100.0,
-                "m": 2.5,
-                "movements": [
-                    {
-                        "description": "Walking movement",
-                        "number": 15.0,
-                        "type": "S",
-                        "count": 3
-                    },
-                    {
-                        "description": "Running movement",
-                        "number": 8.0,
-                        "type": "D",
-                        "count": 1
-                    },
-                    {
-                        "description": "Transition",
-                        "number": 2.0,
-                        "type": "T",
-                        "count": 1
-                    },
-                    {
-                        "description": "Max Reps",
-                        "number": 3.0,
-                        "type": "M",
-                        "count": -1
-                    }
-                ]
-            }
-            st.json(example_json)
-        
-        uploaded_file = st.file_uploader("Upload JSON file", type=['json'])
-        
-        if uploaded_file is not None:
-            try:
-                data = json.load(uploaded_file)
-                
-                # Extract data
-                movements = data.get('movements', [])
-                tot_tm = data.get('tot_tm', 0)
-                m = data.get('m', 1)
-                
-                # Ensure count field exists for all movements
-                for mov in movements:
-                    if 'count' not in mov:
-                        mov['count'] = 1
-                
-                # Calculate movement totals using the new function
-                dmvmt_total, smvmt_total, _ = calculate_movement_totals(movements)
-                
-                # Display loaded data
-                st.success("JSON file loaded successfully!")
-                st.subheader("Loaded Movements")
-                
-                # Create display dataframe
-                display_data = []
-                for mov in movements:
-                    count = mov.get('count', 1)
-                    count_display = "MAX" if count == -1 else str(count)
-                    total_time_val = mov.get('number', 0) * count if count != -1 else 0
-                    total_time_display = "MAX" if count == -1 else f"{total_time_val:.2f}"
-                    display_data.append({
-                        'Description': mov.get('description', ''),
-                        'Type': mov.get('type', ''),
-                        'Time (s)': mov.get('number', 0),
-                        'Count': count_display,
-                        'Total Time': total_time_display
-                    })
-                
-                df = pd.DataFrame(display_data)
-                st.dataframe(df)
-                
-                st.subheader("Loaded Parameters")
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.metric("Total Time", tot_tm)
-                with col2:
-                    st.metric("Multiplier", m)
-                
-            except json.JSONDecodeError:
-                st.error("Invalid JSON file format")
-            except Exception as e:
-                st.error(f"Error loading file: {str(e)}")
-    
     # Calculate button and results (skip for library mode as it's shown at top)
     if movements and tot_tm > 0 and input_method != "Workout Library":
         st.markdown("---")
@@ -1013,13 +931,21 @@ def main():
                         max_movement_name = next(mov['description'] for mov in movements if mov.get('count') == -1)
                         st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
                     elif results['max_reps'] > 0:
-                        # Traditional AMRAP with max component - show full breakdown
-                        st.markdown(f"# {results['total_score']}")
-                        st.caption(f"{results['n_floor']} completed rounds + {results['r_result']} additional reps + {results['max_reps']} max reps")
+                        # Traditional AMRAP with max component - show rounds+reps format
+                        if results['r_result'] > 0:
+                            st.markdown(f"# {results['n_floor']}+{results['r_result']}+{results['max_reps']} ({results['total_reps']} reps)")
+                            st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps + {results['max_reps']} max reps")
+                        else:
+                            st.markdown(f"# {results['n_floor']}+{results['max_reps']} ({results['total_reps']} reps)")
+                            st.caption(f"{results['n_floor']} rounds + {results['max_reps']} max reps")
                     else:
                         # Regular AMRAP without max component
-                        st.markdown(f"# {results['total_score']}")
-                        st.caption(f"{results['n_floor']} completed rounds + {results['r_result']} additional reps")
+                        if results['r_result'] > 0:
+                            st.markdown(f"# {results['n_floor']}+{results['r_result']} ({results['total_reps']} reps)")
+                            st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps")
+                        else:
+                            st.markdown(f"# {results['n_floor']} ({results['total_reps']} reps)")
+                            st.caption(f"{results['n_floor']} rounds")
                 
                 # Advanced Mode toggle
                 st.markdown("---")
