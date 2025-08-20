@@ -65,11 +65,19 @@ def main():
     # Show description for selected mode
     st.sidebar.markdown(f"*{mode_options[selected_mode].split(chr(10))[1]}*")
     
-    # Add version information at bottom of sidebar
+    # Add version information and links at bottom of sidebar
     st.sidebar.markdown("---")
     version = get_app_version()
     st.sidebar.markdown(f"**Version:** `{version}`")
     st.sidebar.caption("AMRAP Movement Time Calculator")
+    
+    # Add roadmap and GitHub links
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### 📋 Project Links")
+    st.sidebar.markdown("[🗺️ Development Roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/main/docs/ROADMAP.md)")
+    st.sidebar.markdown("[🐛 Report Bug](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
+    st.sidebar.markdown("[💡 Request Feature](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
+    st.sidebar.markdown("[📖 Documentation](https://github.com/griffinsteffy19/amrap-calc/tree/main/docs)")
     
     input_method = selected_mode
     
