@@ -76,6 +76,14 @@ fi
 echo ""
 echo "🔄 Creating release..."
 
+# Update VERSION file
+echo "📝 Updating VERSION file..."
+VERSION_NUM=${VERSION#v}  # Remove 'v' prefix for VERSION file
+echo "$VERSION_NUM" > VERSION
+git add VERSION
+git commit -m "Bump version to $VERSION"
+echo "✅ VERSION file updated and committed"
+
 # Create the tag with annotation
 git tag -a "$VERSION" -m "$RELEASE_TITLE
 

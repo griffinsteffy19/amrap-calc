@@ -1,26 +1,26 @@
 {
-  "name": "Run",
+  "name": "Run (m)",
   "category": "monostructural",
   "description": "Running at various paces",
   "variety": {
     "easy": {
       "pace": "9-10 min/mile",
-      "execution_time": 540.0,
+      "execution_time": 0.3375,
       "description": "Easy jog pace per mile"
     },
     "moderate": {
       "pace": "7.5-8.5 min/mile",
-      "execution_time": 480.0,
+      "execution_time": 0.3,
       "description": "Moderate pace per mile"
     },
     "fast": {
       "pace": "6-7 min/mile",
-      "execution_time": 390.0,
+      "execution_time": 0.24375,
       "description": "Fast pace per mile"
     },
     "sprint": {
       "pace": "5-6 min/mile",
-      "execution_time": 330.0,
+      "execution_time": 0.20625,
       "description": "Sprint pace per mile"
     }
   }

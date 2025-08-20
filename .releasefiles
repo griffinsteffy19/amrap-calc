@@ -1,19 +1,19 @@
 # Files to include in release
 # One file/directory per line, supports glob patterns
 
+# Version information
+VERSION
+
 # Core application files
-streamlit_app.py
-calculations.py
+src/
 requirements.txt
 
 # Documentation
+README.md
 RELEASE.md
 LICENSE
 
-# Workout library
-workout_library/
-
-# Data directory with examples
+# Data directory with workouts and movements
 data/
 
 # Exclude development files by default

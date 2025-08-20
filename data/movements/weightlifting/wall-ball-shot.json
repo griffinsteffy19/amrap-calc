@@ -1,0 +1,12 @@
+{
+  "name": "Wall-Ball Shot",
+  "category": "weightlifting",
+  "description": "Squat with Medicine Ball and thrown to Target",
+  "variety": {
+    "standard": {
+      "weight_range": "20/14 lbs, 10/9' target",
+      "execution_time": 2.0,
+      "description": "Standard Weight/Height"
+    }
+  }
+}
