@@ -75,8 +75,18 @@ def main():
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 📋 Project Links")
     st.sidebar.markdown("[🗺️ Development Roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)")
-    st.sidebar.markdown("[🐛 Report Bug](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
-    st.sidebar.markdown("[💡 Request Feature](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
+    
+    # Create URLs with app version for better bug tracking
+    import urllib.parse
+    bug_body = f"**Reported from Streamlit App**\n\nApp Version: {version}\nBrowser: _Please specify_\nOS: _Please specify_\n\n## Bug Description\n"
+    feature_body = f"**Requested from Streamlit App**\n\nApp Version: {version}\n\n## Feature Request Summary\n"
+    
+    # URLs with automatic project board assignment 
+    bug_url = f"https://github.com/griffinsteffy19/amrap-calc/issues/new?template=bug_report.md&labels=bug&projects=griffinsteffy19/2&body={urllib.parse.quote(bug_body)}"
+    feature_url = f"https://github.com/griffinsteffy19/amrap-calc/issues/new?template=feature_request.md&labels=feature&projects=griffinsteffy19/2&body={urllib.parse.quote(feature_body)}"
+    
+    st.sidebar.markdown(f"[🐛 Report Bug]({bug_url})")
+    st.sidebar.markdown(f"[💡 Request Feature]({feature_url})")
     st.sidebar.markdown("[📖 Documentation](https://github.com/griffinsteffy19/amrap-calc/tree/develop/docs)")
     
     input_method = selected_mode
