@@ -1,0 +1,82 @@
+name: Roadmap Sync
+
+on:
+  issues:
+    types: [opened, closed, labeled, unlabeled]
+  pull_request:
+    types: [opened, closed, merged]
+  milestone:
+    types: [opened, closed, edited]
+
+jobs:
+  update-roadmap-status:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'roadmap') || contains(github.event.pull_request.labels.*.name, 'roadmap')
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Update roadmap progress
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // Get milestone information
+          const milestones = await github.rest.issues.listMilestones({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            state: 'all'
+          });
+          
+          console.log('Milestones found:', milestones.data.length);
+          
+          // Create progress summary
+          let progressSummary = '## Milestone Progress\n\n';
+          
+          for (const milestone of milestones.data) {
+            const progress = milestone.closed_issues / (milestone.open_issues + milestone.closed_issues) * 100;
+            const progressBar = '█'.repeat(Math.floor(progress / 5)) + '░'.repeat(20 - Math.floor(progress / 5));
+            
+            progressSummary += `### ${milestone.title}\n`;
+            progressSummary += `**Progress**: ${progress.toFixed(1)}% (${milestone.closed_issues}/${milestone.open_issues + milestone.closed_issues})\n`;
+            progressSummary += `\`${progressBar}\`\n\n`;
+            
+            if (milestone.description) {
+              progressSummary += `${milestone.description}\n\n`;
+            }
+          }
+          
+          console.log('Generated progress summary');
+          core.setOutput('progress_summary', progressSummary);
+
+  create-project-cards:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened' && (github.event.issue || github.event.pull_request)
+    
+    steps:
+    - name: Add to project board
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const item = github.event.issue || github.event.pull_request;
+          
+          // Determine column based on labels
+          let columnName = 'Backlog';
+          
+          const labels = item.labels.map(label => label.name);
+          
+          if (labels.includes('in-progress')) {
+            columnName = 'In Progress';
+          } else if (labels.includes('review')) {
+            columnName = 'Review';
+          } else if (labels.includes('done')) {
+            columnName = 'Done';
+          }
+          
+          console.log(`Adding item to ${columnName} column`);
+          
+          // Note: This requires project board setup in GitHub
+          // The actual project board integration would need to be configured
+          // with the specific project board ID and column IDs
