@@ -219,3 +219,4 @@ release-v*/
 *.bk
 *.backup
 .issues.json # Local Development
+.release/ # Local Release Folder

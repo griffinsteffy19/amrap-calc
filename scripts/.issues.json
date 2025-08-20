@@ -31,6 +31,55 @@
       "body": "## Phase 1: Architecture Foundation\n\n### Goal\nCreate service layer that encapsulates business logic and data access.\n\n### Technical Requirements\n- [ ] Create `backend/services/` directory\n- [ ] Implement `workout_service.py` for workout operations\n- [ ] Implement `movement_service.py` for movement database\n- [ ] Implement `calculation_service.py` wrapping existing calculations\n- [ ] Implement `data_service.py` for file I/O abstraction\n\n### Service Specifications\n\n#### WorkoutService\n- CRUD operations for workouts\n- Workout validation and processing\n- Category management\n- Integration with data layer\n\n#### MovementService\n- Movement database operations\n- Search and filtering capabilities\n- Variety management\n- Movement validation\n\n#### CalculationService\n- Wrap existing `calculations.py` functions\n- Add input validation and error handling\n- Provide consistent interfaces\n- Handle edge cases gracefully\n\n#### DataService\n- Abstract file I/O operations\n- Implement caching strategies\n- Handle missing files gracefully\n- Prepare for future database migration\n\n### Acceptance Criteria\n- [ ] All services have comprehensive unit tests\n- [ ] Services are loosely coupled and independently testable\n- [ ] Consistent error handling and logging\n- [ ] Type hints and documentation\n- [ ] Performance benchmarks established\n\n### Dependencies\n- Uses existing `calculations.py`, `movement_library.py`, `workout_library.py`\n- Foundation for API layer implementation"
     },
     {
+      "title": "Improve Movement Type System for Better User Understanding",
+      "labels": [
+        "feature",
+        "phase-1",
+        "frontend"
+      ],
+      "milestone": "v2.0.0-alpha",
+      "body": "## Problem\nCurrent movement types (D/S/T/M) are cryptic and hard for users to understand. Users need clearer guidance on how to categorize movements for accurate calculations.\n\n## Solution\n- [ ] Replace cryptic single letters with descriptive names\n  - D (Dynamic) → \"Gets Harder Over Time\"\n  - S (Static) → \"Consistent Pace\"\n  - T (Transition) → \"Rest/Setup Time\" \n  - M (Max) → \"Max Reps in Time\"\n- [ ] Add tooltips/help text explaining when to use each type\n- [ ] Include examples for common movements in each category\n- [ ] Update movement library with better type guidance\n- [ ] Add validation to warn users about questionable type selections\n\n## Acceptance Criteria\n- [ ] Movement type selection is intuitive for new users\n- [ ] Help documentation clearly explains each type\n- [ ] Existing calculations remain accurate\n- [ ] UI provides contextual guidance"
+    },
+    {
+      "title": "Add Movement-Specific Fatigue Multipliers",
+      "labels": [
+        "feature",
+        "phase-1",
+        "backend"
+      ],
+      "milestone": "v2.0.0-alpha",
+      "body": "## Problem\nCurrent system applies a uniform fatigue multiplier to all Dynamic movements. Different movements fatigue at different rates and should have individual multipliers.\n\n## Solution\n- [ ] Add `fatigue_multiplier` field to movement definitions\n- [ ] Update calculation engine to use movement-specific multipliers\n- [ ] Research and implement realistic multipliers for common movements:\n  - Thrusters: Higher fatigue (1.8-2.2)\n  - Wall Balls: Moderate fatigue (1.4-1.6) \n  - Push-ups: Lower fatigue (1.2-1.4)\n  - Rowing: Minimal fatigue (1.05-1.1)\n- [ ] Allow users to customize multipliers in advanced mode\n- [ ] Update movement library with researched multiplier values\n\n## Technical Requirements\n- Modify `calculate_movement_totals()` in `src/calculations.py`\n- Update movement JSON schema to include multiplier field\n- Ensure backward compatibility with existing movements\n\n## Acceptance Criteria\n- [ ] Calculations are more accurate for multi-movement workouts\n- [ ] Multipliers can be customized per movement\n- [ ] Default values provide realistic fatigue modeling\n- [ ] Advanced users can fine-tune for personal performance"
+    },
+    {
+      "title": "Enhanced Monostructural Movement Pace Controls",
+      "labels": [
+        "feature",
+        "phase-1",
+        "frontend"
+      ],
+      "milestone": "v2.0.0-alpha", 
+      "body": "## Problem\nMonostructural movements (rowing, biking, running) need better pace control options. Current system doesn't handle different pace formats well.\n\n## Solution\n- [ ] Add dedicated pace input modes for monostructural movements:\n  - Rowing: 500m split time (mm:ss.s format)\n  - Biking: Cal/Hr rate input\n  - Running: min/mile or min/km pace\n  - Skiing: 500m split time\n- [ ] Implement pace conversion utilities\n- [ ] Add pace validation (realistic ranges)\n- [ ] Allow switching between pace formats\n- [ ] Store user's preferred pace formats\n\n## Technical Requirements\n- Extend `convert_pace_to_time_per_rep()` in `src/calculations.py`\n- Add pace validation functions\n- Update UI to show appropriate pace inputs based on movement\n- Add pace format preferences to user settings\n\n## Acceptance Criteria\n- [ ] Rowing accepts 500m split time (e.g., \"1:45.0\")\n- [ ] Biking accepts Cal/Hr (e.g., \"1000 cal/hr\")\n- [ ] Running accepts pace (e.g., \"7:30/mile\")\n- [ ] Conversions are mathematically accurate\n- [ ] UI adapts to show relevant pace format for each movement"
+    },
+    {
+      "title": "Simplify Transition Management in Live Workout Editor",
+      "labels": [
+        "feature",
+        "phase-1",
+        "frontend"
+      ],
+      "milestone": "v2.0.0-alpha",
+      "body": "## Problem\nTransition movements (type 'T') in the live workout editor are confusing and cumbersome to manage. Users struggle with understanding their purpose and setting them up correctly.\n\n## Current Issues\n- [ ] Transition movements appear in workout calculations but don't contribute to score\n- [ ] Users don't understand when/why to use transitions\n- [ ] Setting up transition times is not intuitive\n- [ ] Transitions clutter the movement list unnecessarily\n\n## Solution\n\n### Simplified Transition Handling\n- [ ] Auto-detect common transition scenarios (between different equipment/areas)\n- [ ] Provide preset transition times (\"Quick change: 10s\", \"Equipment setup: 30s\", \"Station move: 45s\")\n- [ ] Option to add transitions with single click between movements\n- [ ] Visual separation of transitions from scored movements\n\n### UI Improvements\n- [ ] Collapse/minimize transition display in movement list\n- [ ] Add transition time as a simple \"+30s rest\" indicator\n- [ ] Provide transition time suggestions based on movement changes\n- [ ] Make transitions optional/toggleable per workout\n\n### Smart Defaults\n- [ ] Auto-suggest transitions when switching between:\n  - Barbell to bodyweight movements\n  - Floor to pull-up bar\n  - Different cardio equipment\n- [ ] Learn from user patterns to improve suggestions\n\n## Technical Implementation\n- [ ] Add transition detection algorithms\n- [ ] Create preset transition templates\n- [ ] Simplify transition UI components\n- [ ] Add transition recommendation engine\n\n## User Experience\n- [ ] \"I want to add 30 seconds between rounds for equipment setup\"\n- [ ] \"This workout needs time to move from rower to barbell\"\n- [ ] \"Hide transition details but keep the time in calculations\"\n\n## Acceptance Criteria\n- [ ] Transitions are easy to add and understand\n- [ ] UI is cleaner and less cluttered\n- [ ] Transition times are realistic and helpful\n- [ ] Advanced users can still customize fully\n- [ ] New users aren't confused by transition complexity"
+    },
+    {
+      "title": "Remove Example Workout Category",
+      "labels": [
+        "data-entry",
+        "phase-1"
+      ],
+      "milestone": "v2.0.0-alpha",
+      "body": "## Goal\nClean up the workout library by removing the example category that was used for development.\n\n## Tasks\n- [ ] Remove `data/workouts/example/` directory\n- [ ] Update `data/workouts/index.json` to remove example category\n- [ ] Update documentation references to example workouts\n- [ ] Ensure no code depends on example workouts\n- [ ] Update tests to use real workouts instead of examples\n\n## Verification\n- [ ] Application loads without errors\n- [ ] Workout library displays correctly\n- [ ] No broken references to example workouts\n- [ ] Tests still pass with example workouts removed\n\n## Acceptance Criteria\n- [ ] Example category no longer appears in UI\n- [ ] No functionality is broken by removal\n- [ ] Codebase is cleaner without development artifacts"
+    },
+    {
       "title": "[ROADMAP] Database Schema Design",
       "labels": [
         "roadmap",
@@ -59,6 +108,34 @@
       ],
       "milestone": "v3.0.0-beta",
       "body": "## Phase 2: Database Migration\n\n### Goal\nImplement comprehensive data validation for database integrity and application reliability.\n\n### Technical Requirements\n- [ ] Create input validation for all API endpoints\n- [ ] Implement database constraint validation\n- [ ] Add business logic validation rules\n- [ ] Create data consistency checks\n- [ ] Implement validation error reporting\n\n### Validation Layers\n\n#### Input Validation\n- API request parameter validation\n- Type checking and format validation\n- Range validation for numeric inputs\n- Required field validation\n\n#### Database Validation\n- Foreign key constraint validation\n- Unique constraint enforcement\n- Check constraint validation (positive times, valid types)\n- Data type validation\n\n#### Business Logic Validation\n- Movement type consistency (S/D/T/M)\n- Workout configuration validation\n- Movement-workout compatibility checks\n- Execution time reasonableness checks\n\n### Validation Rules\n\n#### Workout Validation\n- Total time must be positive\n- Multiplier must be > 0\n- Rounds must be >= 1\n- Time cap must be > total estimated time (warning)\n\n#### Movement Validation\n- Execution times must be positive\n- Movement types must be S, D, T, or M\n- Variety names must be consistent within movement\n- Category references must exist\n\n### Error Handling\n- [ ] Standardized error response format\n- [ ] User-friendly error messages\n- [ ] Developer debugging information\n- [ ] Error logging and monitoring\n- [ ] Graceful degradation for non-critical errors\n\n### Acceptance Criteria\n- [ ] All validation rules implemented and tested\n- [ ] Comprehensive test coverage for edge cases\n- [ ] Clear error messages for users\n- [ ] Performance impact minimized\n- [ ] Integration with existing error handling\n\n### Dependencies\n- Requires database schema implementation\n- Integrates with migration scripts and service layer"
+    },
+    {
+      "title": "Add Remaining Girl Workouts to Library",
+      "labels": [
+        "data-entry",
+        "phase-2"
+      ],
+      "milestone": "v3.0.0-beta",
+      "body": "## Goal\nComplete the Girl workout collection by adding missing benchmark workouts.\n\n## Missing Girl Workouts to Add\n- [ ] Barbara (5 rounds: 20 pull-ups, 30 push-ups, 40 sit-ups, 50 air squats, 3min rest)\n- [ ] Christine (3 rounds: 500m row, 12 deadlifts @BW, 21 box jumps 24\")\n- [ ] Diane (21-15-9: deadlifts 225#, handstand push-ups)\n- [ ] Elizabeth (21-15-9: cleans 135#, ring dips)\n- [ ] Eva (5 rounds: 800m run, 30 KB swings 70#, 30 pull-ups)\n- [ ] Fran (21-15-9: thrusters 95#, pull-ups)\n- [ ] Grace (30 clean & jerks 135# for time)\n- [ ] Helen (3 rounds: 400m run, 21 KB swings 53#, 12 pull-ups)\n- [ ] Isabel (30 snatches 135# for time)\n- [ ] Jackie (1000m row, 50 thrusters 45#, 30 pull-ups)\n- [ ] Karen (150 wall balls 20# to 10' target)\n- [ ] Linda (10-9-8-7-6-5-4-3-2-1: deadlift 1.5xBW, bench 1xBW, clean 0.75xBW)\n- [ ] Mary (20min AMRAP: 5 handstand push-ups, 10 pistol squats, 15 pull-ups)\n- [ ] Nancy (5 rounds: 400m run, 15 overhead squats 95#)\n- [ ] Nicole (20min AMRAP: 400m run, max pull-ups)\n\n## Implementation Requirements\n- [ ] Add JSON files in `data/workouts/girl/` directory\n- [ ] Include RX and scaled versions for each workout\n- [ ] Add proper movement type classifications\n- [ ] Include historical context and scaling notes\n- [ ] Verify movement definitions exist in movement library\n\n## Acceptance Criteria\n- [ ] All Girl workouts load correctly in workout library\n- [ ] Calculations produce realistic time estimates\n- [ ] Scaling options are appropriate for different skill levels\n- [ ] Metadata includes proper categorization and descriptions"
+    },
+    {
+      "title": "Add Standard Hero Workouts to Library", 
+      "labels": [
+        "data-entry",
+        "phase-2"
+      ],
+      "milestone": "v3.0.0-beta",
+      "body": "## Goal\nAdd the most common Hero workouts to honor fallen service members and first responders.\n\n## Hero Workouts to Add\n- [ ] Murph (1 mile run, 100 pull-ups, 200 push-ups, 300 air squats, 1 mile run)\n- [ ] Chad (1000 box step-ups 20\" with 45# plate)\n- [ ] DT (5 rounds: 12 deadlifts, 9 hang power cleans, 6 push jerks @155#)\n- [ ] JT (21-15-9: handstand push-ups, ring dips, push-ups)\n- [ ] Michael (3 rounds: 800m run, 50 back extensions, 50 sit-ups)\n- [ ] Daniel (50 burpee pull-ups, 400m run, 21 thrusters 95#, 800m run, 21 thrusters, 400m run, 50 burpee pull-ups)\n- [ ] Ryan (5 rounds: 7 muscle-ups, 21 burpees)\n- [ ] Nick (10 rounds: 15 handstand push-ups, 25 ring dips)\n- [ ] Tommy V (21 thrusters 115#, 12 muscle-ups, 15 thrusters, 9 muscle-ups, 9 thrusters, 6 muscle-ups)\n- [ ] White (5 rounds: 10 muscle-ups, 25 ring handstand push-ups, 50 pistol squats)\n- [ ] Clovis (10 rounds: 15 burpees, 30 wall balls 20#)\n- [ ] Badger (3 rounds: 30 squat cleans 95#, 30 pull-ups, 800m run)\n- [ ] Joshie (40-30-20-10: thrusters 95#, pull-ups)\n\n## Implementation Requirements\n- [ ] Research accurate workout specifications\n- [ ] Add backstory and dedication information for each hero\n- [ ] Include appropriate scaling options\n- [ ] Add movement substitution suggestions\n- [ ] Ensure movement definitions exist or create them\n\n## Acceptance Criteria\n- [ ] All Hero workouts display correct specifications\n- [ ] Backstory information honors the fallen appropriately\n- [ ] Scaling maintains workout stimulus while being accessible\n- [ ] Time estimates align with known completion times"
+    },
+    {
+      "title": "Add Competition Categories for Workout Grouping",
+      "labels": [
+        "feature", 
+        "phase-2",
+        "data-entry"
+      ],
+      "milestone": "v3.0.0-beta",
+      "body": "## Goal\nOrganize workouts by competition source to help users find workouts from specific events.\n\n## Competition Categories to Add\n- [ ] CrossFit Open (by year: 2011-2024)\n- [ ] CrossFit Games (by year and division)\n- [ ] Regionals (archive of regional workouts)\n- [ ] Local Competitions (framework for user additions)\n- [ ] Sanctioned Events (Rogue, Wodapalooza, etc.)\n\n## Technical Implementation\n- [ ] Extend category system to support nested hierarchies\n- [ ] Add competition metadata (year, division, event info)\n- [ ] Create competition-specific filtering in UI\n- [ ] Add search by competition name/year\n- [ ] Include leaderboard data where available\n\n## Data Structure\n```json\n{\n  \"competition\": {\n    \"event\": \"CrossFit Open\",\n    \"year\": 2024,\n    \"week\": 1,\n    \"division\": \"Scaled/RX\",\n    \"leaderboard_url\": \"...\"\n  }\n}\n```\n\n## UI Features\n- [ ] Competition filter dropdown\n- [ ] Year/division sub-filtering\n- [ ] Competition context in workout display\n- [ ] Links to official leaderboards\n- [ ] Historical performance data integration\n\n## Acceptance Criteria\n- [ ] Users can filter workouts by competition\n- [ ] Competition context enhances workout selection\n- [ ] Historical data provides performance context\n- [ ] UI remains intuitive with additional categorization"
     },
     {
       "title": "[ROADMAP] Django Project Setup",
@@ -90,6 +167,86 @@
       ],
       "milestone": "v4.0.0-rc1",
       "body": "## Phase 3: Django Backend\n\n### Goal\nCreate comprehensive REST API using Django REST Framework for all application functionality.\n\n### Technical Requirements\n- [ ] Create ViewSets for all models\n- [ ] Implement serializers with validation\n- [ ] Add custom API endpoints for calculations\n- [ ] Configure API versioning\n- [ ] Add API authentication and permissions\n- [ ] Create comprehensive API documentation\n\n### API Endpoints\n\n#### Workout Endpoints\n- `GET /api/v1/workouts/` - List all workouts\n- `GET /api/v1/workouts/{id}/` - Get specific workout\n- `POST /api/v1/workouts/` - Create custom workout\n- `GET /api/v1/categories/` - List workout categories\n\n#### Movement Endpoints\n- `GET /api/v1/movements/` - List all movements\n- `GET /api/v1/movements/{id}/` - Get specific movement\n- `GET /api/v1/movements/search/?q={query}` - Search movements\n- `GET /api/v1/movements/{id}/varieties/` - Get movement varieties\n\n#### Calculation Endpoints\n- `POST /api/v1/calculate/amrap/` - AMRAP calculations\n- `POST /api/v1/calculate/for-time/` - For Time predictions\n- `POST /api/v1/validate/workout/` - Workout validation\n\n### Serializers\n- [ ] WorkoutSerializer with nested movements\n- [ ] MovementSerializer with varieties\n- [ ] CalculationRequestSerializer with validation\n- [ ] CalculationResponseSerializer for results\n- [ ] Custom serializers for complex operations\n\n### API Features\n- [ ] Filtering and search capabilities\n- [ ] Pagination for large result sets\n- [ ] Field selection for optimized responses\n- [ ] Comprehensive error handling\n- [ ] Request/response logging\n\n### Documentation\n- [ ] OpenAPI/Swagger schema generation\n- [ ] Interactive API documentation\n- [ ] Code examples for common operations\n- [ ] Authentication and authorization guides\n\n### Acceptance Criteria\n- [ ] All endpoints return proper HTTP status codes\n- [ ] API documentation is complete and accurate\n- [ ] Response times are <100ms for typical requests\n- [ ] All endpoints have comprehensive test coverage\n- [ ] API versioning works correctly\n\n### Dependencies\n- Requires Django models implementation\n- Uses existing calculation logic\n- Foundation for frontend API integration"
+    },
+    {
+      "title": "Implement Workout Analysis Tools Dashboard",
+      "labels": [
+        "feature",
+        "phase-3",
+        "frontend"
+      ],
+      "milestone": "v4.0.0-rc1",
+      "body": "## Goal\nProvide comprehensive workout analysis tools to help users understand workout composition and demands.\n\n## Analysis Features\n\n### WMG (Weightlifting, Monostructural, Gymnastics) Breakdown\n- [ ] Categorize movements by WMG type\n- [ ] Calculate percentage breakdown (pie chart)\n- [ ] Show time allocation per category\n- [ ] Identify workout bias (e.g., \"Gymnastics Heavy\")\n\n### Volume Analysis\n- [ ] Total rep count by movement\n- [ ] Rep density (reps per minute)\n- [ ] Volume distribution across movements\n- [ ] Movement frequency analysis\n\n### Load Analysis  \n- [ ] Total weight moved calculation\n- [ ] Average weight per rep\n- [ ] Load distribution by movement\n- [ ] Intensity zones (light/moderate/heavy)\n\n### Time Domain Analysis\n- [ ] Predicted time range (sprint/medium/long)\n- [ ] Energy system demands (phosphocreatine/glycolytic/oxidative)\n- [ ] Fatigue curve visualization\n- [ ] Recovery requirement estimation\n\n## Technical Implementation\n- [ ] Create `src/analysis.py` module\n- [ ] Add analysis functions for each metric\n- [ ] Create visualization components\n- [ ] Integrate with existing calculation engine\n- [ ] Add caching for expensive calculations\n\n## UI Components\n- [ ] Analysis dashboard tab\n- [ ] Interactive charts and graphs\n- [ ] Exportable analysis reports\n- [ ] Comparison mode between workouts\n\n## Acceptance Criteria\n- [ ] Analysis provides actionable insights\n- [ ] Visualizations are clear and informative\n- [ ] Calculations are mathematically sound\n- [ ] Dashboard loads quickly (<2 seconds)"
+    },
+    {
+      "title": "Add Support for For Load Workout Format",
+      "labels": [
+        "feature",
+        "phase-3",
+        "backend"
+      ],
+      "milestone": "v4.0.0-rc1",
+      "body": "## Problem\n\"For Load\" workouts focus on maximum weight lifted rather than time completion. Current system only supports AMRAP and For Time formats.\n\n## Solution\n\n### For Load Workout Types\n- [ ] 1RM Testing (find max weight for single rep)\n- [ ] Rep Max Testing (find max weight for X reps)\n- [ ] Load Ladder (ascending weight with fixed reps)\n- [ ] Complex Loading (multiple exercises with linked loads)\n\n### Calculation Features\n- [ ] Percentage-based load recommendations\n- [ ] Strength curve modeling\n- [ ] Fatigue impact on max loads\n- [ ] Rest period requirements between attempts\n\n### UI Components\n- [ ] Load input controls (weight/percentage)\n- [ ] Attempt tracking interface\n- [ ] Load progression suggestions\n- [ ] Previous max reference display\n\n## Technical Implementation\n- [ ] Add \"For Load\" workout type\n- [ ] Create load calculation functions\n- [ ] Implement strength modeling algorithms\n- [ ] Add load progression utilities\n- [ ] Create load-specific result displays\n\n## Example Workouts\n- [ ] \"Work up to 1RM Back Squat\"\n- [ ] \"5RM Deadlift\" \n- [ ] \"Clean & Jerk Ladder (135-185-225-275#)\"\n- [ ] \"Bench Press 5-3-1 Protocol\"\n\n## Acceptance Criteria\n- [ ] For Load workouts calculate appropriate load recommendations\n- [ ] UI adapts to show load inputs instead of time\n- [ ] Strength calculations are physiologically sound\n- [ ] Results tracking captures max loads achieved"
+    },
+    {
+      "title": "Add Performance Improvement Insights System",
+      "labels": [
+        "feature",
+        "phase-4",
+        "backend"
+      ],
+      "milestone": "v5.0.0-rc2",
+      "body": "## Goal\nAnalyze user's actual workout results versus predictions to provide personalized improvement recommendations.\n\n## Insight Features\n\n### Performance Gap Analysis\n- [ ] Compare actual vs predicted times\n- [ ] Identify consistently underperforming movement types\n- [ ] Detect fatigue patterns (early vs late workout struggles)\n- [ ] Highlight strength and weakness areas\n\n### Improvement Recommendations\n- [ ] Movement-specific training suggestions\n- [ ] Energy system development priorities\n- [ ] Technique vs strength improvement guidance\n- [ ] Progressive scaling recommendations\n\n### Trend Analysis\n- [ ] Performance improvement tracking over time\n- [ ] Seasonal/cyclical pattern detection\n- [ ] Movement-specific progress tracking\n- [ ] Workout type specialization analysis\n\n## Technical Implementation\n- [ ] Create performance analysis algorithms\n- [ ] Implement machine learning for pattern recognition\n- [ ] Add statistical analysis functions\n- [ ] Create recommendation engine\n- [ ] Build trend visualization tools\n\n## Data Requirements\n- [ ] User workout history storage\n- [ ] Actual vs predicted time tracking\n- [ ] Movement performance metrics\n- [ ] Training volume and frequency data\n\n## UI Features\n- [ ] Personal insights dashboard\n- [ ] Improvement recommendation cards\n- [ ] Progress tracking visualizations\n- [ ] Goal setting and tracking tools\n\n## Acceptance Criteria\n- [ ] Insights are actionable and specific\n- [ ] Recommendations improve user performance\n- [ ] Trend analysis identifies real patterns\n- [ ] Privacy and data security maintained"
+    },
+    {
+      "title": "Add Elite/RX+/RX/Scaled Performance Labeling",
+      "labels": [
+        "feature",
+        "phase-4",
+        "frontend"
+      ],
+      "milestone": "v5.0.0-rc2",
+      "body": "## Goal\nProvide performance context by labeling workout times and movement paces with appropriate skill levels.\n\n## Performance Levels\n\n### Elite (Top 1-5%)\n- Competition-level athletes\n- Games/Regionals qualifiers\n- Professional/sponsored athletes\n\n### RX+ (Top 10-20%)\n- Advanced recreational athletes\n- Local competition winners\n- Consistent RX performers\n\n### RX (Standard)\n- Prescribed workout as written\n- Competent in all movement patterns\n- Can complete workouts safely at intended stimulus\n\n### Scaled (Entry Level)\n- Modified movements/loads\n- Skill development focus\n- Maintains workout stimulus with adaptations\n\n## Implementation\n\n### Movement Pace Labeling\n- [ ] Add performance level indicators to movement library\n- [ ] Show user's pace level for each movement\n- [ ] Provide progression targets (scaled → RX → RX+ → Elite)\n\n### Workout Result Labeling\n- [ ] Compare user times to performance benchmarks\n- [ ] Display performance level achieved\n- [ ] Show percentile ranking where data available\n\n### Benchmark Data Collection\n- [ ] Research elite performance times\n- [ ] Collect community performance data\n- [ ] Establish statistical benchmarks\n- [ ] Update benchmarks with new data\n\n## UI Features\n- [ ] Performance level badges/indicators\n- [ ] Progress tracking toward next level\n- [ ] Benchmark comparison charts\n- [ ] Goal setting based on performance levels\n\n## Data Structure\n```json\n{\n  \"benchmarks\": {\n    \"scaled\": {\"time\": \"15:00\", \"percentile\": 25},\n    \"rx\": {\"time\": \"10:00\", \"percentile\": 50},\n    \"rxplus\": {\"time\": \"8:00\", \"percentile\": 80},\n    \"elite\": {\"time\": \"6:00\", \"percentile\": 95}\n  }\n}\n```\n\n## Acceptance Criteria\n- [ ] Performance levels accurately reflect fitness community standards\n- [ ] Users understand their current performance level\n- [ ] Progression paths are clear and motivating\n- [ ] Benchmarks are updated with real performance data"
+    },
+    {
+      "title": "Add Data Visualization and Analytics Dashboard",
+      "labels": [
+        "feature",
+        "phase-4",
+        "frontend"
+      ],
+      "milestone": "v5.0.0-rc2",
+      "body": "## Goal\nCreate comprehensive data visualization and analytics for workout results with statistical analysis.\n\n## Visualization Features\n\n### Result Distribution Analysis\n- [ ] Histogram of completion times\n- [ ] Bell curve overlay with mean/median\n- [ ] Quartile breakdowns (25th, 50th, 75th, 95th percentiles)\n- [ ] Outlier detection and highlighting\n\n### Performance Trends\n- [ ] Time series charts of user performance\n- [ ] Rolling averages and trend lines\n- [ ] Seasonal performance patterns\n- [ ] Movement-specific improvement curves\n\n### Comparative Analytics\n- [ ] User vs community averages\n- [ ] Peer group comparisons\n- [ ] Movement strength radar charts\n- [ ] Workout type specialization analysis\n\n### Statistical Metrics\n- [ ] Mean, median, mode calculations\n- [ ] Standard deviation and variance\n- [ ] Confidence intervals\n- [ ] Statistical significance testing\n\n## Technical Implementation\n\n### Visualization Library\n- [ ] Integrate Plotly or similar for interactive charts\n- [ ] Create reusable chart components\n- [ ] Add export functionality (PNG, PDF, data)\n- [ ] Implement responsive design for mobile\n\n### Statistical Analysis\n- [ ] Create `src/statistics.py` module\n- [ ] Implement statistical functions\n- [ ] Add data aggregation utilities\n- [ ] Create performance metric calculations\n\n### Data Pipeline\n- [ ] Aggregate result data efficiently\n- [ ] Cache expensive calculations\n- [ ] Handle missing or incomplete data\n- [ ] Implement real-time updates\n\n## Dashboard Components\n- [ ] Summary statistics cards\n- [ ] Interactive filter controls\n- [ ] Drill-down capabilities\n- [ ] Export and sharing options\n\n## Analytics Features\n- [ ] Performance percentile rankings\n- [ ] Improvement rate calculations\n- [ ] Predictive modeling for future performance\n- [ ] Anomaly detection in results\n\n## Acceptance Criteria\n- [ ] Visualizations load quickly (<3 seconds)\n- [ ] Charts are interactive and informative\n- [ ] Statistical calculations are mathematically correct\n- [ ] Dashboard provides actionable insights\n- [ ] Mobile experience is fully functional"
+    },
+    {
+      "title": "Add Gym Groups for Community Analytics",
+      "labels": [
+        "feature",
+        "phase-4",
+        "backend"
+      ],
+      "milestone": "v5.0.0-rc2",
+      "body": "## Goal\nEnable gym communities to filter results and analytics to their member base for local comparisons.\n\n## Group Features\n\n### Gym Group Management\n- [ ] Create gym group registration\n- [ ] User membership in groups\n- [ ] Group admin roles and permissions\n- [ ] Group privacy settings (public/private)\n\n### Filtered Analytics\n- [ ] Group-only result filtering\n- [ ] Gym leaderboards and rankings\n- [ ] Group performance statistics\n- [ ] Member vs gym average comparisons\n\n### Community Features\n- [ ] Group workout challenges\n- [ ] Gym-specific benchmarks\n- [ ] Member progress sharing\n- [ ] Group achievement tracking\n\n## Technical Implementation\n\n### Data Model\n- [ ] Group table with metadata\n- [ ] User-group membership relationships\n- [ ] Group-specific result filtering\n- [ ] Permission system for group data\n\n### UI Components\n- [ ] Group selection interface\n- [ ] Group dashboard with analytics\n- [ ] Member management interface\n- [ ] Group comparison tools\n\n### Privacy & Security\n- [ ] User consent for group participation\n- [ ] Data privacy controls\n- [ ] Group data isolation\n- [ ] Admin moderation tools\n\n## Group Analytics\n- [ ] Group performance distributions\n- [ ] Gym vs global comparisons\n- [ ] Member progress tracking\n- [ ] Group strength/weakness analysis\n\n## Use Cases\n- [ ] \"How does our gym compare to others?\"\n- [ ] \"Who are our top performers this month?\"\n- [ ] \"What movements should we focus on as a group?\"\n- [ ] \"Track our gym's progress over time\"\n\n## Acceptance Criteria\n- [ ] Groups can be created and managed easily\n- [ ] Analytics filter correctly to group members\n- [ ] Privacy settings are respected\n- [ ] Group features enhance community engagement"
+    },
+    {
+      "title": "Allow Gym Groups to Tag Custom Workouts",
+      "labels": [
+        "feature",
+        "phase-4",
+        "backend"
+      ],
+      "milestone": "v5.0.0-rc2",
+      "body": "## Goal\nEnable gym groups to create, tag, and share custom workouts within their community.\n\n## Features\n\n### Custom Workout Creation\n- [ ] Gym-specific workout builder\n- [ ] Template library for common formats\n- [ ] Movement substitution suggestions\n- [ ] Workout validation and testing\n\n### Tagging System\n- [ ] Gym-specific workout categories\n- [ ] Custom tags (\"Monday WOD\", \"Competition Prep\", etc.)\n- [ ] Difficulty/intensity ratings\n- [ ] Equipment requirement tags\n\n### Sharing & Discovery\n- [ ] Gym workout library\n- [ ] Popular workouts in group\n- [ ] Workout rating and feedback\n- [ ] Share workouts between gyms\n\n### Workout Management\n- [ ] Workout scheduling for gym calendar\n- [ ] Member completion tracking\n- [ ] Performance analytics for custom workouts\n- [ ] Workout modification history\n\n## Technical Implementation\n\n### Data Model\n- [ ] Custom workout table with group association\n- [ ] Tagging system with group-specific tags\n- [ ] Workout rating/feedback storage\n- [ ] Permission system for workout creation\n\n### Workflow\n1. Gym admin creates custom workout\n2. Tags workout with gym-specific labels\n3. Members can view and track performance\n4. Analytics available for gym's custom workouts\n\n### UI Components\n- [ ] Gym workout builder interface\n- [ ] Tagging interface with suggestions\n- [ ] Gym workout browser/filter\n- [ ] Custom workout analytics dashboard\n\n## Examples\n- [ ] \"Gym Name\" Saturday Team WOD\n- [ ] Competition Prep Series (Week 1-12)\n- [ ] \"Coach Name's\" Strength Cycle\n- [ ] Holiday/Theme workouts\n\n## Quality Controls\n- [ ] Workout validation before publishing\n- [ ] Community flagging for inappropriate content\n- [ ] Admin approval workflow option\n- [ ] Duplicate workout detection\n\n## Acceptance Criteria\n- [ ] Gyms can create and manage custom workout libraries\n- [ ] Tagging system helps organize and discover workouts\n- [ ] Custom workouts integrate with all analytics features\n- [ ] Quality controls maintain workout library standards"
+    },
+    {
+      "title": "Add User History View for Previous Workout Results",
+      "labels": [
+        "feature",
+        "phase-4",
+        "frontend"
+      ],
+      "milestone": "v5.0.0-rc2",
+      "body": "## Goal\nProvide users with a comprehensive history view showing their previous results on specific workouts.\n\n## Features\n\n### Workout History Display\n- [ ] Chronological list of attempts for each workout\n- [ ] Performance trends over time (chart visualization)\n- [ ] Personal best highlighting\n- [ ] Comparison to previous attempts\n\n### Result Details\n- [ ] Complete workout configuration used\n- [ ] Timestamp and conditions (RX/Scaled/Custom)\n- [ ] Movement-specific performance breakdown\n- [ ] Notes and comments from user\n\n### Progress Tracking\n- [ ] Time improvement calculations\n- [ ] Percentile improvement over time\n- [ ] Plateau detection and alerts\n- [ ] Goal setting and tracking\n\n### History Analytics\n- [ ] Most improved workouts\n- [ ] Consistent performance areas\n- [ ] Performance pattern analysis\n- [ ] Frequency of workout attempts\n\n## Technical Implementation\n\n### Data Model\n- [ ] Workout result history table\n- [ ] User workout attempt tracking\n- [ ] Performance snapshot storage\n- [ ] Result metadata (conditions, notes)\n\n### UI Components\n- [ ] Workout history tab/page\n- [ ] Result timeline visualization\n- [ ] Performance trend charts\n- [ ] Attempt comparison interface\n\n### Performance Features\n- [ ] Efficient data pagination\n- [ ] Quick search/filter capabilities\n- [ ] Export history data\n- [ ] Bulk operations on history\n\n## User Experience\n- [ ] \"Last time I did Fran, I got 8:45. Can I beat it?\"\n- [ ] \"I've been working on Murph for 6 months, show me my progress\"\n- [ ] \"What workouts have I improved the most on?\"\n- [ ] \"I haven't done this workout in a year, what was my time?\"\n\n## Data Visualization\n- [ ] Performance trend line charts\n- [ ] Personal record celebrations\n- [ ] Improvement rate calculations\n- [ ] Goal achievement tracking\n\n## Integration Points\n- [ ] Connect with main calculator for instant comparison\n- [ ] Link to workout analysis tools\n- [ ] Integration with performance insights\n- [ ] Connection to goal setting features\n\n## Acceptance Criteria\n- [ ] Users can easily view their workout history\n- [ ] Performance trends are clear and motivating\n- [ ] History data helps users make informed decisions\n- [ ] Interface is fast and responsive with large datasets"
     }
   ]
 }
