@@ -1,0 +1,33 @@
+{
+    "name": "Kelly",
+    "description": "For Time: 5 Rounds of 400m Run, 30 Box Jumps, 30 Wall-Ball Shots",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "rounds": 5,
+    "movements": [
+        {
+            "movement_name": "run",
+            "variety": "fast",
+            "type": "S",
+            "count": 400
+        },
+        {
+            "movement_name": "box-jump",
+            "variety": "standard",
+            "type": "S",
+            "count": 30
+        },
+        {
+            "description": "Transition",
+            "number": 5.0,
+            "type": "T"
+        },
+        {
+            "movement_name": "wall-ball-shot",
+            "variety": "standard",
+            "type": "S",
+            "count": 30
+        }
+    ]
+}
