@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import pandas as pd
 import os
+import random
 from calculations import (
     convert_pace_to_time_per_rep, 
     parse_time_input, 
@@ -90,12 +91,52 @@ def main():
         library_data = load_workout_library()
         
         if library_data:
-            # Category selection
-            st.subheader("Select Category")
+            # Initialize random workout selection if this is the first time in workout library mode
+            if 'random_workout_initialized' not in st.session_state:
+                # Pick a random category and workout
+                all_categories = list(library_data.keys())
+                random_category = random.choice(all_categories)
+                
+                # Pick a random workout from that category
+                random_workouts = list(library_data[random_category]['workouts'].keys())
+                if random_workouts:
+                    random_workout = random.choice(random_workouts)
+                    
+                    # Store the random selections
+                    st.session_state.random_category = random_category
+                    st.session_state.random_workout = random_workout
+                    st.session_state.random_workout_initialized = True
+            
+            # Add random workout button
+            col1, col2 = st.columns([3, 1])
+            with col1:
+                st.subheader("Select Category")
+            with col2:
+                if st.button("🎲 Random Workout", help="Pick a random workout from any category"):
+                    # Pick a new random category and workout
+                    all_categories = list(library_data.keys())
+                    random_category = random.choice(all_categories)
+                    
+                    # Pick a random workout from that category
+                    random_workouts = list(library_data[random_category]['workouts'].keys())
+                    if random_workouts:
+                        random_workout = random.choice(random_workouts)
+                        
+                        # Store the new random selections
+                        st.session_state.random_category = random_category
+                        st.session_state.random_workout = random_workout
+                        st.rerun()  # Refresh to show the new selection
+            
             category_options = {key: f"{data.get('icon', '📋')} {data['name']}" for key, data in library_data.items()}
+            
+            # Use random category as default if available
+            default_category = getattr(st.session_state, 'random_category', list(category_options.keys())[0])
+            default_index = list(category_options.keys()).index(default_category) if default_category in category_options else 0
+            
             category_key = st.selectbox(
                 "Choose workout category:",
                 options=list(category_options.keys()),
+                index=default_index,
                 format_func=lambda x: category_options[x],
                 help="Different types of AMRAP workouts"
             )
@@ -108,9 +149,20 @@ def main():
                 # Workout selection
                 st.subheader("Select Workout")
                 workout_options = {key: data['name'] for key, data in category_data['workouts'].items()}
+                
+                # Use random workout as default if we're in the randomly selected category
+                default_workout = None
+                default_workout_index = 0
+                if (category_key == getattr(st.session_state, 'random_category', None) and 
+                    hasattr(st.session_state, 'random_workout') and 
+                    st.session_state.random_workout in workout_options):
+                    default_workout = st.session_state.random_workout
+                    default_workout_index = list(workout_options.keys()).index(default_workout)
+                
                 workout_key = st.selectbox(
                     "Choose workout:",
                     options=list(workout_options.keys()),
+                    index=default_workout_index,
                     format_func=lambda x: workout_options[x]
                 )
                 
