@@ -52,36 +52,91 @@ jobs:
           console.log('Generated progress summary');
           core.setOutput('progress_summary', progressSummary);
 
-  add-to-project-board:
+  add-to-project:
     runs-on: ubuntu-latest
     if: github.event.action == 'opened' && github.event.issue
     
     steps:
-    - name: Add issue to project board
-      uses: actions/add-to-project@v0.5.0
+    - name: Add issue to project using GraphQL API
+      uses: actions/github-script@v7
       with:
-        project-url: https://github.com/users/griffinsteffy19/projects/2
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const issueId = context.payload.issue.node_id;
+          const projectNumber = 2;
+          
+          console.log(`Adding issue ${context.payload.issue.number} to project ${projectNumber}`);
+          
+          try {
+            // Get the project ID using GraphQL
+            const projectQuery = `
+              query getProject($login: String!, $number: Int!) {
+                user(login: $login) {
+                  projectV2(number: $number) {
+                    id
+                  }
+                }
+              }`;
+            
+            const projectResponse = await github.graphql(projectQuery, {
+              login: 'griffinsteffy19',
+              number: projectNumber
+            });
+            
+            const projectId = projectResponse.user.projectV2.id;
+            console.log(`Found project ID: ${projectId}`);
+            
+            // Add the issue to the project
+            const addMutation = `
+              mutation addToProject($projectId: ID!, $contentId: ID!) {
+                addProjectV2ItemByContentId(input: {
+                  projectId: $projectId,
+                  contentId: $contentId
+                }) {
+                  item {
+                    id
+                  }
+                }
+              }`;
+            
+            const addResponse = await github.graphql(addMutation, {
+              projectId: projectId,
+              contentId: issueId
+            });
+            
+            console.log(`✅ Successfully added issue to project!`);
+            console.log(`Item ID: ${addResponse.addProjectV2ItemByContentId.item.id}`);
+            
+          } catch (error) {
+            console.log(`❌ Error adding issue to project: ${error}`);
+            console.log(`Issue ID: ${issueId}`);
+            console.log(`Project Number: ${projectNumber}`);
+            
+            // Don't fail the workflow, just log the error
+            core.warning(`Failed to add issue to project: ${error.message}`);
+          }
         
-    - name: Route issues to appropriate columns
+    - name: Log issue routing info
       uses: actions/github-script@v7
       with:
         script: |
           const issue = github.event.issue;
-          
-          // Check issue type and route accordingly
           const labels = issue.labels.map(label => label.name);
-          const isFromApp = issue.body && issue.body.includes('Reported from Streamlit App');
+          const isFromApp = issue.body && (
+            issue.body.includes('Reported from Streamlit App') || 
+            issue.body.includes('Requested from Streamlit App')
+          );
+          
+          console.log(`Issue #${issue.number}: ${issue.title}`);
+          console.log(`Labels: ${labels.join(', ')}`);
+          console.log(`From Streamlit App: ${isFromApp}`);
           
           if (labels.includes('bug')) {
-            console.log('Bug report - should go to Backlog (manual move required)');
-            // Bugs go directly to Backlog for immediate triage and fixing
+            console.log('→ Bug report: Added to project (should be moved to Backlog)');
           } else if (labels.includes('feature')) {
-            console.log('Feature request - should go to Ideas (manual move required)');  
-            // Feature requests go to Ideas for evaluation and discussion
+            console.log('→ Feature request: Added to project (should be moved to Ideas)');  
+          } else if (labels.includes('roadmap')) {
+            console.log('→ Roadmap task: Added to project (should be moved to Backlog)');
           } else {
-            console.log('Other issue type - will stay in default column');
+            console.log('→ Other issue: Added to project (default column)');
           }
-          
-          // Note: Automatic column movement requires GraphQL API and column IDs
-          // For now, this serves as documentation of the intended workflow
