@@ -74,7 +74,7 @@ def main():
     # Add roadmap and GitHub links
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 📋 Project Links")
-    st.sidebar.markdown("[🗺️ Development Roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)")
+    st.sidebar.markdown("[🗺️ Development Roadmap](https://github.com/griffinsteffy19/functional-performance-calc/blob/develop/docs/ROADMAP.md)")
     
     # Create URLs with app version for better bug tracking
     import urllib.parse
@@ -95,12 +95,12 @@ def main():
     }
     
     # Build URLs with proper encoding
-    bug_url = 'https://github.com/griffinsteffy19/amrap-calc/issues/new?' + urllib.parse.urlencode(bug_params)
-    feature_url = 'https://github.com/griffinsteffy19/amrap-calc/issues/new?' + urllib.parse.urlencode(feature_params)
+    bug_url = 'https://github.com/griffinsteffy19/functional-performance-calc/issues/new?' + urllib.parse.urlencode(bug_params)
+    feature_url = 'https://github.com/griffinsteffy19/functional-performance-calc/issues/new?' + urllib.parse.urlencode(feature_params)
     
     st.sidebar.markdown(f"[🐛 Report Bug]({bug_url})")
     st.sidebar.markdown(f"[💡 Request Feature]({feature_url})")
-    st.sidebar.markdown("[📖 Documentation](https://github.com/griffinsteffy19/amrap-calc/tree/develop/docs)")
+    st.sidebar.markdown("[📖 Documentation](https://github.com/griffinsteffy19/functional-performance-calc/tree/develop/docs)")
     
     input_method = selected_mode
     

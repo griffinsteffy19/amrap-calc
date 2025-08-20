@@ -68,7 +68,7 @@ The architecture supports a gradual migration from file-based storage to a full 
 
 ### New Project Layout
 ```
-amrap-calc/
+functional-performance-calc/
 ├── backend/
 │   ├── __init__.py
 │   ├── api.py                    # Main backend interface

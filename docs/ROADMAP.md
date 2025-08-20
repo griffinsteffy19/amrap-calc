@@ -1,8 +1,8 @@
 # Functional Performance Calculator - Development Roadmap
 
-[![GitHub Project](https://img.shields.io/badge/GitHub-Project%20Board-blue?logo=github)](https://github.com/griffinsteffy19/amrap-calc/projects)
-[![Issues](https://img.shields.io/github/issues/griffinsteffy19/amrap-calc)](https://github.com/griffinsteffy19/amrap-calc/issues)
-[![Milestones](https://img.shields.io/badge/GitHub-Milestones-green?logo=github)](https://github.com/griffinsteffy19/amrap-calc/milestones)
+[![GitHub Project](https://img.shields.io/badge/GitHub-Project%20Board-blue?logo=github)](https://github.com/griffinsteffy19/functional-performance-calc/projects)
+[![Issues](https://img.shields.io/github/issues/griffinsteffy19/functional-performance-calc)](https://github.com/griffinsteffy19/functional-performance-calc/issues)
+[![Milestones](https://img.shields.io/badge/GitHub-Milestones-green?logo=github)](https://github.com/griffinsteffy19/functional-performance-calc/milestones)
 
 > **Last Updated**: 2025-08-20  
 > **Current Version**: v1.2.0  
@@ -67,7 +67,7 @@ gantt
 
 ## Phase 1: Architecture Foundation
 **Timeline**: Weeks 1-2 (Aug 21 - Sep 3, 2024)  
-**GitHub Milestone**: [v2.0.0-alpha](https://github.com/griffinsteffy19/amrap-calc/milestone/1)
+**GitHub Milestone**: [v2.0.0-alpha](https://github.com/griffinsteffy19/functional-performance-calc/milestone/1)
 
 ### Goals
 - [ ] Separate frontend and backend concerns
@@ -101,13 +101,13 @@ gantt
 - [ ] Performance maintained or improved
 
 ### GitHub Issues
-- [#XX: Backend API Implementation](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
-- [#XX: Frontend Component Extraction](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
-- [#XX: Service Layer Development](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
+- [#XX: Backend API Implementation](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
+- [#XX: Frontend Component Extraction](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
+- [#XX: Service Layer Development](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
 
 ## Phase 2: Database Migration
 **Timeline**: Weeks 3-4 (Sep 4 - Sep 17, 2024)  
-**GitHub Milestone**: [v2.0.0-beta](https://github.com/griffinsteffy19/amrap-calc/milestone/2)
+**GitHub Milestone**: [v2.0.0-beta](https://github.com/griffinsteffy19/functional-performance-calc/milestone/2)
 
 ### Goals
 - [ ] Convert JSON files to relational database
@@ -141,13 +141,13 @@ gantt
 - [ ] Full backward compatibility
 
 ### GitHub Issues
-- [#XX: Database Schema Design](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
-- [#XX: Migration Script Development](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
-- [#XX: Data Validation System](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
+- [#XX: Database Schema Design](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
+- [#XX: Migration Script Development](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
+- [#XX: Data Validation System](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
 
 ## Phase 3: Django Backend
 **Timeline**: Weeks 5-6 (Sep 18 - Oct 1, 2024)  
-**GitHub Milestone**: [v3.0.0-rc](https://github.com/griffinsteffy19/amrap-calc/milestone/3)
+**GitHub Milestone**: [v3.0.0-rc](https://github.com/griffinsteffy19/functional-performance-calc/milestone/3)
 
 ### Goals
 - [ ] Implement Django backend framework
@@ -181,13 +181,13 @@ gantt
 - [ ] Performance benchmarks met
 
 ### GitHub Issues
-- [#XX: Django Project Setup](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
-- [#XX: Django Models Implementation](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
-- [#XX: REST API Development](https://github.com/griffinsteffy19/amrap-calc/issues/XX)
+- [#XX: Django Project Setup](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
+- [#XX: Django Models Implementation](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
+- [#XX: REST API Development](https://github.com/griffinsteffy19/functional-performance-calc/issues/XX)
 
 ## Phase 4: Enhanced Features
 **Timeline**: Weeks 7-8 (Oct 2 - Oct 15, 2024)  
-**GitHub Milestone**: [v4.0.0-rc2](https://github.com/griffinsteffy19/amrap-calc/milestone/4)
+**GitHub Milestone**: [v4.0.0-rc2](https://github.com/griffinsteffy19/functional-performance-calc/milestone/4)
 
 ### Goals
 - [ ] Add user authentication
@@ -280,7 +280,7 @@ How should this feature work?
 ```
 
 ### Current Feature Requests
-- [View all feature requests →](https://github.com/griffinsteffy19/amrap-calc/issues?q=is%3Aissue+is%3Aopen+label%3Afeature)
+- [View all feature requests →](https://github.com/griffinsteffy19/functional-performance-calc/issues?q=is%3Aissue+is%3Aopen+label%3Afeature)
 
 ## Contributing
 
@@ -293,8 +293,8 @@ How should this feature work?
 ### Development Setup
 ```bash
 # Clone the repository
-git clone https://github.com/griffinsteffy19/amrap-calc.git
-cd amrap-calc
+git clone https://github.com/griffinsteffy19/functional-performance-calc.git
+cd functional-performance-calc
 
 # Install dependencies
 pip install -r requirements.txt
@@ -328,11 +328,11 @@ streamlit run src/streamlit_app.py
 
 ### Milestones
 Each roadmap phase has a corresponding GitHub milestone:
-- [Phase 1: Architecture Foundation](https://github.com/griffinsteffy19/amrap-calc/milestone/1)
-- [Phase 2: Database Migration](https://github.com/griffinsteffy19/amrap-calc/milestone/2)
-- [Phase 3: Django Backend](https://github.com/griffinsteffy19/amrap-calc/milestone/3)
-- [Phase 4: Enhanced Features](https://github.com/griffinsteffy19/amrap-calc/milestone/4)
-- [Phase 5: Platform Expansion](https://github.com/griffinsteffy19/amrap-calc/milestone/5)
+- [Phase 1: Architecture Foundation](https://github.com/griffinsteffy19/functional-performance-calc/milestone/1)
+- [Phase 2: Database Migration](https://github.com/griffinsteffy19/functional-performance-calc/milestone/2)
+- [Phase 3: Django Backend](https://github.com/griffinsteffy19/functional-performance-calc/milestone/3)
+- [Phase 4: Enhanced Features](https://github.com/griffinsteffy19/functional-performance-calc/milestone/4)
+- [Phase 5: Platform Expansion](https://github.com/griffinsteffy19/functional-performance-calc/milestone/5)
 
 ### Labels
 - `phase-1` through `phase-5`: Roadmap phase classification
@@ -352,15 +352,15 @@ Each roadmap phase has a corresponding GitHub milestone:
 
 ### Quick Links
 - [📋 Project Board](https://github.com/users/griffinsteffy19/projects/2)
-- [🎯 Current Milestone](https://github.com/griffinsteffy19/amrap-calc/milestones)
-- [🐛 Report Bug](https://github.com/griffinsteffy19/amrap-calc/issues/new?template=bug_report.md)
-- [💡 Request Feature](https://github.com/griffinsteffy19/amrap-calc/issues/new?template=feature_request.md)
-- [📖 View Documentation](https://github.com/griffinsteffy19/amrap-calc/tree/main/docs)
+- [🎯 Current Milestone](https://github.com/griffinsteffy19/functional-performance-calc/milestones)
+- [🐛 Report Bug](https://github.com/griffinsteffy19/functional-performance-calc/issues/new?template=bug_report.md)
+- [💡 Request Feature](https://github.com/griffinsteffy19/functional-performance-calc/issues/new?template=feature_request.md)
+- [📖 View Documentation](https://github.com/griffinsteffy19/functional-performance-calc/tree/main/docs)
 
 ---
 
-**🚀 Ready to contribute?** Check out our [current milestone](https://github.com/griffinsteffy19/amrap-calc/milestones) and find an issue that matches your skills!
+**🚀 Ready to contribute?** Check out our [current milestone](https://github.com/griffinsteffy19/functional-performance-calc/milestones) and find an issue that matches your skills!
 
-**💬 Questions?** Open a [discussion](https://github.com/griffinsteffy19/amrap-calc/discussions) or comment on existing issues.
+**💬 Questions?** Open a [discussion](https://github.com/griffinsteffy19/functional-performance-calc/discussions) or comment on existing issues.
 
 **📱 Stay Updated**: Watch this repository to get notifications about roadmap updates and new releases.

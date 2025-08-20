@@ -195,7 +195,7 @@ EOF
 echo "✅ Created release package in $RELEASE_DIR/"
 
 # Create a zip archive
-ARCHIVE_NAME="amrap-calculator-$VERSION.zip"
+ARCHIVE_NAME="functional-performance-calculator-$VERSION.zip"
 echo "📦 Creating archive: $ARCHIVE_NAME"
 cd "$RELEASE_DIR"
 zip -r "../$ARCHIVE_NAME" . > /dev/null

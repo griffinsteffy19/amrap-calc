@@ -3,8 +3,8 @@
 A comprehensive Streamlit web application for calculating workout scores and predicted completion times for functional fitness workouts. Features a sophisticated movement database, interactive workout library, and real-time calculations for both **AMRAP** (As Many Rounds As Possible) and **For Time** workout formats.
 
 [![GitHub Project](https://img.shields.io/badge/GitHub-Project%20Board-blue?logo=github)](https://github.com/users/griffinsteffy19/projects/2)
-[![Issues](https://img.shields.io/github/issues/griffinsteffy19/amrap-calc)](https://github.com/griffinsteffy19/amrap-calc/issues)
-[![Development Roadmap](https://img.shields.io/badge/📋-Development%20Roadmap-green)](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)
+[![Issues](https://img.shields.io/github/issues/griffinsteffy19/functional-performance-calc)](https://github.com/griffinsteffy19/functional-performance-calc/issues)
+[![Development Roadmap](https://img.shields.io/badge/📋-Development%20Roadmap-green)](https://github.com/griffinsteffy19/functional-performance-calc/blob/develop/docs/ROADMAP.md)
 
 ## ✨ Features
 
@@ -40,8 +40,8 @@ A comprehensive Streamlit web application for calculating workout scores and pre
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/griffinsteffy19/amrap-calc.git
-cd amrap-calc
+git clone https://github.com/griffinsteffy19/functional-performance-calc.git
+cd functional-performance-calc
 ```
 
 2. Install dependencies:
@@ -118,7 +118,7 @@ streamlit run src/streamlit_app.py
 
 We're actively developing the next generation of the Functional Performance Calculator with a comprehensive roadmap for frontend/backend separation, database integration, and enhanced features.
 
-### 🗺️ **[View Full Roadmap →](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)**
+### 🗺️ **[View Full Roadmap →](https://github.com/griffinsteffy19/functional-performance-calc/blob/develop/docs/ROADMAP.md)**
 
 ### Current Phase: Architecture Foundation
 - **Goal**: Separate frontend and backend concerns with clean API layer
@@ -137,7 +137,7 @@ The app includes direct links to participate in development:
 - **🐛 Report Bugs**: Found an issue? Report it directly from the app sidebar
 - **💡 Request Features**: Have ideas? Submit feature requests with one click
 - **📋 Track Progress**: Follow development on our [GitHub Project Board](https://github.com/users/griffinsteffy19/projects/2)
-- **📖 Read Docs**: View detailed [architecture plans](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ARCHITECTURE.md)
+- **📖 Read Docs**: View detailed [architecture plans](https://github.com/griffinsteffy19/functional-performance-calc/blob/develop/docs/ARCHITECTURE.md)
 
 ## 🤝 Community & Contributing
 
@@ -150,9 +150,9 @@ The Streamlit app includes integrated community features:
 
 ### GitHub Integration
 - **📋 [Project Board](https://github.com/users/griffinsteffy19/projects/2)** - Track all development progress
-- **🏷️ [Milestones](https://github.com/griffinsteffy19/amrap-calc/milestones)** - Major release planning
-- **🐛 [Issues](https://github.com/griffinsteffy19/amrap-calc/issues)** - Bug reports and feature requests
-- **🔄 [Workflows](https://github.com/griffinsteffy19/amrap-calc/actions)** - Automated roadmap sync and releases
+- **🏷️ [Milestones](https://github.com/griffinsteffy19/functional-performance-calc/milestones)** - Major release planning
+- **🐛 [Issues](https://github.com/griffinsteffy19/functional-performance-calc/issues)** - Bug reports and feature requests
+- **🔄 [Workflows](https://github.com/griffinsteffy19/functional-performance-calc/actions)** - Automated roadmap sync and releases
 
 ## How It Works
 
@@ -273,8 +273,8 @@ We welcome contributions! Here are several ways to get involved:
 
 ### 🚀 Quick Start
 1. **From the app**: Use sidebar links to report bugs or request features
-2. **Check the roadmap**: Review our [development roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md) for current priorities
-3. **Pick an issue**: Browse [open issues](https://github.com/griffinsteffy19/amrap-calc/issues) and find one that matches your skills
+2. **Check the roadmap**: Review our [development roadmap](https://github.com/griffinsteffy19/functional-performance-calc/blob/develop/docs/ROADMAP.md) for current priorities
+3. **Pick an issue**: Browse [open issues](https://github.com/griffinsteffy19/functional-performance-calc/issues) and find one that matches your skills
 
 ### 💻 Development Process
 1. **Fork the repository** and clone locally
