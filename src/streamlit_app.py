@@ -74,10 +74,10 @@ def main():
     # Add roadmap and GitHub links
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 📋 Project Links")
-    st.sidebar.markdown("[🗺️ Development Roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/main/docs/ROADMAP.md)")
+    st.sidebar.markdown("[🗺️ Development Roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)")
     st.sidebar.markdown("[🐛 Report Bug](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
     st.sidebar.markdown("[💡 Request Feature](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
-    st.sidebar.markdown("[📖 Documentation](https://github.com/griffinsteffy19/amrap-calc/tree/main/docs)")
+    st.sidebar.markdown("[📖 Documentation](https://github.com/griffinsteffy19/amrap-calc/tree/develop/docs)")
     
     input_method = selected_mode
     
