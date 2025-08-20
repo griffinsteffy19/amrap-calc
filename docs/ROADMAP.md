@@ -147,7 +147,7 @@ gantt
 
 ## Phase 3: Django Backend
 **Timeline**: Weeks 5-6 (Sep 18 - Oct 1, 2024)  
-**GitHub Milestone**: [v2.0.0-rc](https://github.com/griffinsteffy19/amrap-calc/milestone/3)
+**GitHub Milestone**: [v3.0.0-rc](https://github.com/griffinsteffy19/amrap-calc/milestone/3)
 
 ### Goals
 - [ ] Implement Django backend framework
@@ -187,7 +187,7 @@ gantt
 
 ## Phase 4: Enhanced Features
 **Timeline**: Weeks 7-8 (Oct 2 - Oct 15, 2024)  
-**GitHub Milestone**: [v2.1.0](https://github.com/griffinsteffy19/amrap-calc/milestone/4)
+**GitHub Milestone**: [v4.0.0-rc2](https://github.com/griffinsteffy19/amrap-calc/milestone/4)
 
 ### Goals
 - [ ] Add user authentication
@@ -225,7 +225,7 @@ gantt
 
 ## Phase 5: Platform Expansion
 **Timeline**: Weeks 9-10+ (Oct 16+, 2024)  
-**GitHub Milestone**: [v3.0.0](https://github.com/griffinsteffy19/amrap-calc/milestone/5)
+**GitHub Milestone**: `vX.X.X`
 
 ### Goals
 - [ ] Multi-platform support
@@ -257,7 +257,7 @@ gantt
 ## Feature Requests
 
 ### How to Submit Feature Requests
-1. **GitHub Issues**: Create an issue with the `enhancement` label
+1. **GitHub Issues**: Create an issue with the `feature` label
 2. **Roadmap Discussion**: Comment on roadmap items
 3. **Community Feedback**: Join discussions in existing issues
 
@@ -280,7 +280,7 @@ How should this feature work?
 ```
 
 ### Current Feature Requests
-- [View all feature requests →](https://github.com/griffinsteffy19/amrap-calc/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+- [View all feature requests →](https://github.com/griffinsteffy19/amrap-calc/issues?q=is%3Aissue+is%3Aopen+label%3Afeature)
 
 ## Contributing
 
@@ -313,12 +313,18 @@ streamlit run src/streamlit_app.py
 ## GitHub Integration
 
 ### Project Board
-**Main Project**: [AMRAP Calculator Development](https://github.com/griffinsteffy19/amrap-calc/projects/1)
+**Main Project**: [AMRAP Calculator Development](https://github.com/users/griffinsteffy19/projects/2)
 
-- **Backlog**: All planned features and improvements
-- **In Progress**: Currently active development
-- **Review**: Features pending review/testing
-- **Done**: Completed features
+- **💡 Ideas**: New feature requests from users (need evaluation)
+- **📋 Backlog**: Approved features and bug reports (ready for development)  
+- **🚧 In Progress**: Currently active development
+- **👀 Review**: Features pending review/testing
+- **✅ Done**: Completed features
+
+#### Automatic Routing
+- **🐛 Bug Reports**: Automatically routed to **Backlog** for immediate attention
+- **💡 Feature Requests**: Automatically routed to **Ideas** for evaluation and discussion
+- **📋 Roadmap Tasks**: Created directly in **Backlog** when approved
 
 ### Milestones
 Each roadmap phase has a corresponding GitHub milestone:
@@ -333,7 +339,7 @@ Each roadmap phase has a corresponding GitHub milestone:
 - `frontend`: Frontend-related tasks
 - `backend`: Backend-related tasks  
 - `database`: Database-related work
-- `enhancement`: New feature requests
+- `feature`: New feature requests
 - `bug`: Bug reports
 - `documentation`: Documentation updates
 - `priority-high/medium/low`: Priority classification
@@ -345,7 +351,7 @@ Each roadmap phase has a corresponding GitHub milestone:
 - **Project Board**: Moves issues through development stages
 
 ### Quick Links
-- [📋 Project Board](https://github.com/griffinsteffy19/amrap-calc/projects/1)
+- [📋 Project Board](https://github.com/users/griffinsteffy19/projects/2)
 - [🎯 Current Milestone](https://github.com/griffinsteffy19/amrap-calc/milestones)
 - [🐛 Report Bug](https://github.com/griffinsteffy19/amrap-calc/issues/new?template=bug_report.md)
 - [💡 Request Feature](https://github.com/griffinsteffy19/amrap-calc/issues/new?template=feature_request.md)

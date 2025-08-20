@@ -215,3 +215,7 @@ release-v*/
 .streamlit/
 
 .*.sh
+
+*.bk
+*.backup
+.issues.json # Local Development

@@ -2,6 +2,10 @@
 
 A comprehensive Streamlit web application for calculating workout scores and predicted completion times for CrossFit-style workouts. Features a sophisticated movement database, interactive workout library, and real-time calculations for both **AMRAP** (As Many Rounds As Possible) and **For Time** workout formats.
 
+[![GitHub Project](https://img.shields.io/badge/GitHub-Project%20Board-blue?logo=github)](https://github.com/users/griffinsteffy19/projects/2)
+[![Issues](https://img.shields.io/github/issues/griffinsteffy19/amrap-calc)](https://github.com/griffinsteffy19/amrap-calc/issues)
+[![Development Roadmap](https://img.shields.io/badge/📋-Development%20Roadmap-green)](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)
+
 ## ✨ Features
 
 ### 🎯 Three Workout Modes
@@ -36,7 +40,7 @@ A comprehensive Streamlit web application for calculating workout scores and pre
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/griffinsteffy19/amrap-calc.git
 cd amrap-calc
 ```
 
@@ -105,8 +109,50 @@ streamlit run src/streamlit_app.py
 │   ├── release-clean.sh        # Clean packaged release
 │   └── release-github.sh       # GitHub release creation
 ├── docs/                        # Documentation
+│   ├── ROADMAP.md              # Development roadmap and GitHub integration
+│   └── ARCHITECTURE.md         # Frontend/backend separation architecture
 └── requirements.txt             # Python dependencies
 ```
+
+## 📋 Development Roadmap
+
+We're actively developing the next generation of the AMRAP Calculator with a comprehensive roadmap for frontend/backend separation, database integration, and enhanced features.
+
+### 🗺️ **[View Full Roadmap →](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)**
+
+### Current Phase: Architecture Foundation
+- **Goal**: Separate frontend and backend concerns with clean API layer
+- **Timeline**: Weeks 1-2 (Aug 21 - Sep 3, 2024)
+- **Status**: 🚧 Planning & Design
+
+### Upcoming Phases
+- **Phase 2**: Database Migration (JSON → PostgreSQL)
+- **Phase 3**: Django Backend with REST API
+- **Phase 4**: User accounts, workout history, advanced search
+- **Phase 5**: Mobile apps, analytics, community features
+
+### 🚀 Get Involved
+The app includes direct links to participate in development:
+
+- **🐛 Report Bugs**: Found an issue? Report it directly from the app sidebar
+- **💡 Request Features**: Have ideas? Submit feature requests with one click
+- **📋 Track Progress**: Follow development on our [GitHub Project Board](https://github.com/users/griffinsteffy19/projects/2)
+- **📖 Read Docs**: View detailed [architecture plans](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ARCHITECTURE.md)
+
+## 🤝 Community & Contributing
+
+### From the App
+The Streamlit app includes integrated community features:
+- **Version tracking** - Always shows current version (v1.3.3+)
+- **Direct bug reporting** - One-click access to GitHub issues with app version pre-filled
+- **Feature requests** - Submit ideas directly from the app interface
+- **Roadmap access** - View development progress and upcoming features
+
+### GitHub Integration
+- **📋 [Project Board](https://github.com/users/griffinsteffy19/projects/2)** - Track all development progress
+- **🏷️ [Milestones](https://github.com/griffinsteffy19/amrap-calc/milestones)** - Major release planning
+- **🐛 [Issues](https://github.com/griffinsteffy19/amrap-calc/issues)** - Bug reports and feature requests
+- **🔄 [Workflows](https://github.com/griffinsteffy19/amrap-calc/actions)** - Automated roadmap sync and releases
 
 ## How It Works
 
@@ -148,11 +194,13 @@ Different movement categories have appropriate variety structures:
 - **Tab-based movement input** - Intuitive separation of database vs manual entry
 - **Version display** - Always know which version you're running
 - **Better visual hierarchy** - Icons, descriptions, and progressive disclosure
+- **Integrated project links** - Direct access to roadmap, bug reports, and feature requests
 
 ### Developer Experience
 - **VERSION file system** - Simplified version management without git dependencies
 - **Updated release scripts** - All three release workflows now handle VERSION file automatically
 - **Enhanced .releasefiles** - Proper inclusion of new src/ structure and VERSION file
+- **GitHub integration** - Automated project board and issue tracking
 
 ## 💪 Example Workouts
 
@@ -221,11 +269,50 @@ All scripts automatically update the VERSION file and create proper git tags.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+We welcome contributions! Here are several ways to get involved:
+
+### 🚀 Quick Start
+1. **From the app**: Use sidebar links to report bugs or request features
+2. **Check the roadmap**: Review our [development roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md) for current priorities
+3. **Pick an issue**: Browse [open issues](https://github.com/griffinsteffy19/amrap-calc/issues) and find one that matches your skills
+
+### 💻 Development Process
+1. **Fork the repository** and clone locally
+2. **Create a feature branch** from `develop` branch:
+   ```bash
+   git checkout develop
+   git pull origin develop
+   git checkout -b feature/your-feature-name
+   ```
+3. **Make your changes** and test thoroughly
+4. **Follow existing patterns** - check ARCHITECTURE.md for coding standards
+5. **Submit a pull request** targeting the `develop` branch
+
+### 📋 Contribution Areas
+- **🐛 Bug Fixes** - Fix issues reported by users
+- **💡 New Features** - Implement roadmap items or approved feature requests
+- **📖 Documentation** - Improve README, add code comments, update architecture docs
+- **🧪 Testing** - Add test coverage for existing features
+- **🎨 UI/UX** - Enhance the Streamlit interface and user experience
+- **📊 Data** - Add new workouts or movements to the database
+
+### 🏷️ Issue Labels
+- `bug` - Something isn't working
+- `feature` - New functionality requests
+- `roadmap` - Items from the development roadmap
+- `phase-1` through `phase-5` - Roadmap phases
+- `priority-high/medium/low` - Issue priority levels
+
+### 📋 Project Workflow
+All contributions go through our [GitHub Project Board](https://github.com/users/griffinsteffy19/projects/2):
+- **💡 Ideas** - New feature proposals for evaluation
+- **📋 Backlog** - Approved issues ready for development
+- **🚧 In Progress** - Currently being worked on
+- **👀 Review** - Pending review and testing
+- **✅ Done** - Completed work
+
+### Development Commands
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed development setup and commands.
 
 ## License
 

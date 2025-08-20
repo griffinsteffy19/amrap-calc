@@ -75,8 +75,31 @@ def main():
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 📋 Project Links")
     st.sidebar.markdown("[🗺️ Development Roadmap](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)")
-    st.sidebar.markdown("[🐛 Report Bug](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
-    st.sidebar.markdown("[💡 Request Feature](https://github.com/griffinsteffy19/amrap-calc/issues/new)")
+    
+    # Create URLs with app version for better bug tracking
+    import urllib.parse
+    
+    # Simplified approach - let templates handle most of the content
+    bug_params = {
+        'template': 'bug_report.md',
+        'labels': 'bug',
+        'title': '[BUG] Issue from Streamlit App',
+        'body': f'**Reported from Streamlit App**\n\nApp Version: {version}\n\n'
+    }
+    
+    feature_params = {
+        'template': 'feature_request.md', 
+        'labels': 'feature',
+        'title': '[FEATURE] Request from Streamlit App',
+        'body': f'**Requested from Streamlit App**\n\nApp Version: {version}\n\n'
+    }
+    
+    # Build URLs with proper encoding
+    bug_url = 'https://github.com/griffinsteffy19/amrap-calc/issues/new?' + urllib.parse.urlencode(bug_params)
+    feature_url = 'https://github.com/griffinsteffy19/amrap-calc/issues/new?' + urllib.parse.urlencode(feature_params)
+    
+    st.sidebar.markdown(f"[🐛 Report Bug]({bug_url})")
+    st.sidebar.markdown(f"[💡 Request Feature]({feature_url})")
     st.sidebar.markdown("[📖 Documentation](https://github.com/griffinsteffy19/amrap-calc/tree/develop/docs)")
     
     input_method = selected_mode

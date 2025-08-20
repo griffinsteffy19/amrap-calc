@@ -1,0 +1,95 @@
+{
+  "issues": [
+    {
+      "title": "[ROADMAP] Backend API Implementation",
+      "labels": [
+        "roadmap",
+        "phase-1",
+        "backend"
+      ],
+      "milestone": "v2.0.0-alpha",
+      "body": "## Phase 1: Architecture Foundation\n\n### Goal\nImplement the core backend API layer that separates business logic from UI concerns.\n\n### Technical Requirements\n- [ ] Create `backend/api.py` with main interface functions\n- [ ] Implement workout library operations\n- [ ] Add movement database access methods\n- [ ] Create calculation service wrappers\n- [ ] Add comprehensive input validation\n\n### API Functions to Implement\n- `get_workout_library()` - Load workout categories and listings\n- `get_workout_details(category, workout_id)` - Load specific workout\n- `calculate_amrap(request)` - AMRAP calculation with validation\n- `calculate_for_time(request)` - For Time predictions\n- `get_movement_categories()` - Movement database access\n- `search_movements(query)` - Movement search functionality\n\n### Acceptance Criteria\n- [ ] All existing functionality accessible through API\n- [ ] Comprehensive error handling and validation\n- [ ] Type hints and documentation for all functions\n- [ ] Unit tests with >90% coverage\n- [ ] Performance maintained or improved vs direct calls\n\n### Dependencies\n- Depends on service layer architecture design\n- Foundation for all subsequent backend work"
+    },
+    {
+      "title": "[ROADMAP] Frontend Component Extraction",
+      "labels": [
+        "roadmap",
+        "phase-1",
+        "frontend"
+      ],
+      "milestone": "v2.0.0-alpha",
+      "body": "## Phase 1: Architecture Foundation\n\n### Goal\nExtract monolithic Streamlit UI into focused, reusable components.\n\n### Technical Requirements\n- [ ] Create `frontend/components/` directory structure\n- [ ] Extract workout library UI into `workout_library_ui.py`\n- [ ] Extract movement library UI into `movement_library_ui.py`\n- [ ] Extract manual entry UI into `manual_entry_ui.py`\n- [ ] Create results display component in `results_display.py`\n- [ ] Implement shared UI utilities in `ui_helpers.py`\n\n### Component Specifications\nEach component should:\n- Accept data via parameters (no direct data loading)\n- Return user actions/selections to parent\n- Handle its own UI state management\n- Follow consistent error handling patterns\n- Be independently testable\n\n### Acceptance Criteria\n- [ ] Main `streamlit_app.py` reduced to <200 lines\n- [ ] All UI functionality preserved\n- [ ] Components are reusable and modular\n- [ ] Clear separation of concerns\n- [ ] Consistent error handling across components\n\n### Dependencies\n- Requires backend API to be functional\n- Foundation for future UI enhancements"
+    },
+    {
+      "title": "[ROADMAP] Service Layer Development",
+      "labels": [
+        "roadmap",
+        "phase-1",
+        "backend"
+      ],
+      "milestone": "v2.0.0-alpha",
+      "body": "## Phase 1: Architecture Foundation\n\n### Goal\nCreate service layer that encapsulates business logic and data access.\n\n### Technical Requirements\n- [ ] Create `backend/services/` directory\n- [ ] Implement `workout_service.py` for workout operations\n- [ ] Implement `movement_service.py` for movement database\n- [ ] Implement `calculation_service.py` wrapping existing calculations\n- [ ] Implement `data_service.py` for file I/O abstraction\n\n### Service Specifications\n\n#### WorkoutService\n- CRUD operations for workouts\n- Workout validation and processing\n- Category management\n- Integration with data layer\n\n#### MovementService\n- Movement database operations\n- Search and filtering capabilities\n- Variety management\n- Movement validation\n\n#### CalculationService\n- Wrap existing `calculations.py` functions\n- Add input validation and error handling\n- Provide consistent interfaces\n- Handle edge cases gracefully\n\n#### DataService\n- Abstract file I/O operations\n- Implement caching strategies\n- Handle missing files gracefully\n- Prepare for future database migration\n\n### Acceptance Criteria\n- [ ] All services have comprehensive unit tests\n- [ ] Services are loosely coupled and independently testable\n- [ ] Consistent error handling and logging\n- [ ] Type hints and documentation\n- [ ] Performance benchmarks established\n\n### Dependencies\n- Uses existing `calculations.py`, `movement_library.py`, `workout_library.py`\n- Foundation for API layer implementation"
+    },
+    {
+      "title": "[ROADMAP] Database Schema Design",
+      "labels": [
+        "roadmap",
+        "phase-2",
+        "database"
+      ],
+      "milestone": "v3.0.0-beta",
+      "body": "## Phase 2: Database Migration\n\n### Goal\nDesign comprehensive database schema to replace JSON file storage.\n\n### Technical Requirements\n- [ ] Design core tables: categories, movements, workouts, workout_movements\n- [ ] Add movement varieties table for flexible scaling\n- [ ] Plan user tables for future authentication features\n- [ ] Design proper foreign key relationships\n- [ ] Create performance indexes for common queries\n\n### Schema Components\n\n#### Core Tables\n- `categories` - Organize workouts and movements\n- `movements` - Movement definitions with base timing\n- `movement_varieties` - Scaling options (light/medium/heavy, etc.)\n- `workouts` - Workout definitions and metadata\n- `workout_movements` - Many-to-many workout-movement relationships\n\n#### Future Tables\n- `users` - User accounts and profiles\n- `workout_results` - User workout history and scores\n- `custom_workouts` - User-created workout definitions\n\n### Database Design Decisions\n- PostgreSQL for production reliability\n- Proper normalization to 3NF\n- Optimized indexes for search performance\n- Foreign key constraints for data integrity\n- JSON fields for flexible metadata storage\n\n### Acceptance Criteria\n- [ ] Complete SQL schema with all tables and constraints\n- [ ] Migration strategy from JSON to database\n- [ ] Performance analysis and index optimization\n- [ ] Data validation rules and constraints\n- [ ] Documentation of all design decisions\n\n### Dependencies\n- Foundation for all database-related work\n- Required before migration script development"
+    },
+    {
+      "title": "[ROADMAP] Migration Script Development",
+      "labels": [
+        "roadmap",
+        "phase-2",
+        "database"
+      ],
+      "milestone": "v3.0.0-beta",
+      "body": "## Phase 2: Database Migration\n\n### Goal\nCreate robust scripts to migrate all JSON data to database tables.\n\n### Technical Requirements\n- [ ] Implement `migrate_categories()` function\n- [ ] Implement `migrate_movements()` with variety processing\n- [ ] Implement `migrate_workouts()` with relationship handling\n- [ ] Add comprehensive data validation\n- [ ] Create rollback capabilities for failed migrations\n- [ ] Add progress reporting and logging\n\n### Migration Functions\n\n#### migrate_categories()\n- Load from `data/workouts/index.json` and `data/movements/index.json`\n- Create category records with proper metadata\n- Handle category type classification\n\n#### migrate_movements()\n- Process all `data/movements/**/*.json` files\n- Create movement records with base execution times\n- Create movement_varieties records for each variety\n- Validate movement type and category assignments\n\n#### migrate_workouts()\n- Process all `data/workouts/**/*.json` files\n- Create workout records with metadata\n- Create workout_movements relationships\n- Handle movement references and variety assignments\n\n### Data Validation\n- [ ] Verify all foreign key relationships\n- [ ] Check for missing movement references\n- [ ] Validate execution times are positive numbers\n- [ ] Ensure all required fields are present\n- [ ] Report data inconsistencies and warnings\n\n### Acceptance Criteria\n- [ ] 100% of JSON data successfully migrated\n- [ ] All relationships properly established\n- [ ] Comprehensive validation with detailed reporting\n- [ ] Rollback mechanism tested and working\n- [ ] Migration performance optimized (<5 minutes)\n\n### Dependencies\n- Requires database schema to be implemented\n- Foundation for service layer database integration"
+    },
+    {
+      "title": "[ROADMAP] Data Validation System",
+      "labels": [
+        "roadmap",
+        "phase-2",
+        "database"
+      ],
+      "milestone": "v3.0.0-beta",
+      "body": "## Phase 2: Database Migration\n\n### Goal\nImplement comprehensive data validation for database integrity and application reliability.\n\n### Technical Requirements\n- [ ] Create input validation for all API endpoints\n- [ ] Implement database constraint validation\n- [ ] Add business logic validation rules\n- [ ] Create data consistency checks\n- [ ] Implement validation error reporting\n\n### Validation Layers\n\n#### Input Validation\n- API request parameter validation\n- Type checking and format validation\n- Range validation for numeric inputs\n- Required field validation\n\n#### Database Validation\n- Foreign key constraint validation\n- Unique constraint enforcement\n- Check constraint validation (positive times, valid types)\n- Data type validation\n\n#### Business Logic Validation\n- Movement type consistency (S/D/T/M)\n- Workout configuration validation\n- Movement-workout compatibility checks\n- Execution time reasonableness checks\n\n### Validation Rules\n\n#### Workout Validation\n- Total time must be positive\n- Multiplier must be > 0\n- Rounds must be >= 1\n- Time cap must be > total estimated time (warning)\n\n#### Movement Validation\n- Execution times must be positive\n- Movement types must be S, D, T, or M\n- Variety names must be consistent within movement\n- Category references must exist\n\n### Error Handling\n- [ ] Standardized error response format\n- [ ] User-friendly error messages\n- [ ] Developer debugging information\n- [ ] Error logging and monitoring\n- [ ] Graceful degradation for non-critical errors\n\n### Acceptance Criteria\n- [ ] All validation rules implemented and tested\n- [ ] Comprehensive test coverage for edge cases\n- [ ] Clear error messages for users\n- [ ] Performance impact minimized\n- [ ] Integration with existing error handling\n\n### Dependencies\n- Requires database schema implementation\n- Integrates with migration scripts and service layer"
+    },
+    {
+      "title": "[ROADMAP] Django Project Setup",
+      "labels": [
+        "roadmap",
+        "phase-3",
+        "backend"
+      ],
+      "milestone": "v4.0.0-rc1",
+      "body": "## Phase 3: Django Backend\n\n### Goal\nSet up Django project structure as foundation for REST API and admin interface.\n\n### Technical Requirements\n- [ ] Initialize Django project with proper structure\n- [ ] Configure Django settings for development and production\n- [ ] Set up database configuration (PostgreSQL)\n- [ ] Configure Django REST Framework\n- [ ] Set up Django admin interface\n- [ ] Configure CORS for frontend integration\n\n### Project Structure\n```\nbackend/\n├── amrap_backend/\n│   ├── settings/\n│   │   ├── base.py\n│   │   ├── development.py\n│   │   └── production.py\n│   ├── urls.py\n│   └── wsgi.py\n├── apps/\n│   ├── workouts/\n│   ├── movements/\n│   └── calculations/\n├── manage.py\n└── requirements.txt\n```\n\n### Django Configuration\n- [ ] Database settings with PostgreSQL\n- [ ] Static files and media configuration\n- [ ] REST Framework configuration\n- [ ] CORS settings for Streamlit integration\n- [ ] Admin interface customization\n- [ ] Logging configuration\n\n### Development Tools\n- [ ] Django debug toolbar for development\n- [ ] Database migration management\n- [ ] Management commands for data operations\n- [ ] Testing framework setup\n\n### Acceptance Criteria\n- [ ] Django server starts without errors\n- [ ] Database connections working\n- [ ] Admin interface accessible and functional\n- [ ] REST Framework endpoints responding\n- [ ] Proper separation of settings by environment\n\n### Dependencies\n- Requires database schema design completion\n- Foundation for Django models and REST API"
+    },
+    {
+      "title": "[ROADMAP] Django Models Implementation",
+      "labels": [
+        "roadmap",
+        "phase-3",
+        "backend",
+        "database"
+      ],
+      "milestone": "v4.0.0-rc1",
+      "body": "## Phase 3: Django Backend\n\n### Goal\nImplement Django models that map to the database schema with proper relationships and validation.\n\n### Technical Requirements\n- [ ] Create Category model with metadata\n- [ ] Create Movement model with varieties relationship\n- [ ] Create MovementVariety model with execution times\n- [ ] Create Workout model with configuration\n- [ ] Create WorkoutMovement through model for many-to-many\n- [ ] Add model validation and custom methods\n\n### Model Specifications\n\n#### Category Model\n- Fields: key, name, description, icon, category_type\n- Methods: `__str__()`, `get_workouts()`, `get_movements()`\n- Validation: unique key, valid category_type\n\n#### Movement Model\n- Fields: name, slug, category, movement_type, base_execution_time\n- Relationships: ForeignKey to Category, OneToMany to MovementVariety\n- Methods: `get_execution_time(variety)`, `get_varieties()`\n- Validation: valid movement_type (S/D/T/M), positive execution time\n\n#### MovementVariety Model\n- Fields: movement, name, execution_time, scaling_notes, is_default\n- Relationships: ForeignKey to Movement\n- Methods: `__str__()`, `get_scaling_info()`\n- Validation: positive execution_time, one default per movement\n\n#### Workout Model\n- Fields: name, slug, description, category, workout_type, total_time, etc.\n- Relationships: ManyToMany to Movement through WorkoutMovement\n- Methods: `calculate_estimated_time()`, `get_movement_list()`\n- Validation: positive times, valid workout_type\n\n#### WorkoutMovement Model (Through Table)\n- Fields: workout, movement, variety, count, order_position\n- Methods: `get_movement_display()`, `calculate_time()`\n- Validation: positive count (or -1 for max), valid order\n\n### Django Features\n- [ ] Model admin customization\n- [ ] Custom model managers and querysets\n- [ ] Model serialization for API\n- [ ] Database migration files\n- [ ] Model unit tests\n\n### Acceptance Criteria\n- [ ] All models pass validation tests\n- [ ] Relationships work correctly\n- [ ] Admin interface provides full CRUD functionality\n- [ ] Models integrate with existing data migration\n- [ ] Performance is acceptable for expected data volumes\n\n### Dependencies\n- Requires Django project setup completion\n- Uses database schema design\n- Foundation for REST API development"
+    },
+    {
+      "title": "[ROADMAP] REST API Development",
+      "labels": [
+        "roadmap",
+        "phase-3",
+        "backend"
+      ],
+      "milestone": "v4.0.0-rc1",
+      "body": "## Phase 3: Django Backend\n\n### Goal\nCreate comprehensive REST API using Django REST Framework for all application functionality.\n\n### Technical Requirements\n- [ ] Create ViewSets for all models\n- [ ] Implement serializers with validation\n- [ ] Add custom API endpoints for calculations\n- [ ] Configure API versioning\n- [ ] Add API authentication and permissions\n- [ ] Create comprehensive API documentation\n\n### API Endpoints\n\n#### Workout Endpoints\n- `GET /api/v1/workouts/` - List all workouts\n- `GET /api/v1/workouts/{id}/` - Get specific workout\n- `POST /api/v1/workouts/` - Create custom workout\n- `GET /api/v1/categories/` - List workout categories\n\n#### Movement Endpoints\n- `GET /api/v1/movements/` - List all movements\n- `GET /api/v1/movements/{id}/` - Get specific movement\n- `GET /api/v1/movements/search/?q={query}` - Search movements\n- `GET /api/v1/movements/{id}/varieties/` - Get movement varieties\n\n#### Calculation Endpoints\n- `POST /api/v1/calculate/amrap/` - AMRAP calculations\n- `POST /api/v1/calculate/for-time/` - For Time predictions\n- `POST /api/v1/validate/workout/` - Workout validation\n\n### Serializers\n- [ ] WorkoutSerializer with nested movements\n- [ ] MovementSerializer with varieties\n- [ ] CalculationRequestSerializer with validation\n- [ ] CalculationResponseSerializer for results\n- [ ] Custom serializers for complex operations\n\n### API Features\n- [ ] Filtering and search capabilities\n- [ ] Pagination for large result sets\n- [ ] Field selection for optimized responses\n- [ ] Comprehensive error handling\n- [ ] Request/response logging\n\n### Documentation\n- [ ] OpenAPI/Swagger schema generation\n- [ ] Interactive API documentation\n- [ ] Code examples for common operations\n- [ ] Authentication and authorization guides\n\n### Acceptance Criteria\n- [ ] All endpoints return proper HTTP status codes\n- [ ] API documentation is complete and accurate\n- [ ] Response times are <100ms for typical requests\n- [ ] All endpoints have comprehensive test coverage\n- [ ] API versioning works correctly\n\n### Dependencies\n- Requires Django models implementation\n- Uses existing calculation logic\n- Foundation for frontend API integration"
+    }
+  ]
+}
