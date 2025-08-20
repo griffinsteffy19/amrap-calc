@@ -113,7 +113,7 @@ git commit -m "Bump version to $VERSION"
 echo "✅ VERSION file updated and committed"
 
 # Create temporary directory for release files
-RELEASE_DIR="release-$VERSION"
+RELEASE_DIR=".realease/release-$VERSION"
 rm -rf "$RELEASE_DIR"
 mkdir -p "$RELEASE_DIR"
 
@@ -195,7 +195,7 @@ EOF
 echo "✅ Created release package in $RELEASE_DIR/"
 
 # Create a zip archive
-ARCHIVE_NAME="amrap-calculator-$VERSION.zip"
+ARCHIVE_NAME="functional-performance-calculator-$VERSION.zip"
 echo "📦 Creating archive: $ARCHIVE_NAME"
 cd "$RELEASE_DIR"
 zip -r "../$ARCHIVE_NAME" . > /dev/null
@@ -232,22 +232,22 @@ if [[ "$GH_AVAILABLE" = true ]]; then
         fi
         
         FULL_NOTES="$RELEASE_DESCRIPTION
-
-## Installation
-
-1. Download and extract \`$ARCHIVE_NAME\`
-2. Install dependencies: \`pip install -r requirements.txt\`
-3. Run: \`streamlit run streamlit_app.py\`
-
-## Files Included
-
-$(cd "$RELEASE_DIR" && find . -type f | sort | sed 's/^/- /')"
+        
+        ## Installation
+        
+        1. Download and extract \`$ARCHIVE_NAME\`
+        2. Install dependencies: \`pip install -r requirements.txt\`
+        3. Run: \`streamlit run streamlit_app.py\`
+        
+        ## Files Included
+        
+        $(cd "$RELEASE_DIR" && find . -type f | sort | sed 's/^/- /')"
         
         gh release create "$VERSION" \
-            --title "$TYPE_EMOJI $RELEASE_TITLE" \
-            --notes "$FULL_NOTES" \
-            "$ARCHIVE_NAME" \
-            $PRERELEASE_FLAG
+        --title "$TYPE_EMOJI $RELEASE_TITLE" \
+        --notes "$FULL_NOTES" \
+        "$ARCHIVE_NAME" \
+        $PRERELEASE_FLAG
         
         echo "✅ GitHub release created with archive"
     fi
