@@ -1,13 +1,13 @@
 {
   "name": "Chad",
   "description": "AMRAP 1000 Step-ups (24/20 inch box) (45/25 lb vest)",
-  "workout_type": "amrap",
-  "tot_tm": 3600,
+  "workout_type": "for_time",
+  "tot_tm": 0,
   "m": 1.0,
   "movements": [
     {
-      "description": "Step-ups",
-      "number": 2.0,
+      "movement_name": "step-up",
+      "variety": "weighted",
       "type": "S",
       "count": 1000
     }

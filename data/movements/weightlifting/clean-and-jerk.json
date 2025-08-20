@@ -1,0 +1,27 @@
+{
+  "name": "Clean and Jerk",
+  "category": "weightlifting",
+  "description": "Clean from floor to front rack, then jerk overhead",
+  "variety": {
+    "light": {
+      "weight_range": "95/65 lbs",
+      "execution_time": 3.5,
+      "description": "Light weight clean and jerk"
+    },
+    "medium": {
+      "weight_range": "135/95 lbs", 
+      "execution_time": 4.5,
+      "description": "Moderate weight clean and jerk"
+    },
+    "heavy": {
+      "weight_range": "185/135 lbs",
+      "execution_time": 6.0,
+      "description": "Heavy weight clean and jerk"
+    }
+  },
+  "scaling": {
+    "rx": "Full clean and jerk movement",
+    "scaled": "Power clean and push press",
+    "beginner": "DB clean and press"
+  }
+}

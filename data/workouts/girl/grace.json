@@ -6,8 +6,8 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "Clean and Jerks (135/95)",
-      "number": 3.5,
+      "movement_name": "clean-and-jerk",
+      "variety": "heavy",
       "type": "S",
       "count": 30
     }

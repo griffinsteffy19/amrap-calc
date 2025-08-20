@@ -6,8 +6,8 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "Air Squats",
-      "number": 1.0,
+      "movement_name": "air-squat",
+      "variety": "standard",
       "type": "S",
       "count": 75
     },
@@ -18,8 +18,8 @@
       "count": 1
     },
     {
-      "description": "Ring Handstand Push-ups",
-      "number": 5.0,
+      "movement_name": "ring-handstand-push-up",
+      "variety": "strict",
       "type": "S",
       "count": 25
     },
@@ -30,8 +30,8 @@
       "count": 1
     },
     {
-      "description": "Air Squats",
-      "number": 1.0,
+      "movement_name": "air-squat",
+      "variety": "standard",
       "type": "S",
       "count": 75
     },
@@ -42,10 +42,10 @@
       "count": 1
     },
     {
-      "description": "OH Walking Lunge 50m",
-      "number": 60.0,
+      "movement_name": "walking-lunge",
+      "variety": "overhead",
       "type": "S",
-      "count": 1
+      "count": 50
     },
     {
       "description": "Transition",

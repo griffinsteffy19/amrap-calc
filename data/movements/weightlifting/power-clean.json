@@ -1,0 +1,27 @@
+{
+  "name": "Power Clean",
+  "category": "weightlifting",
+  "description": "Clean from floor to front rack without full squat",
+  "variety": {
+    "light": {
+      "weight_range": "75/55 lbs",
+      "execution_time": 2.8,
+      "description": "Light weight power clean"
+    },
+    "medium": {
+      "weight_range": "115/85 lbs",
+      "execution_time": 3.5,
+      "description": "Moderate weight power clean"
+    },
+    "heavy": {
+      "weight_range": "155/115 lbs",
+      "execution_time": 4.2,
+      "description": "Heavy weight power clean"
+    }
+  },
+  "scaling": {
+    "rx": "Full power clean movement",
+    "scaled": "DB power clean",
+    "beginner": "DB upright row"
+  }
+}

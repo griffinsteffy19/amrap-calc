@@ -2,6 +2,10 @@ import json
 import os
 import glob
 from typing import Dict, Optional, Any
+try:
+    from movement_library import load_movement, convert_movement_to_workout_format
+except ImportError:
+    from .movement_library import load_movement, convert_movement_to_workout_format
 
 try:
     import streamlit as st
@@ -91,10 +95,14 @@ def load_workout_from_library(library_data: Dict[str, Dict[str, Any]], category_
     """Load a specific workout from the library"""
     try:
         workout = library_data[category_key]['workouts'][workout_key]
+        
+        # Process movements (handles both standard format and movement database references)
+        processed_movements = process_workout_movements(workout['movements'])
+        
         return {
             'tot_tm': workout['tot_tm'],
             'm': workout['m'],
-            'movements': workout['movements'],
+            'movements': processed_movements,
             'name': workout['name'],
             'description': workout['description'],
             'workout_type': workout.get('workout_type', 'amrap'),
@@ -125,3 +133,36 @@ def get_workouts_by_category(category: str) -> Dict[str, Dict[str, Any]]:
     if category in library_data:
         return library_data[category]['workouts']
     return {}
+
+def process_workout_movements(movements: list) -> list:
+    """Process workout movements, converting movement database references to standard format."""
+    processed_movements = []
+    
+    for movement in movements:
+        # Check if this is a movement database reference
+        if isinstance(movement, dict) and 'movement_name' in movement:
+            # This is a reference to the movement database
+            movement_name = movement['movement_name']
+            variety = movement.get('variety', None)
+            count = movement.get('count', 1)
+            movement_type = movement.get('type', 'S')
+            
+            # Convert from movement database
+            try:
+                workout_movement = convert_movement_to_workout_format(movement_name, count, variety, movement_type)
+                processed_movements.append(workout_movement)
+            except Exception as e:
+                # Fallback if movement not found in database
+                _warning(f"Movement '{movement_name}' not found in database, using fallback: {str(e)}")
+                fallback_movement = {
+                    'description': movement.get('description', movement_name),
+                    'number': movement.get('execution_time', 2.0),
+                    'type': movement_type,
+                    'count': count
+                }
+                processed_movements.append(fallback_movement)
+        else:
+            # This is a standard movement definition, use as-is
+            processed_movements.append(movement)
+    
+    return processed_movements

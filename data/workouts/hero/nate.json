@@ -6,20 +6,20 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "Muscle Ups",
-      "number": 5,
+      "movement_name": "muscle-up",
+      "variety": "kipping",
       "type": "S",
       "count": 2
     },
     {
-      "description": "Handstand Push Ups",
-      "number": 1,
+      "movement_name": "handstand-push-up",
+      "variety": "kipping",
       "type": "S",
       "count": 4
     },
     {
-      "description": "Kettle Bell Swings",
-      "number": 2.25,
+      "movement_name": "kettlebell-swing",
+      "variety": "american",
       "type": "S",
       "count": 8
     }

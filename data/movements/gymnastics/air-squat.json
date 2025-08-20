@@ -1,0 +1,24 @@
+{
+  "name": "Air Squat",
+  "category": "gymnastics",
+  "description": "Bodyweight squat to below parallel",
+  "variety": {
+    "standard": {
+      "execution_time": 1.5,
+      "description": "Standard air squat"
+    },
+    "jump": {
+      "execution_time": 2.0,
+      "description": "Jump squat with vertical leap"
+    },
+    "pistol": {
+      "execution_time": 4.0,
+      "description": "Single leg pistol squat"
+    }
+  },
+  "scaling": {
+    "rx": "Full depth air squat",
+    "scaled": "Box squat or partial range",
+    "beginner": "Chair-assisted squat"
+  }
+}

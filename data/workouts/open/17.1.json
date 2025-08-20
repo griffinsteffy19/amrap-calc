@@ -1,5 +1,5 @@
 {
-  "name": "17.1",
+  "name": "CrossFit Open 17.1",
   "description": "For Time: 10-20-30-40-50 DB Snatches + 15 Burpee Box Jump-Overs each round (20 min cap)",
   "workout_type": "for_time",
   "time_cap": 1200,
@@ -7,14 +7,14 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "10 DB Snatches (50/35 lb)",
-      "number": 2.5,
+      "movement_name": "db-snatch",
+      "variety": "medium",
       "type": "D",
       "count": 10
     },
     {
-      "description": "15 Burpee Box Jump-Overs (24/20 in)",
-      "number": 4.0,
+      "movement_name": "burpee-box-jump-over",
+      "variety": "standard",
       "type": "D",
       "count": 15
     },
@@ -25,14 +25,14 @@
       "count": 1
     },
     {
-      "description": "20 DB Snatches (50/35 lb)",
-      "number": 2.5,
+      "movement_name": "db-snatch",
+      "variety": "medium",
       "type": "D",
       "count": 20
     },
     {
-      "description": "15 Burpee Box Jump-Overs (24/20 in)",
-      "number": 4.0,
+      "movement_name": "burpee-box-jump-over",
+      "variety": "standard",
       "type": "D",
       "count": 15
     },
@@ -43,14 +43,14 @@
       "count": 1
     },
     {
-      "description": "30 DB Snatches (50/35 lb)",
-      "number": 2.5,
+      "movement_name": "db-snatch",
+      "variety": "medium",
       "type": "D",
       "count": 30
     },
     {
-      "description": "15 Burpee Box Jump-Overs (24/20 in)",
-      "number": 4.0,
+      "movement_name": "burpee-box-jump-over",
+      "variety": "standard",
       "type": "D",
       "count": 15
     },
@@ -61,14 +61,14 @@
       "count": 1
     },
     {
-      "description": "40 DB Snatches (50/35 lb)",
-      "number": 2.5,
+      "movement_name": "db-snatch",
+      "variety": "medium",
       "type": "D",
       "count": 40
     },
     {
-      "description": "15 Burpee Box Jump-Overs (24/20 in)",
-      "number": 4.0,
+      "movement_name": "burpee-box-jump-over",
+      "variety": "standard",
       "type": "D",
       "count": 15
     },
@@ -79,14 +79,14 @@
       "count": 1
     },
     {
-      "description": "50 DB Snatches (50/35 lb)",
-      "number": 2.5,
+      "movement_name": "db-snatch",
+      "variety": "medium",
       "type": "D",
       "count": 50
     },
     {
-      "description": "15 Burpee Box Jump-Overs (24/20 in)",
-      "number": 4.0,
+      "movement_name": "burpee-box-jump-over",
+      "variety": "standard",
       "type": "D",
       "count": 15
     }

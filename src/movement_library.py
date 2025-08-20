@@ -101,38 +101,38 @@ def get_movement_execution_time(movement_name: str, intensity: str = None) -> fl
     if not movement:
         return 2.0  # Default fallback
     
-    intensities = movement.get("intensities", {})
+    variety = movement.get("variety", {})
     
     # If no intensity specified, use the first available intensity
     if intensity is None:
-        intensity_keys = list(intensities.keys())
+        intensity_keys = list(variety.keys())
         if intensity_keys:
             intensity = intensity_keys[0]
         else:
             return 2.0
     
     # Try to get the specified intensity, fall back to first available
-    intensity_data = intensities.get(intensity, {})
-    if not intensity_data and intensities:
-        intensity_data = list(intensities.values())[0]
+    intensity_data = variety.get(intensity, {})
+    if not intensity_data and variety:
+        intensity_data = list(variety.values())[0]
     
     return intensity_data.get("execution_time", 2.0)
 
-def convert_movement_to_workout_format(movement_name: str, count: int, intensity: str = None) -> Dict[str, Any]:
+def convert_movement_to_workout_format(movement_name: str, count: int, intensity: str = None, movement_type: str = "S") -> Dict[str, Any]:
     """Convert a movement library entry to workout format."""
     movement = load_movement(movement_name)
     if not movement:
         return {
             "description": movement_name,
             "number": 2.0,
-            "type": "S",
+            "type": movement_type,
             "count": count
         }
     
     # If no intensity specified, use the first available
-    intensities = movement.get("intensities", {})
-    if intensity is None and intensities:
-        intensity = list(intensities.keys())[0]
+    variety = movement.get("variety", {})
+    if intensity is None and variety:
+        intensity = list(variety.keys())[0]
     elif intensity is None:
         intensity = "standard"
     
@@ -141,6 +141,6 @@ def convert_movement_to_workout_format(movement_name: str, count: int, intensity
     return {
         "description": f"{movement['name']} ({intensity})",
         "number": execution_time,
-        "type": movement.get("type", "S"),
+        "type": movement_type,
         "count": count
     }

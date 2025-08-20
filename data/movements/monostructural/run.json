@@ -1,16 +1,15 @@
 {
-  "name": "Running",
+  "name": "Run",
   "category": "monostructural",
   "description": "Running at various paces",
-  "type": "S",
-  "intensities": {
+  "variety": {
     "easy": {
       "pace": "9-10 min/mile",
       "execution_time": 540.0,
       "description": "Easy jog pace per mile"
     },
     "moderate": {
-      "pace": "7.5-8.5 min/mile", 
+      "pace": "7.5-8.5 min/mile",
       "execution_time": 480.0,
       "description": "Moderate pace per mile"
     },
@@ -24,10 +23,5 @@
       "execution_time": 330.0,
       "description": "Sprint pace per mile"
     }
-  },
-  "scaling": {
-    "rx": "Running outdoors or treadmill",
-    "scaled": "Row 1250m or bike 2 miles",
-    "beginner": "Walk/jog intervals"
   }
 }

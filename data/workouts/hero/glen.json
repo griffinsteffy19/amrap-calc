@@ -6,8 +6,8 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "Clean and Jerks (135/95)",
-      "number": 3.5,
+      "movement_name": "clean-and-jerk",
+      "variety": "heavy",
       "type": "S",
       "count": 30
     },
@@ -18,8 +18,8 @@
       "count": 1
     },
     {
-      "description": "Burpees",
-      "number": 4.0,
+      "movement_name": "burpee",
+      "variety": "standard",
       "type": "S",
       "count": 30
     },
@@ -30,8 +30,8 @@
       "count": 1
     },
     {
-      "description": "Box Jumps",
-      "number": 2.5,
+      "movement_name": "box-jump",
+      "variety": "standard",
       "type": "S",
       "count": 30
     },

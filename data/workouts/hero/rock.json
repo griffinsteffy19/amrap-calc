@@ -6,8 +6,8 @@
     "m": 1.0,
     "movements": [
         {
-            "description": "Power Cleans",
-            "number": 1.5,
+            "movement_name": "power-clean",
+            "variety": "light",
             "type": "S",
             "count": 10
         },
@@ -18,8 +18,8 @@
             "count": 1
         },
         {
-            "description": "Burpees",
-            "number": 3,
+            "movement_name": "burpee",
+            "variety": "standard",
             "type": "S",
             "count": 12
         },
@@ -30,8 +30,8 @@
             "count": 1
         },
         {
-            "description": "Box Jumps",
-            "number": 2.25,
+            "movement_name": "box-jump",
+            "variety": "standard",
             "type": "S",
             "count": 14
         },
@@ -42,8 +42,8 @@
             "count": 1
         },
         {
-            "description": "Sit Ups",
-            "number": 2,
+            "movement_name": "sit-up",
+            "variety": "standard",
             "type": "S",
             "count": 20
         },
@@ -54,8 +54,8 @@
             "count": 1
         },
         {
-            "description": "Max Meters",
-            "number": 0.31,
+            "movement_name": "row",
+            "variety": "moderate",
             "type": "M",
             "count": -1
         }

@@ -1,0 +1,24 @@
+{
+  "name": "Ring Handstand Push-up",
+  "category": "gymnastics",
+  "description": "Handstand push-up performed on gymnastic rings",
+  "variety": {
+    "kipping": {
+      "execution_time": 4.0,
+      "description": "Kipping ring handstand push-up"
+    },
+    "strict": {
+      "execution_time": 6.0,
+      "description": "Strict ring handstand push-up"
+    },
+    "deficit": {
+      "execution_time": 7.0,
+      "description": "Ring handstand push-up with increased range of motion"
+    }
+  },
+  "scaling": {
+    "rx": "Ring handstand push-up",
+    "scaled": "Wall handstand push-up",
+    "beginner": "Pike push-up"
+  }
+}

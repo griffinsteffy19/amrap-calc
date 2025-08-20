@@ -1,0 +1,24 @@
+{
+  "name": "Double Under",
+  "category": "gymnastics",
+  "description": "Jump rope with two rope passes per jump",
+  "variety": {
+    "standard": {
+      "execution_time": 0.8,
+      "description": "Standard double under"
+    },
+    "broken": {
+      "execution_time": 1.2,
+      "description": "Broken double unders with breaks"
+    },
+    "unbroken": {
+      "execution_time": 0.6,
+      "description": "Fast unbroken double unders"
+    }
+  },
+  "scaling": {
+    "rx": "Double unders",
+    "scaled": "Single unders (3:1 ratio)",
+    "beginner": "Practice bounces"
+  }
+}

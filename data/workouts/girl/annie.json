@@ -7,14 +7,14 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "50 Double Unders",
-      "number": 1.0,
+      "movement_name": "double-under",
+      "variety": "standard",
       "type": "D",
       "count": 50
     },
     {
-      "description": "50 Sit-Ups",
-      "number": 1.5,
+      "movement_name": "sit-up",
+      "variety": "standard",
       "type": "D", 
       "count": 50
     },
@@ -25,14 +25,14 @@
       "count": 1
     },
     {
-      "description": "40 Double Unders",
-      "number": 1.0,
+      "movement_name": "double-under",
+      "variety": "standard",
       "type": "D",
       "count": 40
     },
     {
-      "description": "40 Sit-Ups",
-      "number": 1.5,
+      "movement_name": "sit-up",
+      "variety": "standard",
       "type": "D",
       "count": 40
     },
@@ -43,14 +43,14 @@
       "count": 1
     },
     {
-      "description": "30 Double Unders",
-      "number": 1.0,
+      "movement_name": "double-under",
+      "variety": "standard",
       "type": "D",
       "count": 30
     },
     {
-      "description": "30 Sit-Ups",
-      "number": 1.5,
+      "movement_name": "sit-up",
+      "variety": "standard",
       "type": "D",
       "count": 30
     },
@@ -61,14 +61,14 @@
       "count": 1
     },
     {
-      "description": "20 Double Unders",
-      "number": 1.0,
+      "movement_name": "double-under",
+      "variety": "standard",
       "type": "D",
       "count": 20
     },
     {
-      "description": "20 Sit-Ups",
-      "number": 1.5,
+      "movement_name": "sit-up",
+      "variety": "standard",
       "type": "D",
       "count": 20
     },
@@ -79,14 +79,14 @@
       "count": 1
     },
     {
-      "description": "10 Double Unders",
-      "number": 1.0,
+      "movement_name": "double-under",
+      "variety": "standard",
       "type": "D",
       "count": 10
     },
     {
-      "description": "10 Sit-Ups",
-      "number": 1.5,
+      "movement_name": "sit-up",
+      "variety": "standard",
       "type": "D",
       "count": 10
     }

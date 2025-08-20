@@ -6,7 +6,7 @@ A Streamlit web application for calculating workout scores and predicted complet
 
 ### Three Input Modes
 - **🏋️ Workout Library** - Choose from pre-built CrossFit workouts (Girl, Hero, Open, etc.)
-- **🗂️ Movement Library** - Build custom workouts from standardized movements with intensity levels
+- **🗂️ Movement Library** - Build custom workouts from standardized movements with varieties
 - **✏️ Manual Entry** - Create workouts from scratch with full customization
 
 ### Workout Types
@@ -15,7 +15,7 @@ A Streamlit web application for calculating workout scores and predicted complet
 - **Real-time Updates** - Live score calculation as you edit parameters
 
 ### Movement Library
-- **Intensity-Based Timing** - Movements have different execution times based on intensity
+- **Variety-Based Timing** - Movements have different execution times based on variety
 - **Category Organization** - Weightlifting, Gymnastics, and Monostructural movements
 - **Realistic Scaling** - Light/Medium/Heavy for weights, Kipping/Strict for gymnastics, etc.
 
@@ -57,7 +57,7 @@ streamlit run src/streamlit_app.py
 ### Building with Movement Library
 1. Select "Movement Library" from the sidebar
 2. Browse movements by category
-3. Choose movement and intensity level
+3. Choose movement and variety level
 4. Set repetition count
 5. Add to workout and see instant results
 
@@ -105,8 +105,8 @@ The app uses a mathematical model based on:
 - **Categories** organize movements by equipment/style (weightlifting, gymnastics, monostructural)
 - **Types** define calculation behavior (S/D/T/M) independent of category
 
-### Intensity Levels
-Different movement categories have appropriate intensity structures:
+### Variety Levels
+Different movement categories have appropriate variety structures:
 - **Weightlifting**: Light/Medium/Heavy (weight-based)
 - **Gymnastics**: Kipping/Strict, Modified/Standard/Complex (technique-based)
 - **Monostructural**: Easy/Moderate/Fast/Sprint (pace-based)
@@ -142,7 +142,7 @@ See [CLAUDE.md](CLAUDE.md) for detailed development commands and architecture do
 
 ### Adding New Movements
 1. Create JSON file in appropriate `data/movements/` category
-2. Define intensity levels with execution times
+2. Define variety levels with execution times
 3. Include scaling and description information
 
 ## Contributing

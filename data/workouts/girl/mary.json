@@ -6,20 +6,20 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "Handstand Push-ups",
-      "number": 12.0,
+      "movement_name": "handstand-push-up",
+      "variety": "strict",
       "type": "S",
       "count": 5
     },
     {
-      "description": "Pistol Squats",
-      "number": 8.0,
+      "movement_name": "pistol-squat",
+      "variety": "standard",
       "type": "S",
       "count": 10
     },
     {
-      "description": "Pull-ups",
-      "number": 6.0,
+      "movement_name": "pull-up",
+      "variety": "strict",
       "type": "S",
       "count": 15
     }

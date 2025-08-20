@@ -16,7 +16,8 @@ from movement_library import (
 )
 from workout_library import (
     load_workout_library,
-    load_workout_from_library
+    load_workout_from_library,
+    process_workout_movements
 )
 
 
@@ -102,8 +103,11 @@ def main():
                         # Auto-load when workout selection changes
                         st.session_state.movements = []
                         
-                        # Load workout data
-                        for movement in workout_data['movements']:
+                        # Process movements (handles both standard format and movement database references)
+                        processed_movements = process_workout_movements(workout_data['movements'])
+                        
+                        # Load processed workout data
+                        for movement in processed_movements:
                             # Add missing fields for compatibility
                             movement_copy = movement.copy()
                             if 'input_mode' not in movement_copy:
@@ -135,9 +139,9 @@ def main():
                         with header_cols[1]:
                             st.write("**Description**")
                         with header_cols[2]:
-                            st.write("**Input Mode**")
+                            st.write("**Variety**")
                         with header_cols[3]:
-                            st.write("**Time/Pace**")
+                            st.write("**Time/Rep**")
                         with header_cols[4]:
                             st.write("**Type**")
                         with header_cols[5]:
@@ -159,92 +163,114 @@ def main():
                                 else:
                                     new_desc = st.text_input("Description", value=movement['description'], key=f"preview_desc_{i}", label_visibility="collapsed")
                             
+                            # Check if this movement has movement data for variety selection
+                            movement_name = None
+                            if '(' in movement['description'] and ')' in movement['description']:
+                                # Extract movement name from description like "Thruster (medium)"
+                                base_name = movement['description'].split('(')[0].strip()
+                                movement_name = base_name.lower().replace(' ', '-').replace('/', '-')
+                            
                             with col3:
-                                # Allow editing in original pace format if available
-                                current_input_mode = movement.get('input_mode', 'Time per Rep')
-                                edit_input_mode = st.selectbox("Input Mode", ["Time per Rep", "500m Pace", "Cal/Hr"],
-                                                             index=["Time per Rep", "500m Pace", "Cal/Hr"].index(current_input_mode),
-                                                             key=f"preview_input_mode_{i}", label_visibility="collapsed")
+                                if movement['type'] == 'T':
+                                    st.write("—")
+                                    selected_variety = None
+                                elif movement_name:
+                                    # Load movement data to get varieties
+                                    from movement_library import load_movement
+                                    movement_data = load_movement(movement_name)
+                                    if movement_data and 'variety' in movement_data:
+                                        varieties = list(movement_data['variety'].keys())
+                                        # Try to detect current variety from description
+                                        current_variety = None
+                                        if '(' in movement['description'] and ')' in movement['description']:
+                                            current_variety_text = movement['description'].split('(')[1].split(')')[0]
+                                            if current_variety_text in varieties:
+                                                current_variety = current_variety_text
+                                        
+                                        if current_variety and current_variety in varieties:
+                                            default_index = varieties.index(current_variety)
+                                        else:
+                                            default_index = 0
+                                        
+                                        selected_variety = st.selectbox("Variety", varieties, 
+                                                                      index=default_index, 
+                                                                      key=f"preview_variety_{i}", 
+                                                                      label_visibility="collapsed")
+                                    else:
+                                        st.write("—")
+                                        selected_variety = None
+                                else:
+                                    st.write("—")
+                                    selected_variety = None
                             
                             with col4:
-                                if edit_input_mode == "Time per Rep":
-                                    new_time_input = st.number_input("Time", 
-                                                                   value=float(movement['number']), step=0.1, 
-                                                                   min_value=0.1, key=f"preview_time_{i}", label_visibility="collapsed")
-                                    final_time = new_time_input
-                                else:
-                                    # Show original pace input if switching back to original format
-                                    if edit_input_mode == current_input_mode and 'original_input' in movement:
-                                        default_pace = movement['original_input']
-                                    else:
-                                        # Convert current time back to pace format as default
-                                        if edit_input_mode == "500m Pace":
-                                            rep_size = movement.get('rep_size', 1)
-                                            time_per_meter = movement['number'] / rep_size
-                                            pace_seconds = time_per_meter * 500
-                                            mins = int(pace_seconds // 60)
-                                            secs = pace_seconds % 60
-                                            default_pace = f"{mins}:{secs:05.2f}" if mins > 0 else f"{pace_seconds:.2f}"
-                                        else:  # Cal/Hr
-                                            rep_size = movement.get('rep_size', 1)
-                                            time_per_cal = movement['number'] / rep_size
-                                            cal_per_hour = 3600 / time_per_cal
-                                            default_pace = f"{cal_per_hour:.0f}"
-                                    
-                                    new_time_input = st.text_input("Pace", value=default_pace,
-                                                                 placeholder="e.g., 2:30 or 180", 
-                                                                 key=f"preview_pace_{i}", label_visibility="collapsed")
-                                    
-                                    # Convert pace to time per rep
+                                # Get auto-updated time based on variety selection
+                                auto_time = None
+                                if movement_name and selected_variety:
+                                    from movement_library import get_movement_execution_time
                                     try:
-                                        pace_value = parse_time_input(new_time_input)
-                                        pace_unit = {'500m Pace': '500m_pace', 'Cal/Hr': 'cal_hr'}[edit_input_mode]
-                                        rep_size = movement.get('rep_size', 1)
-                                        final_time = convert_pace_to_time_per_rep(pace_value, pace_unit, rep_size)
+                                        auto_time = get_movement_execution_time(movement_name, selected_variety)
                                     except:
-                                        final_time = movement['number']  # Keep original if conversion fails
+                                        auto_time = None
+                                
+                                # Show time input with auto-update option
+                                if auto_time is not None:
+                                    # Use auto-calculated time as default, but allow manual override
+                                    default_time = auto_time
+                                    # Show indicator that time is auto-calculated
+                                    help_text = f"Auto: {auto_time:.1f}s (editable)"
+                                else:
+                                    default_time = float(movement['number'])
+                                    help_text = "Manual time entry"
+                                
+                                final_time = st.number_input("Time", 
+                                                           value=default_time, step=0.1, 
+                                                           min_value=0.1, key=f"preview_time_{i}", 
+                                                           label_visibility="collapsed",
+                                                           help=help_text)
                             
                             with col5:
                                 new_type = st.selectbox("Type", ["D", "S", "T", "M"], 
-                                                        index=["D", "S", "T", "M"].index(movement['type']), key=f"preview_type_{i}", label_visibility="collapsed")
+                                                        index=["D", "S", "T", "M"].index(movement['type']), 
+                                                        key=f"preview_type_{i}", label_visibility="collapsed")
                             
                             with col6:
                                 if new_type == "S":
                                     new_count = st.number_input("Count", value=int(movement.get('count', 1)), 
                                                               step=1, min_value=1, key=f"preview_count_{i}", label_visibility="collapsed")
+                                elif new_type == "D":
+                                    new_count = st.number_input("Count", value=int(movement.get('count', 1)), 
+                                                              step=1, min_value=1, key=f"preview_count_d_{i}", label_visibility="collapsed")
                                 elif new_type == "M":
                                     new_count = -1
                                     st.write("MAX")
-                                else:
-                                    new_count = 1
-                                    st.write("1")
+                                else:  # T type
+                                    new_count = int(movement.get('count', 1))
+                                    st.write(str(new_count))
                             
                             with col7:
                                 if st.button("🗑️", key=f"preview_del_{i}", help="Delete this movement"):
                                     st.session_state.movements.pop(i)
                                     st.rerun()
                             
+                            # Update the movement description if variety changed
+                            if selected_variety and movement_name:
+                                from movement_library import load_movement
+                                movement_data = load_movement(movement_name)
+                                if movement_data:
+                                    updated_desc = f"{movement_data['name']} ({selected_variety})"
+                                else:
+                                    updated_desc = new_desc
+                            else:
+                                updated_desc = new_desc
+                            
                             # Update the movement in real-time
                             st.session_state.movements[i] = {
-                                'description': new_desc if new_type != 'T' else "Transition",
+                                'description': updated_desc if new_type != 'T' else "Transition",
                                 'number': final_time,
                                 'type': new_type,
-                                'count': new_count,
-                                'input_mode': edit_input_mode,
-                                'original_input': str(new_time_input),
-                                'rep_size': movement.get('rep_size', 1)
+                                'count': new_count
                             }
-                            
-                            # Show conversion info inline for pace inputs
-                            if edit_input_mode != "Time per Rep":
-                                with col4:
-                                    st.caption(f"→ {final_time:.2f}s")
-                            
-                            # Show time change indicator
-                            if movement['number'] != final_time:
-                                change = final_time - movement['number']
-                                with col4:
-                                    st.caption(f"({change:+.1f}s)")
                         
                         # Parameters editing (collapsible) - only for library workouts
                         with st.expander("📊 Workout Parameters", expanded=False):
@@ -303,7 +329,7 @@ def main():
                                         score_col1, score_col2, score_col3 = st.columns([1, 2, 1])
                                         with score_col2:
                                             if results.get('is_capped', False):
-                                                st.markdown(f"# {results['cap_time_formatted']} + {results['remaining_reps']} reps")
+                                                st.markdown(f"# {results['cap_time_formatted']} + {int(results['remaining_reps'])} reps")
                                                 st.caption(f"Would finish in {results['total_time_formatted']} without cap")
                                             else:
                                                 st.markdown(f"# {results['total_time_formatted']}")
@@ -333,30 +359,30 @@ def main():
                                             
                                             if has_max_movement and has_regular_movements and last_movement_is_max:
                                                 # "Finish with Max" workout (like Rock) - show only max reps
-                                                st.markdown(f"# {results['max_reps']}")
+                                                st.markdown(f"# {int(results['max_reps'])}")
                                                 max_movement_name = next(mov['description'] for mov in st.session_state.movements if mov.get('count') == -1)
-                                                st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
+                                                st.caption(f"{int(results['max_reps'])} {max_movement_name.lower()}")
                                             elif has_max_movement and not has_regular_movements:
                                                 # "Only Max" workout (like 12.1) - show only max reps
-                                                st.markdown(f"# {results['max_reps']}")
+                                                st.markdown(f"# {int(results['max_reps'])}")
                                                 max_movement_name = next(mov['description'] for mov in st.session_state.movements if mov.get('count') == -1)
-                                                st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
-                                            elif results['max_reps'] > 0:
+                                                st.caption(f"{int(results['max_reps'])} {max_movement_name.lower()}")
+                                            elif int(results['max_reps']) > 0:
                                                 # Traditional AMRAP with max component - show rounds+reps format
-                                                if results['r_result'] > 0:
-                                                    st.markdown(f"# {results['n_floor']}+{results['r_result']}+{results['max_reps']} ({results['total_reps']} reps)")
-                                                    st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps + {results['max_reps']} max reps")
+                                                if int(results['r_result']) > 0:
+                                                    st.markdown(f"# {int(results['n_floor'])}+{int(results['r_result'])}+{int(results['max_reps'])} ({int(results['total_reps'])} reps)")
+                                                    st.caption(f"{int(results['n_floor'])} rounds + {int(results['r_result'])} reps + {int(results['max_reps'])} max reps")
                                                 else:
-                                                    st.markdown(f"# {results['n_floor']}+{results['max_reps']} ({results['total_reps']} reps)")
-                                                    st.caption(f"{results['n_floor']} rounds + {results['max_reps']} max reps")
+                                                    st.markdown(f"# {int(results['n_floor'])}+{int(results['max_reps'])} ({int(results['total_reps'])} reps)")
+                                                    st.caption(f"{int(results['n_floor'])} rounds + {int(results['max_reps'])} max reps")
                                             else:
                                                 # Regular AMRAP without max component
-                                                if results['r_result'] > 0:
-                                                    st.markdown(f"# {results['n_floor']}+{results['r_result']} ({results['total_reps']} reps)")
-                                                    st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps")
+                                                if int(results['r_result']) > 0:
+                                                    st.markdown(f"# {int(results['n_floor'])}+{int(results['r_result'])} ({int(results['total_reps'])} reps)")
+                                                    st.caption(f"{int(results['n_floor'])} rounds + {int(results['r_result'])} reps")
                                                 else:
-                                                    st.markdown(f"# {results['n_floor']} ({results['total_reps']} reps)")
-                                                    st.caption(f"{results['n_floor']} rounds")
+                                                    st.markdown(f"# {int(results['n_floor'])} ({int(results['total_reps'])} reps)")
+                                                    st.caption(f"{int(results['n_floor'])} rounds")
                                     else:
                                         st.error(f"⚠️ Calculation error: {results['error']}")
                                     
@@ -432,20 +458,20 @@ def main():
                                         
                                         # Score breakdown
                                         st.subheader("🎯 Score Breakdown")
-                                        if results['max_reps'] > 0:
+                                        if int(results['max_reps']) > 0:
                                             col1, col2, col3 = st.columns(3)
                                             with col1:
-                                                st.metric("Complete Rounds", results['n_floor'], help="Full rounds completed")
+                                                st.metric("Complete Rounds", int(results['n_floor']), help="Full rounds completed")
                                             with col2:
-                                                st.metric("Additional Reps", results['r_result'], help="Extra reps in partial round")
+                                                st.metric("Additional Reps", int(results['r_result']), help="Extra reps in partial round")
                                             with col3:
-                                                st.metric("Max Reps", results['max_reps'], help="Max reps using remaining time")
+                                                st.metric("Max Reps", int(results['max_reps']), help="Max reps using remaining time")
                                         else:
                                             col1, col2 = st.columns(2)
                                             with col1:
-                                                st.metric("Complete Rounds", results['n_floor'], help="Full rounds completed")
+                                                st.metric("Complete Rounds", int(results['n_floor']), help="Full rounds completed")
                                             with col2:
-                                                st.metric("Additional Reps", results['r_result'], help="Extra reps in partial round")
+                                                st.metric("Additional Reps", int(results['r_result']), help="Extra reps in partial round")
                                         
                                         # Movement analysis
                                         st.subheader("⚡ Movement Analysis")
@@ -491,6 +517,11 @@ def main():
         # Movement Library section
         st.header("🗂️ Movement Library")
         
+        # Clear movements when first entering movement library
+        if 'last_input_method' not in st.session_state or st.session_state.last_input_method != "Movement Library":
+            st.session_state.movements = []
+            st.session_state.last_input_method = "Movement Library"
+        
         # Initialize session state for movement library
         if 'selected_movements' not in st.session_state:
             st.session_state.selected_movements = []
@@ -532,38 +563,53 @@ def main():
                     # Display movement info
                     st.info(f"**{movement_data['name']}** - {movement_data['description']}")
                     
-                    # Intensity and count selection
-                    col1, col2 = st.columns(2)
+                    # Intensity, type, and count selection
+                    col1, col2, col3 = st.columns(3)
                     
                     with col1:
-                        intensity_options = list(movement_data["intensities"].keys())
+                        intensity_options = list(movement_data["variety"].keys())
                         selected_intensity = st.selectbox(
-                            "Intensity level:",
+                            "Variety:",
                             options=intensity_options,
-                            format_func=lambda x: f"{x.title()} ({movement_data['intensities'][x]['execution_time']}s)"
+                            format_func=lambda x: f"{x.title()} ({movement_data['variety'][x]['execution_time']}s)"
                         )
                         
                         # Show intensity details
-                        intensity_info = movement_data["intensities"][selected_intensity]
+                        intensity_info = movement_data["variety"][selected_intensity]
                         st.caption(intensity_info["description"])
                         if "weight_range" in intensity_info:
                             st.caption(f"Weight: {intensity_info['weight_range']}")
                     
                     with col2:
-                        movement_count = st.number_input(
-                            "Repetitions:",
-                            min_value=1,
-                            value=10,
-                            help="Number of repetitions for this movement"
+                        movement_type = st.selectbox(
+                            "Type:",
+                            options=["S", "D", "T", "M"],
+                            index=0,
+                            help="S=Static, D=Dynamic, T=Transition, M=Max"
                         )
+                    
+                    with col3:
+                        if movement_type == "M":
+                            st.write("**Count:** MAX")
+                            movement_count = -1
+                        elif movement_type == "T":
+                            st.write("**Count:** 1")
+                            movement_count = 1
+                        else:
+                            movement_count = st.number_input(
+                                "Count:",
+                                min_value=1,
+                                value=10,
+                                help="Number of repetitions"
+                            )
                     
                     # Add movement button
                     if st.button("➕ Add Movement"):
                         workout_movement = convert_movement_to_workout_format(
-                            selected_movement, movement_count, selected_intensity
+                            selected_movement, movement_count, selected_intensity, movement_type
                         )
                         st.session_state.movements.append(workout_movement)
-                        st.success(f"Added {movement_data['name']} ({selected_intensity}) x{movement_count}")
+                        st.success(f"Added {movement_data['name']} ({selected_intensity}) x{movement_count} ({movement_type})")
             
             # Show selected movements
             if st.session_state.movements:
@@ -593,71 +639,220 @@ def main():
         # Manual entry section
         st.header("Movement Entry")
         
-        # Add movement form (dynamic, no form wrapper for reactivity)
-        st.subheader("Add New Movement")
-        col1, col2, col3, col4, col5, col6 = st.columns(6)
+        # Clear movements when first entering manual entry
+        if 'last_input_method' not in st.session_state or st.session_state.last_input_method != "Manual Entry":
+            st.session_state.movements = []
+            st.session_state.last_input_method = "Manual Entry"
         
-        with col1:
-            movement_type = st.selectbox("Type", ["D", "S", "T", "M"], key="new_movement_type")
-        
-        with col2:
-            if movement_type == "T":
-                description = st.text_input("Description", value="Transition", disabled=True, key="new_description")
-            elif movement_type == "M":
-                description = st.text_input("Description", value="Max Reps", disabled=True, key="new_description")
-            else:
-                description = st.text_input("Description", key="new_description")
-        
-        with col3:
-            # Input mode selection
-            input_mode = st.selectbox("Input Mode", ["Time per Rep", "500m Pace", "Cal/Hr"], 
-                                    help="Choose how to input timing", key="new_input_mode")
-        
-        with col4:
-            if movement_type == "T":
-                if input_mode == "Time per Rep":
-                    time_input = st.number_input("Time (sec)", value=2.0, step=0.1, key="new_time")
-                else:
-                    time_input = st.text_input("Time/Pace", value="2.0", 
-                                             help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
-            elif movement_type == "M":
-                if input_mode == "Time per Rep":
-                    time_input = st.number_input("Time (sec)", value=3.0, step=0.1, key="new_time")
-                else:
-                    time_input = st.text_input("Time/Pace", value="3.0", 
-                                             help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
-            else:
-                if input_mode == "Time per Rep":
-                    time_input = st.number_input("Time (sec)", value=5.0, step=0.1, key="new_time")
-                else:
-                    time_input = st.text_input("Time/Pace", value="5.0", 
-                                             help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
-        
-        with col5:
-            # Rep size input for pace modes
-            if input_mode in ["500m Pace", "Cal/Hr"] and movement_type not in ["T"]:
-                if input_mode == "500m Pace":
-                    rep_size = st.number_input("Meters/Rep", value=1, step=1, min_value=1, 
-                                             help="How many meters per rep", key="new_rep_size")
-                else:  # Cal/Hr
-                    rep_size = st.number_input("Cals/Rep", value=1, step=1, min_value=1, 
-                                             help="How many calories per rep", key="new_rep_size")
-            else:
-                rep_size = 1
-                st.write("") # Placeholder
+        # Workout loading option
+        st.subheader("📋 Load Workout (Optional)")
+        with st.expander("Load workout from library to customize"):
+            # Load workout library
+            library_data = load_workout_library()
+            
+            if library_data:
+                col1, col2, col3 = st.columns([2, 2, 1])
                 
-        with col6:
-            if movement_type == "S":
-                movement_count = st.number_input("Count", value=1, step=1, min_value=1, key="new_count")
-            elif movement_type == "M":
-                st.write("Count: MAX")
-                movement_count = -1  # Special indicator for max reps
-            else:
-                movement_count = 1  # Default for non-S movements
-                st.write("") # Placeholder
+                with col1:
+                    # Category selection
+                    category_options = {key: f"{data.get('icon', '📋')} {data['name']}" for key, data in library_data.items()}
+                    category_key = st.selectbox(
+                        "Category:",
+                        options=list(category_options.keys()),
+                        format_func=lambda x: category_options[x],
+                        key="manual_category"
+                    )
+                
+                with col2:
+                    # Workout selection
+                    if category_key:
+                        category_data = library_data[category_key]
+                        workout_options = {key: data['name'] for key, data in category_data['workouts'].items()}
+                        workout_key = st.selectbox(
+                            "Workout:",
+                            options=list(workout_options.keys()),
+                            format_func=lambda x: workout_options[x],
+                            key="manual_workout"
+                        )
+                
+                with col3:
+                    # Load button
+                    if st.button("📥 Load Workout"):
+                        if category_key and workout_key:
+                            workout_data = load_workout_from_library(library_data, category_key, workout_key)
+                            if workout_data:
+                                # Load movements into manual editor
+                                st.session_state.movements = []
+                                for movement in workout_data['movements']:
+                                    # Add missing fields for compatibility
+                                    movement_copy = movement.copy()
+                                    if 'input_mode' not in movement_copy:
+                                        movement_copy['input_mode'] = 'Time per Rep'
+                                    if 'original_input' not in movement_copy:
+                                        movement_copy['original_input'] = str(movement_copy['number'])
+                                    if 'rep_size' not in movement_copy:
+                                        movement_copy['rep_size'] = 1
+                                    
+                                    st.session_state.movements.append(movement_copy)
+                                
+                                # Set parameters
+                                st.session_state.tot_tm = workout_data['tot_tm']
+                                st.session_state.m = workout_data['m']
+                                st.session_state.rounds = workout_data.get('rounds', 1)
+                                st.session_state.time_cap = workout_data.get('time_cap')
+                                
+                                st.success(f"✅ Loaded '{workout_data['name']}' with {len(workout_data['movements'])} movements")
+                                st.rerun()
         
-        # Add movement button
-        submitted = st.button("Add Movement", type="primary")
+        # Movement input method selection
+        st.subheader("Add New Movement")
+        movement_input_mode = st.radio("Movement Input Method:", 
+                                     ["Use Movement Database", "Manual Input"], 
+                                     horizontal=True)
+        
+        # Initialize variables that might be used later
+        submitted = False
+        description = ""
+        
+        if movement_input_mode == "Use Movement Database":
+            # Movement database integration
+            all_movements = get_all_movements()
+            categories = load_movement_categories()
+            
+            if all_movements and categories:
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    # Category filter
+                    category_options = ["All"] + list(categories.keys())
+                    selected_category = st.selectbox(
+                        "Category:",
+                        options=category_options,
+                        format_func=lambda x: "All Categories" if x == "All" else categories[x]["name"]
+                    )
+                
+                with col2:
+                    # Movement selection
+                    if selected_category == "All":
+                        available_movements = all_movements
+                    else:
+                        available_movements = get_movements_by_category(selected_category)
+                    
+                    if available_movements:
+                        movement_names = list(available_movements.keys())
+                        selected_movement = st.selectbox(
+                            "Movement:",
+                            options=movement_names,
+                            format_func=lambda x: available_movements[x]["name"]
+                        )
+                
+                with col3:
+                    # Variety selection
+                    if selected_movement:
+                        movement_data = available_movements[selected_movement]
+                        variety_options = list(movement_data["variety"].keys())
+                        selected_variety = st.selectbox(
+                            "Variety:",
+                            options=variety_options,
+                            format_func=lambda x: f"{x.title()} ({movement_data['variety'][x]['execution_time']}s)"
+                        )
+                
+                with col4:
+                    # Movement type selection
+                    if selected_movement:
+                        movement_type = st.selectbox(
+                            "Type:",
+                            options=["S", "D", "T", "M"],
+                            index=0,
+                            help="S=Static, D=Dynamic, T=Transition, M=Max"
+                        )
+                        
+                        # Count input based on type
+                        if movement_type == "M":
+                            st.write("Count: MAX")
+                            movement_count = -1
+                        elif movement_type == "T":
+                            st.write("Count: 1")
+                            movement_count = 1
+                        else:
+                            movement_count = st.number_input("Count:", value=10, min_value=1)
+                
+                # Add movement from database
+                if st.button("Add Movement from Database", type="primary"):
+                    if selected_movement and selected_variety:
+                        workout_movement = convert_movement_to_workout_format(
+                            selected_movement, movement_count, selected_variety, movement_type
+                        )
+                        st.session_state.movements.append(workout_movement)
+                        st.success(f"Added {movement_data['name']} ({selected_variety}) x{movement_count} ({movement_type})")
+            else:
+                st.warning("Movement database not available. Use Manual Input instead.")
+        
+        else:
+            # Manual input (existing functionality)
+            col1, col2, col3, col4, col5, col6 = st.columns(6)
+            
+            with col1:
+                movement_type = st.selectbox("Type", ["D", "S", "T", "M"], key="new_movement_type")
+            
+            with col2:
+                if movement_type == "T":
+                    description = st.text_input("Description", value="Transition", disabled=True, key="new_description")
+                elif movement_type == "M":
+                    description = st.text_input("Description", value="Max Reps", disabled=True, key="new_description")
+                else:
+                    description = st.text_input("Description", key="new_description")
+            
+            with col3:
+                # Input mode selection
+                input_mode = st.selectbox("Input Mode", ["Time per Rep", "500m Pace", "Cal/Hr"], 
+                                        help="Choose how to input timing", key="new_input_mode")
+            
+            with col4:
+                if movement_type == "T":
+                    if input_mode == "Time per Rep":
+                        time_input = st.number_input("Time (sec)", value=2.0, step=0.1, key="new_time")
+                    else:
+                        time_input = st.text_input("Time/Pace", value="2.0", 
+                                                 help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
+                elif movement_type == "M":
+                    if input_mode == "Time per Rep":
+                        time_input = st.number_input("Time (sec)", value=3.0, step=0.1, key="new_time")
+                    else:
+                        time_input = st.text_input("Time/Pace", value="3.0", 
+                                                 help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
+                else:
+                    if input_mode == "Time per Rep":
+                        time_input = st.number_input("Time (sec)", value=5.0, step=0.1, key="new_time")
+                    else:
+                        time_input = st.text_input("Time/Pace", value="5.0", 
+                                                 help="e.g., 2:30 for 2:30/500m or 150 for 150 cal/hr", key="new_time")
+            
+            with col5:
+                # Rep size input for pace modes
+                if input_mode in ["500m Pace", "Cal/Hr"] and movement_type not in ["T"]:
+                    if input_mode == "500m Pace":
+                        rep_size = st.number_input("Meters/Rep", value=1, step=1, min_value=1, 
+                                                 help="How many meters per rep", key="new_rep_size")
+                    else:  # Cal/Hr
+                        rep_size = st.number_input("Cals/Rep", value=1, step=1, min_value=1, 
+                                                 help="How many calories per rep", key="new_rep_size")
+                else:
+                    rep_size = 1
+                    st.write("") # Placeholder
+                    
+            with col6:
+                if movement_type == "S":
+                    movement_count = st.number_input("Count", value=1, step=1, min_value=1, key="new_count")
+                elif movement_type == "M":
+                    st.write("Count: MAX")
+                    movement_count = -1  # Special indicator for max reps
+                else:
+                    movement_count = 1  # Default for non-S movements
+                    st.write("") # Placeholder
+            
+            # Add movement button
+            submitted = st.button("Add Movement", type="primary")
         
         if submitted and description:
             # Convert pace to time per rep
@@ -794,9 +989,18 @@ def main():
         col1, col2 = st.columns(2)
         
         with col1:
-            tot_tm = st.number_input("Total Time (TotTm)", value=100.0, step=1.0, min_value=1.0)
+            # Use loaded value if available, but ensure it meets minimum requirement
+            default_tot_tm = st.session_state.get('tot_tm', 100.0)
+            # For "For Time" workouts, tot_tm is 0, so use a sensible default
+            if default_tot_tm <= 0:
+                default_tot_tm = 100.0
+                if 'tot_tm' in st.session_state and st.session_state.tot_tm == 0:
+                    st.info("ℹ️ Loaded 'For Time' workout - set time limit for AMRAP calculation")
+            tot_tm = st.number_input("Total Time (TotTm)", value=float(default_tot_tm), step=1.0, min_value=1.0)
         with col2:
-            m = st.number_input("Multiplier (M)", value=2.5, step=0.1, min_value=0.1)
+            # Use loaded value if available
+            default_m = st.session_state.get('m', 2.5)
+            m = st.number_input("Multiplier (M)", value=float(default_m), step=0.1, min_value=0.1)
     
     # Calculate button and results (skip for library mode as it's shown at top)
     if movements and tot_tm > 0 and input_method != "Workout Library":
@@ -822,30 +1026,30 @@ def main():
                     
                     if has_max_movement and has_regular_movements and last_movement_is_max:
                         # "Finish with Max" workout (like Rock) - show only max reps
-                        st.markdown(f"# {results['max_reps']}")
+                        st.markdown(f"# {int(results['max_reps'])}")
                         max_movement_name = next(mov['description'] for mov in movements if mov.get('count') == -1)
-                        st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
+                        st.caption(f"{int(results['max_reps'])} {max_movement_name.lower()}")
                     elif has_max_movement and not has_regular_movements:
                         # "Only Max" workout (like 12.1) - show only max reps
-                        st.markdown(f"# {results['max_reps']}")
+                        st.markdown(f"# {int(results['max_reps'])}")
                         max_movement_name = next(mov['description'] for mov in movements if mov.get('count') == -1)
-                        st.caption(f"{results['max_reps']} {max_movement_name.lower()}")
-                    elif results['max_reps'] > 0:
+                        st.caption(f"{int(results['max_reps'])} {max_movement_name.lower()}")
+                    elif int(results['max_reps']) > 0:
                         # Traditional AMRAP with max component - show rounds+reps format
-                        if results['r_result'] > 0:
-                            st.markdown(f"# {results['n_floor']}+{results['r_result']}+{results['max_reps']} ({results['total_reps']} reps)")
-                            st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps + {results['max_reps']} max reps")
+                        if int(results['r_result']) > 0:
+                            st.markdown(f"# {int(results['n_floor'])}+{int(results['r_result'])}+{int(results['max_reps'])} ({int(results['total_reps'])} reps)")
+                            st.caption(f"{int(results['n_floor'])} rounds + {int(results['r_result'])} reps + {int(results['max_reps'])} max reps")
                         else:
-                            st.markdown(f"# {results['n_floor']}+{results['max_reps']} ({results['total_reps']} reps)")
-                            st.caption(f"{results['n_floor']} rounds + {results['max_reps']} max reps")
+                            st.markdown(f"# {int(results['n_floor'])}+{int(results['max_reps'])} ({int(results['total_reps'])} reps)")
+                            st.caption(f"{int(results['n_floor'])} rounds + {int(results['max_reps'])} max reps")
                     else:
                         # Regular AMRAP without max component
-                        if results['r_result'] > 0:
-                            st.markdown(f"# {results['n_floor']}+{results['r_result']} ({results['total_reps']} reps)")
-                            st.caption(f"{results['n_floor']} rounds + {results['r_result']} reps")
+                        if int(results['r_result']) > 0:
+                            st.markdown(f"# {int(results['n_floor'])}+{int(results['r_result'])} ({int(results['total_reps'])} reps)")
+                            st.caption(f"{int(results['n_floor'])} rounds + {int(results['r_result'])} reps")
                         else:
-                            st.markdown(f"# {results['n_floor']} ({results['total_reps']} reps)")
-                            st.caption(f"{results['n_floor']} rounds")
+                            st.markdown(f"# {int(results['n_floor'])} ({int(results['total_reps'])} reps)")
+                            st.caption(f"{int(results['n_floor'])} rounds")
                 
                 # Advanced Mode toggle
                 st.markdown("---")
@@ -868,20 +1072,20 @@ def main():
                     
                     # Score breakdown
                     st.subheader("🎯 Score Breakdown")
-                    if results['max_reps'] > 0:
+                    if int(results['max_reps']) > 0:
                         col1, col2, col3 = st.columns(3)
                         with col1:
-                            st.metric("Complete Rounds", results['n_floor'], help="Full rounds completed")
+                            st.metric("Complete Rounds", int(results['n_floor']), help="Full rounds completed")
                         with col2:
-                            st.metric("Additional Reps", results['r_result'], help="Extra reps in partial round")
+                            st.metric("Additional Reps", int(results['r_result']), help="Extra reps in partial round")
                         with col3:
-                            st.metric("Max Reps", results['max_reps'], help="Max reps using remaining time")
+                            st.metric("Max Reps", int(results['max_reps']), help="Max reps using remaining time")
                     else:
                         col1, col2 = st.columns(2)
                         with col1:
-                            st.metric("Complete Rounds", results['n_floor'], help="Full rounds completed")
+                            st.metric("Complete Rounds", int(results['n_floor']), help="Full rounds completed")
                         with col2:
-                            st.metric("Additional Reps", results['r_result'], help="Extra reps in partial round")
+                            st.metric("Additional Reps", int(results['r_result']), help="Extra reps in partial round")
                     
                     # Movement analysis
                     st.subheader("⚡ Movement Analysis")

@@ -6,20 +6,20 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "Pull-ups",
-      "number": 8.0,
+      "movement_name": "pull-up",
+      "variety": "kipping",
       "type": "S",
       "count": 5
     },
     {
-      "description": "Push-ups",
-      "number": 3.0,
+      "movement_name": "push-up",
+      "variety": "standard",
       "type": "S",
       "count": 10
     },
     {
-      "description": "Air Squats",
-      "number": 1.5,
+      "movement_name": "air-squat",
+      "variety": "standard",
       "type": "S",
       "count": 15
     }

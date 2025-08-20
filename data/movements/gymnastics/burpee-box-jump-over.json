@@ -1,0 +1,24 @@
+{
+  "name": "Burpee Box Jump-Over",
+  "category": "gymnastics",
+  "description": "Burpee followed by jumping over a box without landing on top",
+  "variety": {
+    "standard": {
+      "execution_time": 4.5,
+      "description": "Standard burpee box jump-over"
+    },
+    "step-over": {
+      "execution_time": 5.0,
+      "description": "Burpee with step-over instead of jump"
+    },
+    "lateral": {
+      "execution_time": 4.8,
+      "description": "Lateral burpee box jump-over"
+    }
+  },
+  "scaling": {
+    "rx": "Jump over box without touching",
+    "scaled": "Step over box",
+    "beginner": "Burpee + step-up"
+  }
+}

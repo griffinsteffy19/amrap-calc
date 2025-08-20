@@ -6,8 +6,8 @@
   "m": 1.0,
   "movements": [
     {
-      "description": "Burpee",
-      "number": 3.5,
+      "movement_name": "burpee",
+      "variety": "standard",
       "type": "M",
       "count": -1
     }
