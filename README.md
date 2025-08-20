@@ -1,6 +1,6 @@
-# AMRAP Movement Time Calculator
+# Functional Performance Calculator
 
-A comprehensive Streamlit web application for calculating workout scores and predicted completion times for CrossFit-style workouts. Features a sophisticated movement database, interactive workout library, and real-time calculations for both **AMRAP** (As Many Rounds As Possible) and **For Time** workout formats.
+A comprehensive Streamlit web application for calculating workout scores and predicted completion times for functional fitness workouts. Features a sophisticated movement database, interactive workout library, and real-time calculations for both **AMRAP** (As Many Rounds As Possible) and **For Time** workout formats.
 
 [![GitHub Project](https://img.shields.io/badge/GitHub-Project%20Board-blue?logo=github)](https://github.com/users/griffinsteffy19/projects/2)
 [![Issues](https://img.shields.io/github/issues/griffinsteffy19/amrap-calc)](https://github.com/griffinsteffy19/amrap-calc/issues)
@@ -116,7 +116,7 @@ streamlit run src/streamlit_app.py
 
 ## 📋 Development Roadmap
 
-We're actively developing the next generation of the AMRAP Calculator with a comprehensive roadmap for frontend/backend separation, database integration, and enhanced features.
+We're actively developing the next generation of the Functional Performance Calculator with a comprehensive roadmap for frontend/backend separation, database integration, and enhanced features.
 
 ### 🗺️ **[View Full Roadmap →](https://github.com/griffinsteffy19/amrap-calc/blob/develop/docs/ROADMAP.md)**
 

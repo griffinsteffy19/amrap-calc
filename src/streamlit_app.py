@@ -41,7 +41,7 @@ def get_app_version():
 
 
 def main():
-    st.title("AMRAP Movement Time Calculator")
+    st.title("Functional Performance Calculator")
     st.markdown("---")
     
     # Sidebar for mode selection
@@ -69,7 +69,7 @@ def main():
     st.sidebar.markdown("---")
     version = get_app_version()
     st.sidebar.markdown(f"**Version:** `{version}`")
-    st.sidebar.caption("AMRAP Movement Time Calculator")
+    st.sidebar.caption("Functional Performance Calculator")
     
     # Add roadmap and GitHub links
     st.sidebar.markdown("---")

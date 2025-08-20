@@ -1,4 +1,4 @@
-# AMRAP Calculator - Development Roadmap
+# Functional Performance Calculator - Development Roadmap
 
 [![GitHub Project](https://img.shields.io/badge/GitHub-Project%20Board-blue?logo=github)](https://github.com/griffinsteffy19/amrap-calc/projects)
 [![Issues](https://img.shields.io/github/issues/griffinsteffy19/amrap-calc)](https://github.com/griffinsteffy19/amrap-calc/issues)
@@ -46,7 +46,7 @@
 
 ```mermaid
 gantt
-    title AMRAP Calculator Development Roadmap
+    title Functional Performance Calculator Development Roadmap
     dateFormat  YYYY-MM-DD
     section Phase 1: Architecture
     Backend Foundation    :2024-08-21, 14d
@@ -313,7 +313,7 @@ streamlit run src/streamlit_app.py
 ## GitHub Integration
 
 ### Project Board
-**Main Project**: [AMRAP Calculator Development](https://github.com/users/griffinsteffy19/projects/2)
+**Main Project**: [Functional Performance Calculator Development](https://github.com/users/griffinsteffy19/projects/2)
 
 - **💡 Ideas**: New feature requests from users (need evaluation)
 - **📋 Backlog**: Approved features and bug reports (ready for development)  

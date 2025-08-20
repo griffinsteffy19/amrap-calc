@@ -1,4 +1,4 @@
-# AMRAP Calculator - Frontend/Backend Architecture
+# Functional Performance Calculator - Frontend/Backend Architecture
 
 ## Table of Contents
 - [Current Architecture](#current-architecture)
@@ -17,7 +17,7 @@
 ## Current Architecture
 
 ### Overview
-The AMRAP Calculator is currently implemented as a monolithic Streamlit application with some logical separation already in place:
+The Functional Performance Calculator is currently implemented as a monolithic Streamlit application with some logical separation already in place:
 
 ```
 src/
@@ -702,4 +702,4 @@ POST /api/v1/calculate/amrap
 5. **Content Management**: Easy addition of new movements and workouts via admin
 6. **API Performance**: Sub-100ms response times for all operations
 
-This architecture provides a solid foundation for the AMRAP Calculator's future growth while maintaining all existing functionality and improving code quality significantly. The database migration transforms the application from a simple file-based tool into a scalable, professional fitness platform.
+This architecture provides a solid foundation for the Functional Performance Calculator's future growth while maintaining all existing functionality and improving code quality significantly. The database migration transforms the application from a simple file-based tool into a scalable, professional fitness platform.
