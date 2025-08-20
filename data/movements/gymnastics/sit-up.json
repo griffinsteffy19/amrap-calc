@@ -1,0 +1,28 @@
+{
+  "name": "Sit-up",
+  "category": "gymnastics",
+  "description": "Core movement from lying to sitting position",
+  "variety": {
+    "standard": {
+      "execution_time": 2.0,
+      "description": "Standard abmat sit-up"
+    },
+    "anchored": {
+      "execution_time": 1.8,
+      "description": "Anchored feet sit-up"
+    },
+    "ghdtrup": {
+      "execution_time": 2.5,
+      "description": "GHD sit-up"
+    },
+    "vtup": {
+      "execution_time": 2.8,
+      "description": "V-up toe to bar"
+    }
+  },
+  "scaling": {
+    "rx": "Standard abmat sit-up",
+    "scaled": "Partial range sit-up",
+    "beginner": "Dead bug or crunches"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Nate",
+  "description": "20m AMRAP of 2 Muscle Ups, 4 Handstand Push Ups, and 8 Kettlebell Swings",
+  "workout_type": "amrap",
+  "tot_tm": 1200,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 2
+    },
+    {
+      "movement_name": "handstand-push-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 4
+    },
+    {
+      "movement_name": "kettlebell-swing",
+      "variety": "american",
+      "type": "S",
+      "count": 8
+    }
+  ]
+}

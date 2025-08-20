@@ -1,0 +1,32 @@
+{
+  "name": "Bike",
+  "category": "monostructural",
+  "description": "Assault bike or stationary bike for calories",
+  "variety": {
+    "calories": {
+      "pace": "60 cal/hr",
+      "execution_time": 60.0,
+      "description": "Bike calories (per calorie)"
+    },
+    "sprint": {
+      "pace": "80 cal/hr", 
+      "execution_time": 45.0,
+      "description": "Sprint bike calories (per calorie)"
+    },
+    "steady": {
+      "pace": "50 cal/hr",
+      "execution_time": 72.0,
+      "description": "Steady bike calories (per calorie)"
+    },
+    "easy": {
+      "pace": "40 cal/hr",
+      "execution_time": 90.0,
+      "description": "Easy bike calories (per calorie)"
+    }
+  },
+  "scaling": {
+    "rx": "Assault bike",
+    "scaled": "Stationary bike",
+    "beginner": "Light resistance"
+  }
+}

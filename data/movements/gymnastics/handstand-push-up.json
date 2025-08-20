@@ -1,0 +1,28 @@
+{
+  "name": "Handstand Push-up",
+  "category": "gymnastics",
+  "description": "Inverted push-up in handstand position",
+  "variety": {
+    "strict": {
+      "execution_time": 4.5,
+      "description": "Strict handstand push-up"
+    },
+    "kipping": {
+      "execution_time": 3.0,
+      "description": "Kipping handstand push-up"
+    },
+    "ring": {
+      "execution_time": 5.5,
+      "description": "Ring handstand push-up"
+    },
+    "deficit": {
+      "execution_time": 5.0,
+      "description": "Deficit handstand push-up"
+    }
+  },
+  "scaling": {
+    "rx": "Strict or kipping HSPU",
+    "scaled": "Pike push-up or box HSPU",
+    "beginner": "Wall walk or pike hold"
+  }
+}

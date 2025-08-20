@@ -1,0 +1,27 @@
+{
+  "name": "Burpee",
+  "category": "gymnastics",
+  "description": "Full body movement: squat, plank, push-up, jump",
+  "variety": {
+    "standard": {
+      "execution_time": 3.0,
+      "description": "Standard Burpee Motion"
+    },
+    "boxjump": {
+      "execution_time": 3.5,
+      "description": "Burpee followed by a box jump"
+    },
+    "boxjumpover": {
+      "execution_time": 6.0,
+      "description": "Burpee followed by a box jump over"
+    },
+    "overbar": {
+      "execution_time": 5.5,
+      "description": "Burpee followed by a jump over a bar"
+    },
+    "totarget": {
+      "execution_time": 4.5,
+      "description": "Burpee followed by a jump to a target"
+    }
+  }
+}

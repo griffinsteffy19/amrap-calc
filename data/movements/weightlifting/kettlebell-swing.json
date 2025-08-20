@@ -1,0 +1,32 @@
+{
+  "name": "Kettlebell Swing", 
+  "category": "weightlifting",
+  "description": "Hip hinge movement swinging kettlebell to eye level",
+  "variety": {
+    "light": {
+      "weight_range": "35/25 lbs",
+      "execution_time": 1.5,
+      "description": "Light kettlebell swing"
+    },
+    "medium": {
+      "weight_range": "53/35 lbs",
+      "execution_time": 2.0,
+      "description": "Moderate kettlebell swing"
+    },
+    "heavy": {
+      "weight_range": "70/53 lbs",
+      "execution_time": 2.5,
+      "description": "Heavy kettlebell swing"
+    },
+    "american": {
+      "weight_range": "53/35 lbs",
+      "execution_time": 2.2,
+      "description": "American style swing (overhead)"
+    }
+  },
+  "scaling": {
+    "rx": "Russian or American KB swing",
+    "scaled": "DB swing",
+    "beginner": "Goblet squat"
+  }
+}

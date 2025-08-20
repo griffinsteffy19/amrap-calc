@@ -1,0 +1,19 @@
+{
+  "name": "Pull-up",
+  "category": "gymnastics",
+  "description": "Strict or kipping pull-ups",
+  "variety": {
+    "strict": {
+      "execution_time": 2.8,
+      "description": "Strict pull-ups, controlled tempo"
+    },
+    "kipping": {
+      "execution_time": 1.8,
+      "description": "Kipping pull-ups"
+    },
+    "butterfly": {
+      "execution_time": 1.2,
+      "description": "Butterfly pull-ups"
+    }
+  }
+}
