@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import pandas as pd
+import os
 from calculations import (
     convert_pace_to_time_per_rep, 
     parse_time_input, 
@@ -20,14 +21,56 @@ from workout_library import (
     process_workout_movements
 )
 
+def get_app_version():
+    """Get the current app version from VERSION file or return default."""
+    try:
+        # Try to read VERSION file
+        version_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'VERSION')
+        with open(version_file, 'r') as f:
+            version = f.read().strip()
+            # Add v prefix if not present
+            if not version.startswith('v'):
+                version = f'v{version}'
+            return version
+    except:
+        pass
+    
+    # Fallback version
+    return "v1.0.0-dev"
+
 
 def main():
     st.title("AMRAP Movement Time Calculator")
     st.markdown("---")
     
-    # Sidebar for input method selection
-    st.sidebar.header("Input Method")
-    input_method = st.sidebar.radio("Choose input method:", ["Workout Library", "Movement Library", "Manual Entry"])
+    # Sidebar for mode selection
+    st.sidebar.header("🎯 Workout Mode")
+    st.sidebar.markdown("Choose how you want to create or analyze a workout:")
+    
+    mode_options = {
+        "Workout Library": "🏋️ Browse & Edit Workouts\nLoad pre-built CrossFit workouts",
+        "Movement Library": "📚 Explore Movements\nBrowse movement database", 
+        "Manual Entry": "✏️ Build Custom Workout\nCreate your own workout from scratch"
+    }
+    
+    # Create a more descriptive selection
+    selected_mode = st.sidebar.radio(
+        "Select Mode:",
+        options=list(mode_options.keys()),
+        format_func=lambda x: mode_options[x].split('\n')[0],
+        help="Choose your preferred way to work with workouts"
+    )
+    
+    # Show description for selected mode
+    st.sidebar.markdown(f"*{mode_options[selected_mode].split(chr(10))[1]}*")
+    
+    # Add version information at bottom of sidebar
+    st.sidebar.markdown("---")
+    version = get_app_version()
+    st.sidebar.markdown(f"**Version:** `{version}`")
+    st.sidebar.caption("AMRAP Movement Time Calculator")
+    
+    input_method = selected_mode
     
     # Initialize session state for movements
     if 'movements' not in st.session_state:
@@ -704,17 +747,25 @@ def main():
                                 st.success(f"✅ Loaded '{workout_data['name']}' with {len(workout_data['movements'])} movements")
                                 st.rerun()
         
-        # Movement input method selection
-        st.subheader("Add New Movement")
-        movement_input_mode = st.radio("Movement Input Method:", 
-                                     ["Use Movement Database", "Manual Input"], 
-                                     horizontal=True)
+        # Movement addition section
+        st.subheader("➕ Add New Movement")
+        
+        # Create tabs for different input methods
+        database_tab, manual_tab = st.tabs(["📚 From Database", "✏️ Manual Entry"])
+        
+        movement_input_mode = "Use Movement Database"  # Default to database tab
+        
+        # Store the active tab for logic below
+        if 'active_movement_tab' not in st.session_state:
+            st.session_state.active_movement_tab = 0
         
         # Initialize variables that might be used later
         submitted = False
         description = ""
         
-        if movement_input_mode == "Use Movement Database":
+        # Database tab content
+        with database_tab:
+            st.markdown("*Choose a movement from our curated database with pre-configured execution times*")
             # Movement database integration
             all_movements = get_all_movements()
             categories = load_movement_categories()
@@ -786,9 +837,11 @@ def main():
                         st.session_state.movements.append(workout_movement)
                         st.success(f"Added {movement_data['name']} ({selected_variety}) x{movement_count} ({movement_type})")
             else:
-                st.warning("Movement database not available. Use Manual Input instead.")
+                st.warning("Movement database not available. Try manual entry instead.")
         
-        else:
+        # Manual tab content  
+        with manual_tab:
+            st.markdown("*Create custom movements with your own execution times and descriptions*")
             # Manual input (existing functionality)
             col1, col2, col3, col4, col5, col6 = st.columns(6)
             
