@@ -104,6 +104,14 @@ fi
 echo ""
 echo "🔄 Creating clean release..."
 
+# Update VERSION file
+echo "📝 Updating VERSION file..."
+VERSION_NUM=${VERSION#v}  # Remove 'v' prefix for VERSION file
+echo "$VERSION_NUM" > VERSION
+git add VERSION
+git commit -m "Bump version to $VERSION"
+echo "✅ VERSION file updated and committed"
+
 # Create temporary directory for release files
 RELEASE_DIR="release-$VERSION"
 rm -rf "$RELEASE_DIR"
