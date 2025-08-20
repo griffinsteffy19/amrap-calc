@@ -1,0 +1,33 @@
+{
+  "name": "Step-up",
+  "category": "gymnastics",
+  "description": "Step onto elevated surface with control",
+  "variety": {
+    "standard": {
+      "height": "24/20 inch",
+      "execution_time": 2.0,
+      "description": "Standard step-up"
+    },
+    "weighted": {
+      "height": "24/20 inch",
+      "weight": "45/25 lb",
+      "execution_time": 2.8,
+      "description": "Weighted step-up"
+    },
+    "lateral": {
+      "height": "24/20 inch",
+      "execution_time": 2.2,
+      "description": "Lateral step-up"
+    },
+    "alternating": {
+      "height": "24/20 inch",
+      "execution_time": 1.8,
+      "description": "Alternating step-up"
+    }
+  },
+  "scaling": {
+    "rx": "Full height step-up",
+    "scaled": "Lower box height",
+    "beginner": "Assisted step-up"
+  }
+}

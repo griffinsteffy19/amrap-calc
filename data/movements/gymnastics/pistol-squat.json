@@ -1,0 +1,24 @@
+{
+  "name": "Pistol Squat",
+  "category": "gymnastics",
+  "description": "Single leg squat to full depth with opposite leg extended",
+  "variety": {
+    "assisted": {
+      "execution_time": 4.0,
+      "description": "Pistol squat with band or box assistance"
+    },
+    "standard": {
+      "execution_time": 5.0,
+      "description": "Full range pistol squat unassisted"
+    },
+    "weighted": {
+      "execution_time": 6.0,
+      "description": "Pistol squat with additional weight"
+    }
+  },
+  "scaling": {
+    "rx": "Full range pistol squat",
+    "scaled": "Assisted pistol squat",
+    "beginner": "Box pistol squat"
+  }
+}

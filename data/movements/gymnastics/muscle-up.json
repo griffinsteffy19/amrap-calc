@@ -1,0 +1,28 @@
+{
+  "name": "Muscle-up",
+  "category": "gymnastics",
+  "description": "Pull-up to dip transition movement",
+  "variety": {
+    "ring": {
+      "execution_time": 8.0,
+      "description": "Ring muscle-up"
+    },
+    "bar": {
+      "execution_time": 6.5,
+      "description": "Bar muscle-up"
+    },
+    "strict": {
+      "execution_time": 10.0,
+      "description": "Strict muscle-up"
+    },
+    "kipping": {
+      "execution_time": 5.5,
+      "description": "Kipping bar muscle-up"
+    }
+  },
+  "scaling": {
+    "rx": "Full muscle-up",
+    "scaled": "Banded muscle-up or jumping",
+    "beginner": "Ring rows and dips"
+  }
+}

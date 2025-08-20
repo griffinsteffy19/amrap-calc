@@ -1,0 +1,63 @@
+{
+    "name": "Rock",
+    "description": "AMRAP 17m (5min Work/1min Rest) 10 Power Cleans, 12 Burpees, 14 Box Jumps, 20 Sit Ups, Max Meters on Rower",
+    "workout_type": "amrap",
+    "tot_tm": 300,
+    "m": 1.0,
+    "movements": [
+        {
+            "movement_name": "power-clean",
+            "variety": "light",
+            "type": "S",
+            "count": 10
+        },
+        {
+            "description": "Transition",
+            "number": 1.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "burpee",
+            "variety": "standard",
+            "type": "S",
+            "count": 12
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "box-jump",
+            "variety": "standard",
+            "type": "S",
+            "count": 14
+        },
+        {
+            "description": "Transition",
+            "number": 1.5,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "sit-up",
+            "variety": "standard",
+            "type": "S",
+            "count": 20
+        },
+        {
+            "description": "Transition",
+            "number": 4.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "row",
+            "variety": "moderate",
+            "type": "M",
+            "count": -1
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "Garrett",
+  "description": "AMRAP 15min of 75 Squats, 25 Ring Handstand Push-ups, 75 Squats, 50m Overhead Walking Lunge (45/25 lb)",
+  "workout_type": "amrap",
+  "tot_tm": 900,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "air-squat",
+      "variety": "standard",
+      "type": "S",
+      "count": 75
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "ring-handstand-push-up",
+      "variety": "strict",
+      "type": "S",
+      "count": 25
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "air-squat",
+      "variety": "standard",
+      "type": "S",
+      "count": 75
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "walking-lunge",
+      "variety": "overhead",
+      "type": "S",
+      "count": 50
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}

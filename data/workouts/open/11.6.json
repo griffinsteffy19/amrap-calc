@@ -1,0 +1,33 @@
+{
+    "name": "CrossFit Open 11.6",
+    "description": "AMRAP 7min Ascending Ladder of Thrusters and Burpees",
+    "workout_type": "amrap",
+    "tot_tm": 420,
+    "m": 3.0,
+    "movements": [
+        {
+            "movement_name": "thruster",
+            "variety": "medium",
+            "type": "D",
+            "count": 3
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "burpee",
+            "variety": "standard",
+            "type": "D",
+            "count": 3
+        },
+        {
+            "description": "Transition",
+            "number": 3.0,
+            "type": "T",
+            "count": 1
+        }
+    ]
+}

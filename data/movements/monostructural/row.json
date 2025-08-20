@@ -1,0 +1,32 @@
+{
+  "name": "Row",
+  "category": "monostructural",
+  "description": "Rowing machine for distance or calories",
+  "variety": {
+    "meters": {
+      "pace": "2:00/500m",
+      "execution_time": 120.0,
+      "description": "Rowing for meters (per 500m)"
+    },
+    "calories": {
+      "pace": "50 cal/hr",
+      "execution_time": 72.0,
+      "description": "Rowing for calories (per calorie)"
+    },
+    "sprint": {
+      "pace": "1:30/500m",
+      "execution_time": 90.0,
+      "description": "Sprint rowing (per 500m)"
+    },
+    "steady": {
+      "pace": "2:15/500m",
+      "execution_time": 135.0,
+      "description": "Steady state rowing (per 500m)"
+    }
+  },
+  "scaling": {
+    "rx": "Rowing machine",
+    "scaled": "Reduced damper setting",
+    "beginner": "Bike or step-ups"
+  }
+}

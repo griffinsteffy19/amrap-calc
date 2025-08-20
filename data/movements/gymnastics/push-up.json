@@ -1,0 +1,28 @@
+{
+  "name": "Push-up",
+  "category": "gymnastics",
+  "description": "Chest to floor push-up movement",
+  "variety": {
+    "standard": {
+      "execution_time": 2.0,
+      "description": "Standard push-up from toes"
+    },
+    "knee": {
+      "execution_time": 1.5,
+      "description": "Push-up from knees"
+    },
+    "deficit": {
+      "execution_time": 2.5,
+      "description": "Push-up with hands elevated"
+    },
+    "handrelease": {
+      "execution_time": 2.8,
+      "description": "Hand release push-up"
+    }
+  },
+  "scaling": {
+    "rx": "Standard push-up",
+    "scaled": "Knee push-up or incline",
+    "beginner": "Wall push-up"
+  }
+}

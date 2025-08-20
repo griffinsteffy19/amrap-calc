@@ -1,0 +1,31 @@
+{
+  "name": "Walking Lunge",
+  "category": "gymnastics",
+  "description": "Forward lunging movement with alternating legs",
+  "variety": {
+    "bodyweight": {
+      "execution_time": 1.5,
+      "description": "Bodyweight walking lunge"
+    },
+    "overhead": {
+      "weight": "45/25 lb",
+      "execution_time": 2.2,
+      "description": "Overhead walking lunge"
+    },
+    "dumbbell": {
+      "weight": "50/35 lb",
+      "execution_time": 2.0,
+      "description": "Dumbbell walking lunge"
+    },
+    "weighted": {
+      "weight": "95/65 lb",
+      "execution_time": 2.8,
+      "description": "Weighted walking lunge"
+    }
+  },
+  "scaling": {
+    "rx": "Full range walking lunge",
+    "scaled": "Stationary lunge",
+    "beginner": "Assisted or partial range"
+  }
+}

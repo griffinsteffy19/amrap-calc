@@ -1,0 +1,32 @@
+{
+  "name": "Box Jump",
+  "category": "gymnastics",
+  "description": "Jump onto elevated surface",
+  "variety": {
+    "standard": {
+      "height": "24/20 inch",
+      "execution_time": 2.5,
+      "description": "Standard box jump"
+    },
+    "stepdown": {
+      "height": "24/20 inch", 
+      "execution_time": 3.0,
+      "description": "Box jump with step down"
+    },
+    "over": {
+      "height": "24/20 inch",
+      "execution_time": 3.5,
+      "description": "Box jump over"
+    },
+    "high": {
+      "height": "30/24 inch",
+      "execution_time": 3.2,
+      "description": "High box jump"
+    }
+  },
+  "scaling": {
+    "rx": "Full height box jump",
+    "scaled": "Lower box or step-up",
+    "beginner": "Step-up with knee drive"
+  }
+}
