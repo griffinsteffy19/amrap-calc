@@ -1,0 +1,23 @@
+{
+  "name": "Rope Climb",
+  "category": "gymnastics",
+  "description": "Ascend Rope",
+  "variety": {
+    "standard": {
+      "execution_time": 6.0,
+      "description": "15ft"
+    },
+    "high": {
+      "execution_time": 7.0,
+      "description": "20ft"
+    },
+    "legless": {
+      "execution_time": 8.0,
+      "description": "15ft, legless"
+    },
+    "L-sit": {
+      "execution_time": 10.0,
+      "description": "Start in seated position holding L-sit"
+    }
+  }
+}

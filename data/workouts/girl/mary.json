@@ -12,16 +12,34 @@
       "count": 5
     },
     {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
       "movement_name": "pistol-squat",
       "variety": "standard",
       "type": "S",
       "count": 10
     },
     {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
       "movement_name": "pull-up",
       "variety": "strict",
       "type": "S",
       "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
     }
   ]
 }

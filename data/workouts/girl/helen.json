@@ -14,7 +14,7 @@
     },
     {
       "description": "Transition",
-      "number": 5.0,
+      "number": 1.0,
       "type": "T",
       "count": 1
     },
@@ -26,7 +26,7 @@
     },
     {
       "description": "Transition",
-      "number": 3.0,
+      "number": 2.0,
       "type": "T",
       "count": 1
     },
@@ -35,12 +35,6 @@
       "variety": "kipping",
       "type": "S",
       "count": 12
-    },
-    {
-      "description": "Round Rest",
-      "number": 3.0,
-      "type": "T",
-      "count": 1
     }
   ]
 }

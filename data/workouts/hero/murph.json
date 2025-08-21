@@ -9,12 +9,11 @@
       "movement_name": "run",
       "variety": "moderate",
       "type": "S",
-      "count": 1584,
-      "note": "1 mile = 1584 meters"
+      "count": 1600
     },
     {
       "description": "Transition",
-      "number": 10.0,
+      "number": 1.0,
       "type": "T",
       "count": 1
     },
@@ -38,7 +37,7 @@
     },
     {
       "description": "Transition",
-      "number": 5.0,
+      "number": 3.0,
       "type": "T",
       "count": 1
     },
@@ -50,7 +49,7 @@
     },
     {
       "description": "Transition",
-      "number": 10.0,
+      "number": 5.0,
       "type": "T",
       "count": 1
     },
@@ -58,8 +57,7 @@
       "movement_name": "run",
       "variety": "moderate",
       "type": "S",
-      "count": 1584,
-      "note": "1 mile = 1584 meters"
+      "count": 1600
     }
   ]
 }

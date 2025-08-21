@@ -3,6 +3,10 @@
   "category": "gymnastics",
   "description": "Strict or kipping pull-ups",
   "variety": {
+    "L-strict": {
+      "execution_time": 4.0,
+      "description": "Strict pull-ups while holding an L sit"
+    },
     "strict": {
       "execution_time": 2.8,
       "description": "Strict pull-ups, controlled tempo"
