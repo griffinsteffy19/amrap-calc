@@ -23,10 +23,10 @@ from workout_library import (
 )
 
 def get_app_version():
-    """Get the current app version from VERSION file or return default."""
+    """Get the current app version from .VERSION file or return default."""
     try:
-        # Try to read VERSION file
-        version_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'VERSION')
+        # Try to read .VERSION file
+        version_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'src/.VERSION')
         with open(version_file, 'r') as f:
             version = f.read().strip()
             # Add v prefix if not present

@@ -2,7 +2,7 @@
 # One file/directory per line, supports glob patterns
 
 # Version information
-VERSION
+src/.VERSION
 
 # Core application files
 src/

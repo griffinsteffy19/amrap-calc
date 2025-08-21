@@ -35,7 +35,7 @@ echo "---------------------"
 
 # Prompt for version
 while true; do
-    read -p "Enter version (e.g., v1.0.0, v0.1.2): " VERSION
+    read -p "Enter version (e.g., v1.0.0, v0.1.2): " .VERSION
     if [[ $VERSION =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         break
     else
@@ -76,13 +76,13 @@ fi
 echo ""
 echo "🔄 Creating release..."
 
-# Update VERSION file
-echo "📝 Updating VERSION file..."
-VERSION_NUM=${VERSION#v}  # Remove 'v' prefix for VERSION file
-echo "$VERSION_NUM" > VERSION
-git add VERSION
+# Update .VERSION file
+echo "📝 Updating .VERSION file..."
+VERSION_NUM=${VERSION#v}  # Remove 'v' prefix for .VERSION file
+echo "$VERSION_NUM" > src/.VERSION
+git add src/.VERSION
 git commit -m "Bump version to $VERSION"
-echo "✅ VERSION file updated and committed"
+echo "✅ .VERSION file updated and committed"
 
 # Create the tag with annotation
 git tag -a "$VERSION" -m "$RELEASE_TITLE

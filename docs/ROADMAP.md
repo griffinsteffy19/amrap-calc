@@ -29,7 +29,7 @@
 - [x] Integer display for final scores
 - [x] Improved UI with descriptive sidebar
 - [x] Tab-based movement input
-- [x] VERSION file system with release scripts
+- [x] .VERSION file system with release scripts
 - [x] Random workout selection
 - [x] Comprehensive documentation
 

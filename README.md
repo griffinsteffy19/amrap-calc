@@ -86,8 +86,8 @@ streamlit run src/streamlit_app.py
 ## 📁 Project Structure
 
 ```
-├── VERSION                       # Version tracking file
 ├── src/                          # Source code
+│   ├── .VERSION                       # Version tracking file
 │   ├── streamlit_app.py         # Main UI application with enhanced interface
 │   ├── calculations.py          # Mathematical calculation engine
 │   ├── movement_library.py      # Movement database management
@@ -104,8 +104,8 @@ streamlit run src/streamlit_app.py
 │       ├── weightlifting/      # Barbell/dumbbell movements (thrusters, cleans, etc.)
 │       ├── gymnastics/         # Bodyweight movements (pull-ups, burpees, etc.)
 │       └── monostructural/     # Cardio movements (running, rowing, biking)
-├── scripts/                     # Build and release scripts (updated for VERSION file)
-│   ├── release.sh              # Standard release with VERSION file updates
+├── scripts/                     # Build and release scripts (updated for .VERSION file)
+│   ├── release.sh              # Standard release with .VERSION file updates
 │   ├── release-clean.sh        # Clean packaged release
 │   └── release-github.sh       # GitHub release creation
 ├── docs/                        # Documentation
@@ -198,8 +198,8 @@ Different movement categories have appropriate variety structures:
 
 ### Developer Experience
 - **VERSION file system** - Simplified version management without git dependencies
-- **Updated release scripts** - All three release workflows now handle VERSION file automatically
-- **Enhanced .releasefiles** - Proper inclusion of new src/ structure and VERSION file
+- **Updated release scripts** - All three release workflows now handle .VERSION file automatically
+- **Enhanced .releasefiles** - Proper inclusion of new src/ structure and .VERSION file
 - **GitHub integration** - Automated project board and issue tracking
 
 ## 💪 Example Workouts
@@ -265,7 +265,7 @@ Three release scripts available:
 - `./scripts/release-clean.sh` - Packaged release with archives
 - `./scripts/release-github.sh` - GitHub release creation
 
-All scripts automatically update the VERSION file and create proper git tags.
+All scripts automatically update the .VERSION file and create proper git tags.
 
 ## Contributing
 
