@@ -11,7 +11,7 @@
       "icon": "👩"
     },
     "hero": {
-      "name": "Hero Workouts", 
+      "name": "Hero Workouts",
       "description": "Memorial workouts honoring fallen heroes",
       "icon": "🎖️"
     },
@@ -19,11 +19,6 @@
       "name": "CrossFit Open",
       "description": "Annual worldwide CrossFit competition workouts",
       "icon": "🌍"
-    },
-    "example": {
-      "name": "Feature Examples",
-      "description": "Demos showing different calculator features",
-      "icon": "📚"
     }
   }
 }
