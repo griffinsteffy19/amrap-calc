@@ -1,0 +1,33 @@
+{
+    "name": "Andi",
+    "description": "For Time: 100 Hang Power Snatches (65/45#)\n100 Push Press (65/45#), 100 Sumo-Deadlift High Pull (65/45#), 100 Front Squats (65/45#)",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "movement_name": "snatch",
+            "variety": "light",
+            "type": "S",
+            "count": 100
+        },
+        {
+            "movement_name": "push-press",
+            "variety": "light",
+            "type": "S",
+            "count": 100
+        },
+        {
+            "movement_name": "sdhp",
+            "variety": "light",
+            "type": "S",
+            "count": 100
+        },
+        {
+            "movement_name": "front-squat",
+            "variety": "light",
+            "type": "S",
+            "count": 100
+        }
+    ]
+}

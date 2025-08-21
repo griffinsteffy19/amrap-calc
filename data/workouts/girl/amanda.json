@@ -1,0 +1,81 @@
+{
+    "name": "Amanda",
+    "description": "For Time: 9-7-5 Ring Muscle Up, Squat Snatch (135/95#)",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "muscle-up",
+            "variety": "ring",
+            "type": "S",
+            "count": 9
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "snatch",
+            "variety": "squat-light",
+            "type": "S",
+            "count": 9
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "muscle-up",
+            "variety": "ring",
+            "type": "S",
+            "count": 7
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "snatch",
+            "variety": "squat-light",
+            "type": "S",
+            "count": 7
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "muscle-up",
+            "variety": "ring",
+            "type": "S",
+            "count": 5
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "snatch",
+            "variety": "squat-light",
+            "type": "S",
+            "count": 5
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+    "name": "Angie",
+    "description": "For Time: 100 Pull-Ups, 100 Push Ups, 100 Sit-Ups, 100 Air Squats",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "movement_name": "Pull-up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 100
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Push-up",
+            "variety": "standard",
+            "type": "S",
+            "count": 100
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Sit-up",
+            "variety": "standard",
+            "type": "S",
+            "count": 100
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Air-squat",
+            "variety": "standard",
+            "type": "S",
+            "count": 100
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        }
+    ]
+}
