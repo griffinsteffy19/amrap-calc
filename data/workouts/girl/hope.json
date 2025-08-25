@@ -2,7 +2,7 @@
     "name": "Hope",
     "description": "AMRAP (17min) 1 minute of Burpees, 1 minute of Power Snatches (75/55#), 1 minute of Box Jumpos (24/20\"), 1 minute of Thrusters (75/55#), 1 minute of Chest-to-Bar Pull-Ups, 1 minute Rest",
     "workout_type": "for_time",
-    "tot_tm": 0,
+    "tot_tm": 1020,
     "m": 1.0,
     "round": 3,
     "movements": [

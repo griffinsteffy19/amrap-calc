@@ -14,7 +14,7 @@
             "count": 1
         },
         {
-            "description": "Muscle-Up",
+            "movement_name": "Muscle-Up",
             "variety": "ring",
             "type": "D",
             "count": 10
@@ -26,7 +26,7 @@
             "count": 1
         },
         {
-            "description": "Clean-and-Jerk",
+            "movement_name": "Clean-and-Jerk",
             "variety": "medium",
             "type": "D",
             "count": 10

@@ -5,10 +5,9 @@
     "tot_tm": 0,
     "m": 1.0,
     "rounds": 10,
-    "linear_modifier": -1,
     "movements": [
         {
-            "description": "Deadlift",
+            "movement_name": "Deadlift",
             "variety": "medium",
             "type": "D",
             "count": 10
@@ -20,7 +19,7 @@
             "count": 1
         },
         {
-            "description": "Bench Press",
+            "movement_name": "Bench Press",
             "variety": "medium",
             "type": "D",
             "count": 10
@@ -32,7 +31,7 @@
             "count": 1
         },
         {
-            "description": "Clean",
+            "movement_name": "Clean",
             "variety": "medium",
             "type": "D",
             "count": 10

@@ -6,7 +6,7 @@
     "m": 1.0,
     "movements": [
         {
-            "description": "Run",
+            "movement_name": "Run",
             "variety": "fast",
             "type": "T",
             "count": 400

@@ -7,7 +7,7 @@
     "rounds": 10,
     "movements": [
         {
-            "description": "Snatch",
+            "movement_name": "Snatch",
             "variety": "light",
             "type": "S",
             "count": 3

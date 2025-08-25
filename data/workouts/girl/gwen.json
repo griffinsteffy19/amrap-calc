@@ -6,19 +6,19 @@
     "m": 1.0,
     "movements": [
         {
-            "description": "Clean-and-Jerks",
+            "movement_name": "Clean-and-Jerks",
             "variety": "heavy",
             "type": "T",
             "count": 15
         },
         {
-            "description": "Clean-and-Jerks",
+            "movement_name": "Clean-and-Jerks",
             "variety": "heavy",
             "type": "T",
             "count": 12
         },
         {
-            "description": "Clean-and-Jerks",
+            "movement_name": "Clean-and-Jerks",
             "variety": "heavy",
             "type": "T",
             "count": 9

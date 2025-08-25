@@ -339,6 +339,7 @@ def main():
                                     except:
                                         auto_time = None
                                 
+                                default_time = 0
                                 # Show time input with auto-update option
                                 if auto_time is not None:
                                     # Use auto-calculated time as default, but allow manual override

@@ -7,7 +7,7 @@
     "rounds": 10,
     "movements": [
         {
-            "description": "Clean-and-Jerk",
+            "movement_name": "Clean-and-Jerk",
             "variety": "light",
             "type": "S",
             "count": 3

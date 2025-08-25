@@ -6,7 +6,7 @@
     "m": 1.0,
     "movements": [
         {
-            "description": "Burpee",
+            "movement_name": "Burpee",
             "number": 2.0,
             "type": "T",
             "count": 1

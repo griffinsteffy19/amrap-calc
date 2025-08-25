@@ -61,18 +61,22 @@ def load_workout_library() -> Dict[str, Dict[str, Any]]:
                 
                 # Load all JSON files in the category folder
                 workout_files = glob.glob(os.path.join(category_path, '*.json'))
+                temp_workouts = {}
                 for workout_file in workout_files:
                     workout_key = os.path.splitext(os.path.basename(workout_file))[0]
                     try:
                         with open(workout_file, 'r') as f:
                             workout_data = json.load(f)
-                            category_data['workouts'][workout_key] = workout_data
+                            temp_workouts[workout_key] = workout_data
                     except json.JSONDecodeError:
                         _warning(f"Error reading workout file: {workout_file}")
                     except Exception as e:
                         _warning(f"Error loading workout {workout_key}: {str(e)}")
                 
-                if category_data['workouts']:  # Only add category if it has workouts
+                # Sort workouts alphabetically by their display name
+                if temp_workouts:
+                    sorted_items = sorted(temp_workouts.items(), key=lambda x: x[1].get('name', x[0]).lower())
+                    category_data['workouts'] = {k: v for k, v in sorted_items}
                     library_data[category_key] = category_data
                 else:
                     _warning(f"No valid workouts found in category: {category_key}")
@@ -128,10 +132,17 @@ def get_workout_categories() -> Dict[str, Dict[str, str]]:
         return {}
 
 def get_workouts_by_category(category: str) -> Dict[str, Dict[str, Any]]:
-    """Get all workouts in a specific category."""
+    """Get all workouts in a specific category, sorted alphabetically by workout name."""
     library_data = load_workout_library()
     if category in library_data:
-        return library_data[category]['workouts']
+        workouts = library_data[category]['workouts']
+        # Sort workouts by their display name (the 'name' field in the workout data)
+        sorted_workouts = {}
+        # Create list of (workout_key, workout_data) tuples sorted by workout name
+        sorted_items = sorted(workouts.items(), key=lambda x: x[1].get('name', x[0]).lower())
+        for workout_key, workout_data in sorted_items:
+            sorted_workouts[workout_key] = workout_data
+        return sorted_workouts
     return {}
 
 def process_workout_movements(movements: list) -> list:
