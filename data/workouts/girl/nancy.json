@@ -1,0 +1,27 @@
+{
+    "name": "Nancy",
+    "description": "For Time: 5 Rounds of 400m Run, 15 Overhead Squats (95/65#)",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Run",
+            "variety": "fast",
+            "type": "T",
+            "count": 400
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Overhead-squat",
+            "variety": "light",
+            "type": "S",
+            "count": 15
+        }
+    ]
+}

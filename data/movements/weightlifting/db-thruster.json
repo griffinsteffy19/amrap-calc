@@ -1,0 +1,22 @@
+{
+    "name": "DB Thruster",
+    "category": "weightlifting",
+    "description": "Thruster with Dumbbells",
+    "variety": {
+        "standard": {
+            "weight_range": "50/35# lbs",
+            "execution_time": 2.0,
+            "description": "Alternating with 50/35#"
+        },
+        "double-standard": {
+            "weight_range": "50/35# lbs",
+            "execution_time": 2.0,
+            "description": "Alternating with 2x50/35#"
+        }
+    },
+    "scaling": {
+        "rx": "Single arm DB snatch alternating",
+        "scaled": "DB high pull",
+        "beginner": "DB upright row"
+    }
+}

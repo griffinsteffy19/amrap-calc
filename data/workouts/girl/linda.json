@@ -1,0 +1,47 @@
+{
+    "name": "Linda",
+    "description": "For Time: 10-1 Ladder of Deadlift (1 1/2 Bodyweight), Benchpress (Bodyweight), Clean (3/4 Bodyweight)",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "rounds": 10,
+    "linear_modifier": -1,
+    "movements": [
+        {
+            "description": "Deadlift",
+            "variety": "medium",
+            "type": "D",
+            "count": 10
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "description": "Bench Press",
+            "variety": "medium",
+            "type": "D",
+            "count": 10
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "description": "Clean",
+            "variety": "medium",
+            "type": "D",
+            "count": 10
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        }
+    ]
+}

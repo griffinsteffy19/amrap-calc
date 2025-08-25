@@ -1,0 +1,45 @@
+{
+    "name": "Chelsea",
+    "description": "EMOM (30min) 5 Pull-Ups, 10 Push-Ups 15 Air Squats",
+    "workout_type": "amrap",
+    "tot_tm": 60,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Transition",
+            "number": 1.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "pull-up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 5
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "push-up",
+            "variety": "standard",
+            "type": "S",
+            "count": 10
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "air-squat",
+            "variety": "standard",
+            "type": "S",
+            "count": 15
+        }
+    ]
+}

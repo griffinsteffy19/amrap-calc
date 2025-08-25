@@ -18,6 +18,21 @@
       "execution_time": 6.0,
       "description": "Heavy weight snatch"
     },
+    "hang-power-light": {
+      "weight_range": "95/65 lbs",
+      "execution_time": 3.5,
+      "description": "Light weight hang power-snatch"
+    },
+    "hang-power-medium": {
+      "weight_range": "135/95 lbs",
+      "execution_time": 4.5,
+      "description": "Moderate weight hang power-snatch"
+    },
+    "hang-power-heavy": {
+      "weight_range": "185/135 lbs",
+      "execution_time": 6.0,
+      "description": "Heavy weight hang power-snatch"
+    },
     "squat-light": {
       "weight_range": "95/65 lbs",
       "execution_time": 4.0,

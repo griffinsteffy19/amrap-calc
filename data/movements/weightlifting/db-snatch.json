@@ -1,22 +1,12 @@
 {
   "name": "DB Snatch",
-  "category": "weightlifting", 
+  "category": "weightlifting",
   "description": "Single arm dumbbell snatch from floor to overhead",
   "variety": {
-    "light": {
-      "weight_range": "25/15 lbs",
+    "alt-standard": {
+      "weight_range": "50/35# lbs",
       "execution_time": 2.0,
-      "description": "Light dumbbell snatch"
-    },
-    "medium": {
-      "weight_range": "50/35 lbs",
-      "execution_time": 2.5,
-      "description": "Moderate dumbbell snatch"
-    },
-    "heavy": {
-      "weight_range": "70/50 lbs", 
-      "execution_time": 3.2,
-      "description": "Heavy dumbbell snatch"
+      "description": "Alternating with 50/35#"
     }
   },
   "scaling": {

@@ -1,0 +1,19 @@
+{
+    "name": "Lynne",
+    "description": "5 Rounds of Max Reps of Hang Power Snatches (3/4 Bodyweight) and Handstand Push-Up",
+    "workout_type": "amrap",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "movement_name": "Snatch",
+            "variety": "hang-power-heavy",
+            "type": "M"
+        },
+        {
+            "movement_name": "Handstand Push-Ups",
+            "variety": "kipping",
+            "type": "M"
+        }
+    ]
+}

@@ -1,0 +1,45 @@
+{
+    "name": "Ellen",
+    "description": "For Time: 3 rounds of 20 Burpees, 21 Alternating DB Snatch (50/35#), 12 Dumbbell Thrusters (2x 50/35#)",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Burpee",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "DB Snatch",
+            "variety": "alt-standard",
+            "type": "S",
+            "count": 21
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "DB Thruster",
+            "variety": "double-standard",
+            "type": "S",
+            "count": 12
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        }
+    ]
+}

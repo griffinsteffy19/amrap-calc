@@ -1,0 +1,45 @@
+{
+    "name": "Maggie",
+    "description": "For Time: 5 Rounds of 20 Handstand Push-up, 40 Pull-ups, 60 Pistol Squats",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Transition",
+            "number": 1.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Handstand-push-up",
+            "variety": "standard",
+            "type": "S",
+            "count": 20
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Pull-Up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 40
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Air-squat",
+            "variety": "pistol",
+            "type": "S",
+            "count": 60
+        }
+    ]
+}

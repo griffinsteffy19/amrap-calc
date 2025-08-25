@@ -1,0 +1,22 @@
+{
+  "name": "Overhead-squat",
+  "category": "weightlifting",
+  "description": "Squat with Bar in Snatch Receiving Position overhead",
+  "variety": {
+    "light": {
+      "weight_range": "96/65 lbs",
+      "execution_time": 2.0,
+      "description": "Light weight"
+    },
+    "medium": {
+      "weight_range": "115/85 lbs",
+      "execution_time": 2.5,
+      "description": "Moderate weight"
+    },
+    "heavy": {
+      "weight_range": "135/95 lbs",
+      "execution_time": 3.2,
+      "description": "Heavy weight"
+    }
+  }
+}

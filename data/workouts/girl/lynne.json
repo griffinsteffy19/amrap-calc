@@ -1,0 +1,18 @@
+{
+    "name": "Lynne",
+    "description": "5 Rounds of Max Reps Bench Press (Bodyweight) and Max Pull-Ups",
+    "workout_type": "amrap",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "movement_name": "Bench-Press",
+            "type": "M"
+        },
+        {
+            "movement_name": "Pull-Up",
+            "variety": "kipping",
+            "type": "M"
+        }
+    ]
+}
