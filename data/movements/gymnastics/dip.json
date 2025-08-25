@@ -1,0 +1,23 @@
+{
+  "name": "Dip",
+  "category": "gymnastics",
+  "description": "Strict or kipping pull-ups",
+  "variety": {
+    "ring-kipping": {
+      "execution_time": 2.0,
+      "description": "Kipping Ring Dip"
+    },
+    "ring-strict": {
+      "execution_time": 3.0,
+      "description": "Strict Ring Dip"
+    },
+    "kipping": {
+      "execution_time": 2.0,
+      "description": "Kipping Dips"
+    },
+    "strict": {
+      "execution_time": 2.5,
+      "description": "Strict Dips"
+    }
+  }
+}

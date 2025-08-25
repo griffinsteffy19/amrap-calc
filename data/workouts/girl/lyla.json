@@ -1,1 +1,35 @@
- 
+{
+    "name": "Lyla",
+    "description": "For Time: 10-1 Ladder of Muscle-Ups, Clean-and-Jerks (Bodyweight)",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "rounds": 10,
+    "linear_modifier": -1,
+    "movements": [
+        {
+            "description": "Transition",
+            "number": 3.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "description": "Muscle-Up",
+            "variety": "ring",
+            "type": "D",
+            "count": 10
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "description": "Clean-and-Jerk",
+            "variety": "medium",
+            "type": "D",
+            "count": 10
+        }
+    ]
+}

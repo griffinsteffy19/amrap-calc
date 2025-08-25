@@ -1,0 +1,75 @@
+{
+    "name": "Diane",
+    "description": "For Time: 21-15-9 Deadlift (225/155#), Handstand Push Ups",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "movement_name": "Deadlift",
+            "variety": "light",
+            "type": "S",
+            "count": 21
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Handstand Push-up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 21
+        },
+        {
+            "description": "Transition",
+            "number": 1.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Deadlift",
+            "variety": "light",
+            "type": "S",
+            "count": 15
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Handstand Push-up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 15
+        },
+        {
+            "description": "Transition",
+            "number": 1.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Deadlift",
+            "variety": "light",
+            "type": "S",
+            "count": 9
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Handstand Push-up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 9
+        }
+    ]
+}

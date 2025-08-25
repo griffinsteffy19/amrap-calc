@@ -6,8 +6,8 @@
     "m": 1.0,
     "movements": [
         {
-            "movement_name": "power-clean",
-            "variety": "light",
+            "movement_name": "Clean",
+            "variety": "power-light",
             "type": "S",
             "count": 10
         },

@@ -1,0 +1,27 @@
+{
+    "name": "Gwen",
+    "description": "15-12-9 Reps for Load of Clean-and-Jerks (unbroken)",
+    "workout_type": "for_load",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Clean-and-Jerks",
+            "variety": "heavy",
+            "type": "T",
+            "count": 15
+        },
+        {
+            "description": "Clean-and-Jerks",
+            "variety": "heavy",
+            "type": "T",
+            "count": 12
+        },
+        {
+            "description": "Clean-and-Jerks",
+            "variety": "heavy",
+            "type": "T",
+            "count": 9
+        }
+    ]
+}

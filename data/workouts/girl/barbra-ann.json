@@ -1,0 +1,58 @@
+{
+    "name": "Barbara Ann",
+    "description": "For Time: 5 Rounds of 20 Handstand Push-Ups, 30 Deadlifts (135/95#) 50 Sit-Ups, 50 Double-Unders, Rest 3 min",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "rounds": 5,
+    "m": 1.0,
+    "movements": [
+        {
+            "description": "Handstand Push-Up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 20
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Deadlift",
+            "variety": "light",
+            "type": "S",
+            "count": 30
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Sit-up",
+            "variety": "standard",
+            "type": "S",
+            "count": 40
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Double Under",
+            "variety": "standard",
+            "type": "S",
+            "count": 50
+        },
+        {
+            "description": "3min Rest",
+            "number": 180.0,
+            "type": "T",
+            "count": 1
+        }
+    ]
+}

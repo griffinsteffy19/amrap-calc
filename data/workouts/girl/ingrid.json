@@ -1,0 +1,34 @@
+{
+    "name": "Ingrid",
+    "description": "For Time: 10 Rounds of 3 Clean-and-Jerks (135/95#), 3 Bar-Over Burpees",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "rounds": 10,
+    "movements": [
+        {
+            "description": "Snatch",
+            "variety": "light",
+            "type": "S",
+            "count": 3
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        },
+        {
+            "movement_name": "Burpee",
+            "variety": "overbar",
+            "type": "S",
+            "count": 3
+        },
+        {
+            "description": "Transition",
+            "number": 2.0,
+            "type": "T",
+            "count": 1
+        }
+    ]
+}

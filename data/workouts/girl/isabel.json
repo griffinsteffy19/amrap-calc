@@ -1,0 +1,15 @@
+{
+    "name": "Isabel",
+    "description": "For Time: 30 Snatches (135/95#)",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "movements": [
+        {
+            "movement_name": "Snatch",
+            "variety": "light",
+            "type": "S",
+            "count": 30
+        }
+    ]
+}

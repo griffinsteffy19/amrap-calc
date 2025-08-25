@@ -4,9 +4,11 @@
     "workout_type": "for_time",
     "tot_tm": 0,
     "m": 1.0,
+    "rounds": 10,
     "movements": [
         {
-            "description": "Clean-and-Jerks",
+            "description": "Clean-and-Jerk",
+            "variety": "light",
             "type": "S",
             "count": 3
         },

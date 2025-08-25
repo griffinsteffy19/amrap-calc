@@ -1,0 +1,33 @@
+{
+    "name": "Eva",
+    "description": "For Time: 5 Rounds of 800m Run, 30 Kettlebel Swings (2/1.5pood), 30 Pull-Ups",
+    "workout_type": "for_time",
+    "tot_tm": 0,
+    "m": 1.0,
+    "rounds": 5,
+    "movements": [
+        {
+            "movement_name": "run",
+            "variety": "easy",
+            "type": "S",
+            "count": 800
+        },
+        {
+            "movement_name": "Kettlebell Swing",
+            "variety": "heavy",
+            "type": "S",
+            "count": 30
+        },
+        {
+            "description": "Transition",
+            "number": 5.0,
+            "type": "T"
+        },
+        {
+            "movement_name": "Pull-Up",
+            "variety": "kipping",
+            "type": "S",
+            "count": 30
+        }
+    ]
+}
