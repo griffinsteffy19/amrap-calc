@@ -87,3 +87,67 @@ workout_library/
 - **👩 Girl Workouts**: Named workouts with female names (Mary, Annie, Barbara)
 - **🎖️ Hero Workouts**: Memorial workouts honoring fallen heroes (Murph, DT)
 - **📚 Feature Examples**: Demonstrations of calculator features (Pace Demo, Max Reps Demo, Movement Types Demo)
+
+## TODO: Additional Hero Workouts to Parse
+
+The following hero workouts from heros.md need manual parsing due to complex formats or special requirements:
+
+### Complex Multi-Round Workouts
+- **The Seven** - 7 rounds, 7 different movements, specific weights
+- **Badger** - Complex structure with multiple rounds  
+- **Hansen** - Multiple round structure
+- **Tyler** - Long workout with many movements
+- **Stephen** - Complex round structure
+- **Arnie** - Multiple movements and rounds
+- **Adambrown** - Complex structure
+- **Severin** - Multi-round format
+- **Helton** - Complex movements
+- **Thompson** - Multi-round structure
+- **Bull** - Complex format
+- **Holbrook** - Multiple rounds
+
+### Workouts with Special Movement Requirements
+- **War Frank** - May have unique movement specifications
+- **McGhee** - Special format requirements
+- **Nutts** - Complex movement structure
+- **RJ** - Specific movement requirements
+- **Luce** - Complex format
+- **Johnson** - Multi-movement structure
+- **Roy** - Special requirements
+- **Coe** - Complex format
+- **Jack** - Multi-round structure
+- **Forrest** - Complex movements
+- **Bulger** - Special format
+- **Brenton** - Complex structure
+- **Blake** - Multi-round format
+- **Collin** - Complex movements
+- **Whitten** - Special requirements
+- **Rankel** - Complex format
+- **Ledesma** - Multi-movement structure
+
+### Simple Workouts (Now Completed)
+- ✅ **Joshie** - 3 rounds with DB snatches and L pull-ups completed
+- ✅ **Randy** - Single movement power snatches completed
+- ✅ **Tommy V** - Thrusters and rope climbs completed  
+- ✅ **Griff** - Runs and backwards runs completed
+- ✅ **Erin** - 5 rounds with DB split cleans and pull-ups completed
+- ✅ **Danny** - AMRAP with box jumps, push presses, pull-ups completed
+- ✅ **Paul** - 5 rounds with double-unders, knees-to-elbows, overhead walk completed
+- ✅ **Jerry** - Run-row-run format completed
+
+### Already Created
+- ✅ JT - 21-15-9 format completed
+- ✅ Daniel - For time with runs and thrusters completed
+- ✅ Josh - Overhead squats and pull-ups completed  
+- ✅ Jason - Squats and muscle-ups completed
+- ✅ DT - 5 rounds format completed
+- ✅ Ryan - 5 rounds with muscle-ups and burpees completed  
+- ✅ Michael - 3 rounds with run and bodyweight completed
+
+### Existing Files (Already in system)
+- ✅ Murph - Classic hero workout
+- ✅ Garrett - Already exists
+- ✅ Glen - Already exists  
+- ✅ Chad - Already exists
+- ✅ Nate - Already exists
+- ✅ Rock - Already exists

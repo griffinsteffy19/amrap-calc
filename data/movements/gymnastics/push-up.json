@@ -18,6 +18,10 @@
     "handrelease": {
       "execution_time": 2.8,
       "description": "Hand release push-up"
+    },
+    "ring": {
+      "execution_time": 3.0,
+      "description": "Push-up with hands on gymnastics rings"
     }
   },
   "scaling": {

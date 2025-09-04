@@ -1,0 +1,123 @@
+{
+  "name": "Erin",
+  "description": "5 Rounds For Time: 15 DB Split Cleans, 21 Pull-ups (40/30 lb)",
+  "workout_type": "for_time",
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "dumbbell-split-clean",
+      "variety": "light",
+      "type": "S",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-split-clean",
+      "variety": "light",
+      "type": "S",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-split-clean",
+      "variety": "light",
+      "type": "S",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-split-clean",
+      "variety": "light",
+      "type": "S",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-split-clean",
+      "variety": "light",
+      "type": "S",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 21
+    }
+  ]
+}

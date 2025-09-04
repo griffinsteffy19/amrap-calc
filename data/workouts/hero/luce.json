@@ -1,0 +1,40 @@
+{
+  "name": "Luce",
+  "description": "3 Rounds For Time with Weight Vest: 1K Run, 10 Muscle-ups, 100 Squats (20/14 lb vest)",
+  "workout_type": "for_time",
+  "rounds": 3,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "run",
+      "variety": "weighted",
+      "type": "S",
+      "count": 1000
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 10
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "air-squat",
+      "variety": "weighted-light",
+      "type": "S",
+      "count": 100
+    }
+  ]
+}

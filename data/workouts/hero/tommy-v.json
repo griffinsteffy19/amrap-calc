@@ -1,0 +1,75 @@
+{
+  "name": "Tommy V",
+  "description": "For Time: 21 Thrusters, 12 Rope Climbs, 15 Thrusters, 9 Rope Climbs, 9 Thrusters, 6 Rope Climbs (115/75 lb)",
+  "workout_type": "for_time",
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "thruster",
+      "variety": "medium",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "rope-climb",
+      "variety": "standard",
+      "type": "S",
+      "count": 12
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "thruster",
+      "variety": "medium",
+      "type": "S",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "rope-climb",
+      "variety": "standard",
+      "type": "S",
+      "count": 9
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "thruster",
+      "variety": "medium",
+      "type": "S",
+      "count": 9
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "rope-climb",
+      "variety": "standard",
+      "type": "S",
+      "count": 6
+    }
+  ]
+}

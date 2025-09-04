@@ -1,0 +1,34 @@
+{
+  "name": "DT",
+  "description": "5 Rounds For Time: 12 Deadlifts, 9 Hang Power Cleans, 6 Push Jerks (155/105 lb)",
+  "workout_type": "for_time",
+  "rounds": 5,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "deadlift",
+      "variety": "medium",
+      "type": "S",
+      "count": 12
+    },
+    {
+      "movement_name": "hang-power-clean",
+      "variety": "medium",
+      "type": "S",
+      "count": 9
+    },
+    {
+      "movement_name": "push-jerk",
+      "variety": "medium",
+      "type": "S",
+      "count": 6
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}

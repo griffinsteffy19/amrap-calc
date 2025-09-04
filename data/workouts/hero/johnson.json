@@ -1,0 +1,45 @@
+{
+  "name": "Johnson",
+  "description": "20 min AMRAP: 9 Deadlifts, 8 Muscle-ups, 9 Squat Cleans (245/165 lb DL, 155/105 lb SC)",
+  "workout_type": "amrap",
+  "tot_tm": 1200,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "deadlift",
+      "variety": "heavy",
+      "type": "S",
+      "count": 9
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 8
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "squat-clean",
+      "variety": "medium",
+      "type": "S",
+      "count": 9
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}

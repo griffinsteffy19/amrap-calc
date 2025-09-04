@@ -14,6 +14,14 @@
     "pistol": {
       "execution_time": 4.0,
       "description": "Single leg pistol squat"
+    },
+    "weighted-light": {
+      "execution_time": 2.0,
+      "description": "Air squat with light weight vest"
+    },
+    "weighted-heavy": {
+      "execution_time": 2.5,
+      "description": "Air squat with heavy weight vest"
     }
   },
   "scaling": {

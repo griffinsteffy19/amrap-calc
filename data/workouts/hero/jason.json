@@ -1,0 +1,99 @@
+{
+  "name": "Jason",
+  "description": "For Time: 100 Squats, 5 Muscle-ups, 75 Squats, 10 Muscle-ups, 50 Squats, 15 Muscle-ups, 25 Squats, 20 Muscle-ups",
+  "workout_type": "for_time",
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "air-squat",
+      "variety": "standard",
+      "type": "S",
+      "count": 100
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 5
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "air-squat",
+      "variety": "standard",
+      "type": "S",
+      "count": 75
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 10
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "air-squat",
+      "variety": "standard",
+      "type": "S",
+      "count": 50
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 15
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "air-squat",
+      "variety": "standard",
+      "type": "S",
+      "count": 25
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 20
+    }
+  ]
+}

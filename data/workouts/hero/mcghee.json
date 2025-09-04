@@ -1,0 +1,45 @@
+{
+  "name": "McGhee",
+  "description": "30 min AMRAP: 5 Deadlifts, 13 Push-ups, 9 Box Jumps (275/185 lb, 24/20 inch box)",
+  "workout_type": "amrap",
+  "tot_tm": 1800,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "deadlift",
+      "variety": "heavy",
+      "type": "S",
+      "count": 5
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "push-up",
+      "variety": "standard",
+      "type": "S",
+      "count": 13
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "box-jump",
+      "variety": "standard",
+      "type": "S",
+      "count": 9
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}

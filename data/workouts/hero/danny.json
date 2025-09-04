@@ -1,0 +1,45 @@
+{
+  "name": "Danny",
+  "description": "20 min AMRAP: 30 Box Jumps, 20 Push Presses, 30 Pull-ups (115/75 lb, 24/20 inch box)",
+  "workout_type": "amrap",
+  "tot_tm": 1200,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "box-jump",
+      "variety": "standard",
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "push-press",
+      "variety": "medium",
+      "type": "S",
+      "count": 20
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    }
+  ]
+}

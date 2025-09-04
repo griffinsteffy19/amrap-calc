@@ -1,0 +1,183 @@
+{
+  "name": "Paul",
+  "description": "5 Rounds For Time: 50 Double-unders, 35 Knees-to-elbows, 20-yard Overhead Walk (185/125 lb)",
+  "workout_type": "for_time",
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "double-under",
+      "variety": "standard",
+      "type": "S",
+      "count": 50
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "knees-to-elbows",
+      "variety": "kipping",
+      "type": "S",
+      "count": 35
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "overhead-walk",
+      "variety": "heavy",
+      "type": "S",
+      "count": 20
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "double-under",
+      "variety": "standard",
+      "type": "S",
+      "count": 50
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "knees-to-elbows",
+      "variety": "kipping",
+      "type": "S",
+      "count": 35
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "overhead-walk",
+      "variety": "heavy",
+      "type": "S",
+      "count": 20
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "double-under",
+      "variety": "standard",
+      "type": "S",
+      "count": 50
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "knees-to-elbows",
+      "variety": "kipping",
+      "type": "S",
+      "count": 35
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "overhead-walk",
+      "variety": "heavy",
+      "type": "S",
+      "count": 20
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "double-under",
+      "variety": "standard",
+      "type": "S",
+      "count": 50
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "knees-to-elbows",
+      "variety": "kipping",
+      "type": "S",
+      "count": 35
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "overhead-walk",
+      "variety": "heavy",
+      "type": "S",
+      "count": 20
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "double-under",
+      "variety": "standard",
+      "type": "S",
+      "count": 50
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "knees-to-elbows",
+      "variety": "kipping",
+      "type": "S",
+      "count": 35
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "overhead-walk",
+      "variety": "heavy",
+      "type": "S",
+      "count": 20
+    }
+  ]
+}

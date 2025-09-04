@@ -1,0 +1,39 @@
+{
+  "name": "Jerry",
+  "description": "For Time: Run 1 mile, Row 2K, Run 1 mile",
+  "workout_type": "for_time",
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "run",
+      "variety": "moderate",
+      "type": "S",
+      "count": 1600
+    },
+    {
+      "description": "Transition",
+      "number": 10.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "row",
+      "variety": "moderate",
+      "type": "S",
+      "count": 2000
+    },
+    {
+      "description": "Transition",
+      "number": 10.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "run",
+      "variety": "moderate",
+      "type": "S",
+      "count": 1600
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Coe",
+  "description": "10 Rounds For Time: 10 Thrusters, 10 Ring Push-ups (95/65 lb)",
+  "workout_type": "for_time",
+  "rounds": 10,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "thruster",
+      "variety": "medium",
+      "type": "S",
+      "count": 10
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "push-up",
+      "variety": "ring",
+      "type": "S",
+      "count": 10
+    }
+  ]
+}

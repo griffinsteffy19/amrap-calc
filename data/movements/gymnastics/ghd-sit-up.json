@@ -1,0 +1,24 @@
+{
+  "name": "GHD Sit-up",
+  "category": "gymnastics", 
+  "description": "Glute-ham developer sit-up, full range of motion core movement",
+  "variety": {
+    "standard": {
+      "execution_time": 2.5,
+      "description": "Full range GHD sit-up"
+    },
+    "modified": {
+      "execution_time": 2.0,
+      "description": "Partial range GHD sit-up"
+    },
+    "weighted": {
+      "execution_time": 3.0,
+      "description": "GHD sit-up with weight"
+    }
+  },
+  "scaling": {
+    "rx": "Full range GHD sit-up",
+    "scaled": "Partial range or abmat sit-up",
+    "beginner": "Regular sit-up or crunches"
+  }
+}

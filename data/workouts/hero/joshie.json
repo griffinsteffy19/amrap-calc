@@ -1,0 +1,147 @@
+{
+  "name": "Joshie",
+  "description": "3 Rounds For Time: 21 DB Snatches (right), 21 L Pull-ups, 21 DB Snatches (left), 21 L Pull-ups (40/25 lb)",
+  "workout_type": "for_time",
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "dumbbell-snatch",
+      "variety": "light",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "l-pull-up",
+      "variety": "strict",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-snatch",
+      "variety": "light",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "l-pull-up",
+      "variety": "strict",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-snatch",
+      "variety": "light",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "l-pull-up",
+      "variety": "strict",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-snatch",
+      "variety": "light",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "l-pull-up",
+      "variety": "strict",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Round Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-snatch",
+      "variety": "light",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "l-pull-up",
+      "variety": "strict",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "dumbbell-snatch",
+      "variety": "light",
+      "type": "S",
+      "count": 21
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "l-pull-up",
+      "variety": "strict",
+      "type": "S",
+      "count": 21
+    }
+  ]
+}
