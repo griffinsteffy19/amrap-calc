@@ -1,0 +1,28 @@
+{
+  "name": "Tyler",
+  "description": "5 Rounds For Time: 7 Muscle-ups, 21 Sumo Deadlift High Pulls (95/65 lb)",
+  "workout_type": "for_time",
+  "rounds": 5,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "muscle-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 7
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "sdhp",
+      "variety": "light",
+      "type": "S",
+      "count": 21
+    }
+  ]
+}

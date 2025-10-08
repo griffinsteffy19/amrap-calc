@@ -1,0 +1,40 @@
+{
+  "name": "Hansen",
+  "description": "5 Rounds For Time: 30 KB Swings, 30 Burpees, 30 GHD Sit-ups (70/53 lb)",
+  "workout_type": "for_time",
+  "rounds": 5,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "kettlebell-swing",
+      "variety": "heavy",
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "burpee",
+      "variety": "standard",
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "ghd-sit-up",
+      "variety": "standard",
+      "type": "S",
+      "count": 30
+    }
+  ]
+}

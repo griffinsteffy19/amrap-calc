@@ -1,0 +1,40 @@
+{
+  "name": "Badger",
+  "description": "3 Rounds For Time: 30 Squat Cleans, 30 Pull-ups, Run 800m (95/65 lb)",
+  "workout_type": "for_time",
+  "rounds": 3,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "squat-clean",
+      "variety": "light",
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 30
+    },
+    {
+      "description": "Transition",
+      "number": 5.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "run",
+      "variety": "moderate",
+      "type": "S",
+      "count": 800
+    }
+  ]
+}

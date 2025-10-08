@@ -1,0 +1,88 @@
+{
+  "name": "The Seven",
+  "description": "7 Rounds For Time: 7 HSPU, 7 Thrusters, 7 K2E, 7 Deadlifts, 7 Burpees, 7 KB Swings, 7 Pull-ups (135/95 lb thrusters, 245/165 lb deadlifts, 70/53 lb KB)",
+  "workout_type": "for_time",
+  "rounds": 7,
+  "tot_tm": 0,
+  "m": 1.0,
+  "movements": [
+    {
+      "movement_name": "handstand-push-up",
+      "variety": "standard",
+      "type": "S",
+      "count": 7
+    },
+    {
+      "description": "Transition",
+      "number": 3.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "thruster",
+      "variety": "medium",
+      "type": "S",
+      "count": 7
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "knees-to-elbows",
+      "variety": "kipping",
+      "type": "S",
+      "count": 7
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "deadlift",
+      "variety": "heavy",
+      "type": "S",
+      "count": 7
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "burpee",
+      "variety": "standard",
+      "type": "S",
+      "count": 7
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "kettlebell-swing",
+      "variety": "heavy",
+      "type": "S",
+      "count": 7
+    },
+    {
+      "description": "Transition",
+      "number": 2.0,
+      "type": "T",
+      "count": 1
+    },
+    {
+      "movement_name": "pull-up",
+      "variety": "kipping",
+      "type": "S",
+      "count": 7
+    }
+  ]
+}
